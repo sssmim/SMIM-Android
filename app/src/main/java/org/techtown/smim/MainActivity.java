@@ -85,7 +85,5 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onAnimationRepeat(Animation animation) {}
-        
-        //추가문장
     }
 }
