@@ -29,7 +29,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
         Exercise item = items.get(position);
         viewHolder.setItem(item);
     }
-
+    //수정부분
     @Override
     public int getItemCount() {
         return items.size();
