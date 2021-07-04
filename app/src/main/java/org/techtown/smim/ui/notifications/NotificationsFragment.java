@@ -27,6 +27,7 @@ import org.techtown.smim.ui.dashboard.ExerciseAdapter;
 import java.util.List;
 
 public class NotificationsFragment extends Fragment {
+    public static final int REQUEST_CODE_MENU = 102;
 
     private NotificationsViewModel notificationsViewModel;
 
@@ -59,17 +60,17 @@ public class NotificationsFragment extends Fragment {
         adapters.addItem(new CustomExercise("에어 스쿼트", "하체", R.drawable.squat));
         adapters.addItem(new CustomExercise("덤벨 런지", "하체", R.drawable.dumbbell_lunge));
 
+        recyclerView.setAdapter(adapters);
 
-        Button imageButton = (Button) root.findViewById(R.id.customplan);
+        Button imageButton = root.findViewById(R.id.customplan);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(requireContext(), CustomExerciseMerge.class);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_CODE_MENU);
             }
         });
 
-        recyclerView.setAdapter(adapters);
         return root;
     }
 }
