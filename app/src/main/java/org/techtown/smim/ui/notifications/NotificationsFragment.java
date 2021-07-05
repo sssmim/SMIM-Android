@@ -27,9 +27,9 @@ import org.techtown.smim.ui.dashboard.ExerciseAdapter;
 import java.util.List;
 
 public class NotificationsFragment extends Fragment {
-    public static final int REQUEST_CODE_MENU = 102;
 
     private NotificationsViewModel notificationsViewModel;
+    public static final int customexerciseplan = 1;
 
     private List<CustomExercise> mExerciseList;
     private RecyclerView mRecycleView;
@@ -67,7 +67,7 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(requireContext(), CustomExerciseMerge.class);
-                startActivityForResult(intent, REQUEST_CODE_MENU);
+                startActivityForResult(intent, customexerciseplan);
             }
         });
 
