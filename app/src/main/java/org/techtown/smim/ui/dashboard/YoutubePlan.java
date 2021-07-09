@@ -36,8 +36,9 @@ public class YoutubePlan extends AppCompatActivity {
         YoutubeAdapter adapter = new YoutubeAdapter();
 
         adapter.addItem(new Youtube("상체"));
-
-
+        adapter.addItem(new Youtube("하체"));
+        adapter.addItem(new Youtube("복부"));
+        adapter.addItem(new Youtube("스쿼트"));
         recyclerView.setAdapter(adapter);
 
 

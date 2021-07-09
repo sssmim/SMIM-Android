@@ -8,12 +8,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="날짜" />
-
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
@@ -24,19 +18,30 @@
         android:orientation="horizontal"
         android:layout_height="wrap_content">
         <TextView
+
+            android:layout_marginLeft="20dp"
+            android:textColor="#2196F3"
+            android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="시작   " />
+            android:text="시작시간" />
 
         <EditText
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/black"
+            android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/starthour"
             android:hint="00"/>
 
         <TextView
+            android:layout_marginLeft="10dp"
+            android:textColor="#2196F3"
+            android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:text=" 시 " />
 
     </LinearLayout>
@@ -47,17 +52,26 @@
         android:orientation="horizontal"
         android:layout_height="wrap_content">
         <TextView
+            android:layout_marginLeft="20dp"
+            android:textColor="#2196F3"
+            android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="    끝   " />
+            android:text="마칠시간" />
 
         <EditText
+            android:layout_marginLeft="20dp"
+            android:textColor="#2196F3"
+            android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/endthour"
             android:hint="00"/>
 
         <TextView
+            android:layout_marginLeft="10dp"
+            android:textColor="#2196F3"
+            android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" 시 " />
@@ -70,27 +84,38 @@
         android:orientation="horizontal"
         android:layout_height="wrap_content">
         <TextView
+            android:layout_marginLeft="20dp"
+            android:textColor="#2196F3"
+
+            android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="설명" />
+            android:text="운동설명" />
 
         <EditText
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/black"
+
+            android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/planmemo"
-            android:hint="상체운동"/>
+            android:hint="상체운동위주로 진행하겠습니다."/>
     </LinearLayout>
 
     <Button
+        android:layout_marginTop="10dp"
         android:id="@+id/chooseyoutube"
-        android:gravity="center_horizontal"
-        android:layout_width="fill_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="동영상 고르기" />
 
     <Button
+        android:layout_gravity="center_horizontal"
+        android:layout_width="300dp"
         android:id="@+id/addplan"
-        android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
         android:text="추가" />
 </LinearLayout>
