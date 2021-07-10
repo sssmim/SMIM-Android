@@ -11,6 +11,7 @@
         android:theme="@style/Theme.Smim">
         <activity android:name=".ui.dashboard.YoutubePlan"></activity>
         <activity android:name=".ui.dashboard.ExercisePlan" />
+        <activity android:name=".ui.notifications.CustomExerciseMerge"/>
 
         <activity
             android:name=".MainActivity"
