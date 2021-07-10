@@ -16,8 +16,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/groupname"
         android:text=""
-        android:hint="스쿼트"/>
+        android:hint="스쿼트                                    "/>
         <Button
+            android:layout_marginLeft="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="검색" />
@@ -29,6 +30,7 @@
         android:layout_height="wrap_content" />
 
         <Button
+            android:layout_marginTop="10dp"
             android:id="@+id/youtubeadd"
             android:text="영상추가 완료"
             android:layout_width="wrap_content"

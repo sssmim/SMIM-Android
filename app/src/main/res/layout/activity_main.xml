@@ -44,10 +44,11 @@
 
         <ImageButton
             android:id="@+id/imageButton"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
+            android:layout_marginLeft="8dp"
             app:srcCompat="@drawable/ic_mypage" />
 
     </LinearLayout>

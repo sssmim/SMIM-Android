@@ -36,6 +36,7 @@
                     android:textSize="20sp" />
 
             <CheckBox
+                android:layout_marginTop="15dp"
                 android:id="@+id/youtubecheck"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

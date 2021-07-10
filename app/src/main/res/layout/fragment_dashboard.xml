@@ -9,37 +9,57 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:layout_marginTop="18dp"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/groupname"
-        android:text="그룹명"/>
+        android:text="그룹명"
+        android:textColor="#FF0000FF"
+        android:textSize="20sp"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+ <LinearLayout
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:orientation="horizontal">
         <TextView
+            android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/groupcount"
+            android:textColor="@color/black"
+            android:textSize="15sp"
             android:text="5"/>
+     <TextView
+         android:layout_marginTop="5dp"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
 
+         android:textColor="@color/black"
+         android:textSize="15sp"
+         android:text="명"/>
+ </LinearLayout>
         <TextView
+            android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/groupinf"
+            android:textColor="@color/black"
             android:text="그룹설명"/>
-    </LinearLayout>
 
     <TextView
+        android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="운동계획"/>
+        android:text=" 운동계획 "
+        android:textColor="#FF0000FF"
+        android:textSize="15sp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:background="#FBFBFB"
+        android:layout_height="400dp" />
 
 
     <LinearLayout
@@ -49,12 +69,13 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="운동하기" />
+            android:layout_marginRight="30dp"
+            android:text=" 운동하기 " />
 
         <Button
             android:id="@+id/groupplan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="운동추가" />
+            android:text=" 운동추가 " />
     </LinearLayout>
 </LinearLayout>
