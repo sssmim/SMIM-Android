@@ -3,16 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/page"
         android:layout_width="300dp"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:background="#CDDC39"
         android:orientation="vertical"
         android:paddingTop="80dp"
-        android:visibility="invisible">
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" >
 
         <TextView
             android:id="@+id/textView3"
@@ -37,6 +40,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="left|top"
@@ -44,11 +48,14 @@
 
         <ImageButton
             android:id="@+id/imageButton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:layout_marginLeft="8dp"
+            android:adjustViewBounds="true"
+            android:background="#00ffffff"
+            android:paddingLeft="2dp"
+            android:paddingTop="15dp"
+            android:scaleType="fitCenter"
             app:srcCompat="@drawable/ic_mypage" />
 
     </LinearLayout>
