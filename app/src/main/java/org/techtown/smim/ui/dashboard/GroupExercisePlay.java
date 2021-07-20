@@ -15,7 +15,7 @@ public class GroupExercisePlay extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_exercise_play);
-        YouTubePlayerView youtubePV = findViewById(R.id.youtube_player_view);
+         YouTubePlayerView youtubePV = findViewById(R.id.youtube_player_view);
 
         youtubePV.play("NDsjmxTROEo",null);
     }
