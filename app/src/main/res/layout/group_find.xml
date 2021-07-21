@@ -22,18 +22,13 @@
         android:layout_height="wrap_content"
         android:text="정렬순"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="550dp"
-        tools:listitem="@layout/recycler_view_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_gravity="right"
+        android:layout_gravity="end|bottom"
+
         android:clickable="true"
         app:srcCompat="@android:drawable/ic_menu_add" />
 </LinearLayout>
