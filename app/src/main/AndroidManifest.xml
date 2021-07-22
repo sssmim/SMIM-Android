@@ -13,6 +13,7 @@
         <activity android:name=".ui.dashboard.ExercisePlan" />
         <activity android:name=".ui.notifications.CustomExerciseMerge"/>
         <activity android:name=".ui.dashboard.MakeGroup" />
+        <activity android:name=".ui.dashboard.DashboardTrial" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
