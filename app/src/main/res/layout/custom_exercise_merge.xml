@@ -11,4 +11,10 @@
         android:layout_height="wrap_content"
         android:text="운동 리스트 선택 화면"
         android:textSize="40dp"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="타이머바로가기(임시)" />
 </LinearLayout>
