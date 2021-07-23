@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/go_exer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="운동가기"
@@ -17,16 +18,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="운동정보 Timeline"
+        android:textSize="50sp"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="134dp"
-        android:textSize="50sp"/>
+        tools:layout_editor_absoluteY="134dp" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RecyclerView"
         android:layout_width="409dp"
         android:layout_height="528dp"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="202dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
 
 
