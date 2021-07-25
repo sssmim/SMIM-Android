@@ -19,19 +19,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.techtown.smim.R;
 
-public class DashboardFragment extends Fragment {
+public class DashboardTrial extends AppCompatActivity {
     public static final int REQUEST_CODE_MENU = 101;
     private DashboardViewModel dashboardViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.fragment_dashboard);
 
-        RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
+          //  dashboardViewModel =
+      //          new ViewModelProvider(this).get(DashboardViewModel.class);
+        //View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
+        RecyclerView recyclerView =findViewById(R.id.recyclerView);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
         ExerciseAdapter adapter = new ExerciseAdapter();
@@ -42,27 +45,15 @@ public class DashboardFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
-        Button button = root.findViewById(R.id.groupplan);
+        Button button = findViewById(R.id.groupplan);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(requireContext(), ExercisePlan.class);
+                Intent intent = new Intent(getApplicationContext(), ExercisePlan.class);
                 startActivityForResult(intent, REQUEST_CODE_MENU);
             }
         });
 
-        Button button1 = root.findViewById(R.id.groupplay);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(requireContext(), GroupExercisePlay.class);
-                startActivityForResult(intent, REQUEST_CODE_MENU);
-            }
-        });
-
-
-
-
-        return root;
+        //return root;
     }
 }
