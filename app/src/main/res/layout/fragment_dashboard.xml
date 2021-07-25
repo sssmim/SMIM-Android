@@ -7,17 +7,28 @@
     android:gravity="center_horizontal"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
     <TextView
-        android:layout_marginTop="18dp"
 
+        android:layout_marginTop="18dp"
+        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/groupname"
         android:text="그룹명"
         android:textColor="#FF0000FF"
         android:textSize="20sp"/>
+        <Button
 
+          android:layout_alignParentRight="true"
+            android:id="@+id/groupga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="그룹가입" />
+    </RelativeLayout>
  <LinearLayout
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
@@ -67,6 +78,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
+            android:id="@+id/groupplay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="30dp"

@@ -18,5 +18,9 @@ public class GroupExercisePlay extends AppCompatActivity {
         YouTubePlayerView youtubePV = findViewById(R.id.youtube_player_view);
 
         youtubePV.play("NDsjmxTROEo",null);
+
+
+
+
     }
 }

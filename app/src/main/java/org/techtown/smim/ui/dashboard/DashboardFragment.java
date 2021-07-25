@@ -50,6 +50,18 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+        Button button1 = root.findViewById(R.id.groupplay);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireContext(), GroupExercisePlay.class);
+                startActivityForResult(intent, REQUEST_CODE_MENU);
+            }
+        });
+
+
+
+
         return root;
     }
 }
