@@ -21,12 +21,12 @@ import org.techtown.smim.R;
 
 public class DashboardFragment extends Fragment {
     public static final int REQUEST_CODE_MENU = 101;
-    private DashboardViewModel dashboardViewModel;
+    //private DashboardViewModel dashboardViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+      // dashboardViewModel =
+             //   new ViewModelProvider(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);

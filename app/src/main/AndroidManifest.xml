@@ -12,6 +12,11 @@
         <activity android:name=".ui.dashboard.YoutubePlan"></activity>
         <activity android:name=".ui.dashboard.ExercisePlan" />
         <activity android:name=".ui.notifications.CustomExerciseMerge"/>
+        <activity android:name=".ui.dashboard.MakeGroup" />
+        <activity android:name=".ui.dashboard.DashboardTrial" />
+        <activity android:name=".ui.notifications.NotificationsTrial" />
+        <activity android:name=".ui.notifications.Timer" />
+        <activity android:name=".ui.dashboard.GroupExercisePlay" />
 
         <activity
             android:name=".MainActivity"

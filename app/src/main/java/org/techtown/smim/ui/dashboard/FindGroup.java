@@ -10,6 +10,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,8 +55,14 @@ public class FindGroup extends Fragment {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(requireContext(), DashboardTrial.class);
-                startActivityForResult(intent, num2);
+                //Intent intent = new Intent(requireContext(), DashboardTrial.class);
+               //startActivityForResult(intent, num2);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                DashboardFragment fragment2 = new DashboardFragment();
+                transaction.replace(R.id.container, fragment2);
+                transaction.commit();
+
+
             }
         });
         return root;
