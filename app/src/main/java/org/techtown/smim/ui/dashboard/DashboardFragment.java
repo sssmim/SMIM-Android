@@ -21,12 +21,12 @@ import org.techtown.smim.R;
 
 public class DashboardFragment extends Fragment {
     public static final int REQUEST_CODE_MENU = 101;
-    private DashboardViewModel dashboardViewModel;
+    //private DashboardViewModel dashboardViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+      // dashboardViewModel =
+             //   new ViewModelProvider(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
@@ -50,6 +50,18 @@ public class DashboardFragment extends Fragment {
                 startActivityForResult(intent, REQUEST_CODE_MENU);
             }
         });
+
+        Button button1 = root.findViewById(R.id.groupplay);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireContext(), GroupExercisePlay.class);
+                startActivityForResult(intent, REQUEST_CODE_MENU);
+            }
+        });
+
+
+
 
         return root;
     }
