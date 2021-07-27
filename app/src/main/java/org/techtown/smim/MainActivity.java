@@ -1,6 +1,7 @@
 package org.techtown.smim;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -9,81 +10,59 @@ import android.widget.LinearLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import org.techtown.smim.ui.dashboard.FindGroup;
+import org.techtown.smim.ui.home.HomeFragment;
+import org.techtown.smim.ui.notifications.CrawlingPage;
+
 public class MainActivity extends AppCompatActivity {
-    boolean isPageOpen = false;
 
-    Animation translateLeftAnim;
-    Animation translateRightAnim;
-
-    LinearLayout mainPage; //fragment_home 내 mainPage
-    LinearLayout page; //마이페이지
-    ImageButton imageButton;
+    private FragmentManager fragmentManager = getSupportFragmentManager();
+    private HomeFragment homeFragment = new HomeFragment();
+    private FindGroup findGroup = new FindGroup();
+    private CrawlingPage crawlingPage = new CrawlingPage();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.container, homeFragment).commitAllowingStateLoss();
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
-
-        mainPage = findViewById(R.id.mainPage);
-        page = findViewById(R.id.page);
-
-        translateRightAnim = AnimationUtils.loadAnimation(this, R.anim.translate_right);
-        translateLeftAnim = AnimationUtils.loadAnimation(this, R.anim.translate_left);
-
-        SlidingPageAnimationListener animListener = new SlidingPageAnimationListener();
-        translateLeftAnim.setAnimationListener(animListener);
-        translateRightAnim.setAnimationListener(animListener);
-
-        imageButton = findViewById(R.id.imageButton);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isPageOpen) {
-                    page.startAnimation(translateLeftAnim);
-                } else {
-                    page.setVisibility(View.VISIBLE);
-                    page.startAnimation(translateRightAnim);
-                }
-            }
-        });
+        BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
     }
 
-    private class SlidingPageAnimationListener implements Animation.AnimationListener {
-        public void onAnimationEnd(Animation animation) {
-            if(isPageOpen) {
-                mainPage.setVisibility(View.VISIBLE);
-                page.setVisibility(View.INVISIBLE);
-                isPageOpen = false;
-            } else {
-                mainPage.setVisibility(View.INVISIBLE);
-                isPageOpen = true;
+    class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+            switch(menuItem.getItemId())
+            {
+                case R.id.navigation_home:
+                    transaction.replace(R.id.container, homeFragment).commitAllowingStateLoss();
+
+                    break;
+                case R.id.navigation_dashboard:
+                    transaction.replace(R.id.container, findGroup).commitAllowingStateLoss();
+                    break;
+                case R.id.navigation_notifications:
+                    transaction.replace(R.id.container,crawlingPage).commitAllowingStateLoss();
+                    break;
             }
+            return true;
         }
 
-        @Override
-        public void onAnimationStart(Animation animation) {}
-
-        @Override
-        public void onAnimationRepeat(Animation animation) {}
     }
 }
