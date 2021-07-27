@@ -32,7 +32,6 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         TextView textView01 = (TextView) root.findViewById(R.id.textView1);
-        TextView textView02 = (TextView) root.findViewById(R.id.textView2);
 
         long Now = System.currentTimeMillis();
         Date mDate = new Date(Now);
@@ -42,7 +41,6 @@ public class HomeFragment extends Fragment {
         SimpleDateFormat simpleDay = new SimpleDateFormat("dd (EE)", Locale.getDefault());
         String getDay = simpleDay.format(Now);
         textView01.setText(getYear);
-        textView02.setText(getDay);
 
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.RecyclerView);
 
@@ -65,7 +63,6 @@ public class HomeFragment extends Fragment {
                 String year_m = year + "." + (month + 1);
                 textView01.setText(year_m);
                 String day = dayOfMonth + "";
-                textView02.setText(day);
             }
         });
 

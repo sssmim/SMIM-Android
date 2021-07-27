@@ -22,7 +22,9 @@ import org.techtown.smim.R;
 public class FindGroup extends Fragment {
     public static final int num1 = 326;
     public static final int num2 = 328;
+
     private DashboardViewModel dashboardViewModel;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         dashboardViewModel =
@@ -38,9 +40,7 @@ public class FindGroup extends Fragment {
         adapter.addItem(new org.techtown.smim.ui.dashboard.GroupList("아침 운동", "7시 미라클모닝"));
         adapter.addItem(new org.techtown.smim.ui.dashboard.GroupList("직장인 오세요", "6시이후 저녁운동"));
 
-
         recyclerView.setAdapter(adapter);
-
 
         //private button button;
         FloatingActionButton button =(FloatingActionButton)root.findViewById(R.id.floatingActionButton);
@@ -51,6 +51,7 @@ public class FindGroup extends Fragment {
                 startActivityForResult(intent, num1);
             }
         });
+
         Button button2 =(Button)root.findViewById(R.id.btn_move);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,10 +62,9 @@ public class FindGroup extends Fragment {
                 DashboardFragment fragment2 = new DashboardFragment();
                 transaction.replace(R.id.container, fragment2);
                 transaction.commit();
-
-
             }
         });
+
         return root;
     }
 }

@@ -17,10 +17,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:icon="@android:drawable/ic_menu_search" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="정렬순"/>
+        android:text="정렬순" />
 
     <Button
         android:id="@+id/btn_move"
@@ -43,12 +44,12 @@
 
             android:clickable="true"
             app:srcCompat="@android:drawable/ic_menu_add" />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
-    </androidx.recyclerview.widget.RecyclerView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"></androidx.recyclerview.widget.RecyclerView>
 
 
     </RelativeLayout>

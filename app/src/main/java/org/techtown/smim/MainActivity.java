@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
     Animation translateLeftAnim;
     Animation translateRightAnim;
 
-    LinearLayout mainPage;
-    LinearLayout page;
+    LinearLayout mainPage; //fragment_home 내 mainPage
+    LinearLayout page; //마이페이지
     ImageButton imageButton;
 
     @Override
