@@ -20,10 +20,12 @@ import org.techtown.smim.ui.dashboard.DashboardTrial;
 import org.techtown.smim.ui.dashboard.DashboardViewModel;
 import org.techtown.smim.ui.dashboard.MakeGroup;
 
-
 public class CrawlingPage extends Fragment {
+
     public static final int num3 = 1326;
+
     private NotificationsViewModel NotificationsViewModel;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         NotificationsViewModel =

@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="70sp"
+        android:layout_height="30dp"
         android:layout_marginTop="15dp"
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal">
@@ -24,6 +24,8 @@
     </LinearLayout>
 
     <CalendarView
+
+        android:layout_marginTop="10dp"
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="300dp" />
@@ -34,12 +36,14 @@
         android:orientation="vertical">
 
         <TextView
+            android:layout_marginTop="15dp"
+            android:layout_gravity="center_horizontal"
             android:id="@+id/textView2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="50sp"
-            android:paddingLeft="10dp"
-            android:text="DD. WD"
-            android:textSize="35sp" />
+            android:textColor="@color/black"
+            android:text="운동 리스트"
+            android:textSize="25dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecyclerView"

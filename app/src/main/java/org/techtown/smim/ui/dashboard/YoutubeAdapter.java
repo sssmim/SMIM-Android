@@ -28,6 +28,7 @@ public class YoutubeAdapter extends RecyclerView.Adapter<YoutubeAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         Youtube item = items.get(position);
         viewHolder.setItem(item);
+
     }
 
     @Override
@@ -61,6 +62,15 @@ public class YoutubeAdapter extends RecyclerView.Adapter<YoutubeAdapter.ViewHold
 
            // textView = itemView.findViewById(R.id.youtubeimage);
             textView1 = itemView.findViewById(R.id.youtubename);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition() ;
+
+                }
+            });
+
 
         }
 
