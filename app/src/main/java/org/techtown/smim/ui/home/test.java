@@ -20,19 +20,27 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import org.techtown.smim.R;
+import org.techtown.smim.database.group;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class test extends AppCompatActivity {
 
+    public List<group> list = new ArrayList<>();
+
+    public String test = "test1";
+
+    public TextView textView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        TextView textView = findViewById(R.id.result);
+        textView = findViewById(R.id.result);
 
         RequestQueue requestQueue;
 
@@ -48,26 +56,34 @@ public class test extends AppCompatActivity {
         // Start the queue
         requestQueue.start();
 
-        String url = "http://52.78.235.23:8080/personal";
+        String url = "http://52.78.235.23:8080/organization";
 
         // Formulate the request and handle the response.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                //한글깨짐 - 해결 코드 65~71
+                String changeString = new String();
+                try {
+                    changeString = new String(response.getBytes("8859_1"),"utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                Type listType = new TypeToken<ArrayList<personal>>(){}.getType();
-                List<personal> list = gson.fromJson(response, listType);
-                textView.setText(list.get(0).id);
+                Type listType = new TypeToken<ArrayList<group>>(){}.getType();
+                list = gson.fromJson(changeString, listType);
+                test = "test2";
+                //textView.setText("" + list.size() + "\n" + test + "\n" + list.get(1).group_desc);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                textView.setText("에러");
             }
         });
 
+        textView.setText("" + list.size() + "\n" + test);
+
         // Add the request to the RequestQueue.
         requestQueue.add(stringRequest);
-
     }
 }
