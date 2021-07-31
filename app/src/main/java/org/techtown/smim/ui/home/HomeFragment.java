@@ -1,9 +1,11 @@
 package org.techtown.smim.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
 
@@ -16,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.techtown.smim.R;
+import org.techtown.smim.ui.dashboard.ExercisePlan;
+import org.techtown.smim.ui.dashboard.FindGroup;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -65,7 +69,14 @@ public class HomeFragment extends Fragment {
                 String day = dayOfMonth + "";
             }
         });
-
+        Button test = (Button) root.findViewById(R.id.test);
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireContext(), test.class);
+                startActivity(intent);
+            }
+        });
         return root;
     }
 }
