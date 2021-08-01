@@ -50,6 +50,14 @@ public class FindGroup_test extends Fragment {
                 new ViewModelProvider(this).get(DashboardViewModel.class);
         View root = (View)inflater.inflate(R.layout.group_find, container, false);
 
+
+        RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.RecyclerView);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        GroupListAdapter adapter = new GroupListAdapter();
+
+
+
         RequestQueue requestQueue;
 
         // Instantiate the cache
@@ -73,6 +81,12 @@ public class FindGroup_test extends Fragment {
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 Type listType = new TypeToken<ArrayList<group>>(){}.getType();
                 list = gson.fromJson(response, listType);
+
+                for(int i = 0; i< list.size(); i++) {
+                    adapter.addItem(new GroupList(list.get(i).group_name, list.get(i).group_desc));
+                }
+
+                recyclerView.setAdapter(adapter);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -83,18 +97,7 @@ public class FindGroup_test extends Fragment {
         // Add the request to the RequestQueue.
         requestQueue.add(stringRequest);
 
-        RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.RecyclerView);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(layoutManager);
-
-        GroupListAdapter adapter = new GroupListAdapter();
-
-        for(int i = 0; i< list.size(); i++) {
-            adapter.addItem(new GroupList(list.get(i).group_name, list.get(i).group_desc));
-        }
-
-        recyclerView.setAdapter(adapter);
 
         //private button button;
         FloatingActionButton button =(FloatingActionButton)root.findViewById(R.id.floatingActionButton);
@@ -111,7 +114,7 @@ public class FindGroup_test extends Fragment {
             @Override
             public void onClick(View v) {
                 //Intent intent = new Intent(requireContext(), DashboardTrial.class);
-               //startActivityForResult(intent, num2);
+                //startActivityForResult(intent, num2);
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 DashboardFragment fragment2 = new DashboardFragment();
                 transaction.replace(R.id.container, fragment2);
