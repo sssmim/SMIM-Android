@@ -48,10 +48,13 @@ public class test extends AppCompatActivity {
 
         textView = findViewById(R.id.result);
 
-        String url="http://52.78.235.23:8080/test";
-        Map<String,String> map=new HashMap<String,String>();
-        map.put("id", "and test");
-        map.put("pwd", "and test22");
+        String url="http://52.78.235.23:8080/organization";
+        Map map=new HashMap();
+        map.put("group_name", "and test");
+        map.put("group_desc", "and test22");
+        map.put("group_category", "and test33");
+        map.put("view_count", 22);
+        map.put("authority", 1);
         JSONObject params = new JSONObject(map);
 
         JsonObjectRequest objectRequest=new JsonObjectRequest(Request.Method.POST, url, params,
