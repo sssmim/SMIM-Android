@@ -1,22 +1,32 @@
 package org.techtown.smim.ui.notifications;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Point;
 import android.graphics.Color;
+import android.util.Log;
+import android.view.WindowManager;
+import android.widget.BaseAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.techtown.smim.R;
-import org.techtown.smim.ui.dashboard.Exercise;
-import org.techtown.smim.ui.dashboard.ExerciseAdapter;
 
 import java.util.ArrayList;
 
 public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAdapter.ViewHolder> implements OnExerciseClickListener {
-    ArrayList<CustomExercise> items = new ArrayList<CustomExercise>();
+    static ArrayList<CustomExercise> itemList = new ArrayList<CustomExercise>();
+    private static final String TAG = "MainCustomExerciseAdapter";
 
     OnExerciseClickListener listener;
 
@@ -29,31 +39,33 @@ public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAd
         return new ViewHolder(itemView, this);
     }
 
+    @SuppressLint("LongLogTag")
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        CustomExercise item = items.get(position);
-        viewHolder.setItem(item);
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+        // Log.d(TAG, "onBindViewHolder: position ▶ " + position);
+        CustomExercise item = itemList.get(position);
+        holder.setItem(item);
+
+
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return itemList.size();
     }
 
     public void addItem(CustomExercise item) {
-        items.add(item);
+        itemList.add(item);
     }
 
     public void setItems(ArrayList<CustomExercise> items) {
-        this.items = items;
+        this.itemList = items;
     }
 
-    public CustomExercise getItem(int position) {
-        return items.get(position);
-    }
+    public CustomExercise getItem(int position) { return itemList.get(position); }
 
     public void setItem(int position, CustomExercise item) {
-        items.set(position, item);
+        itemList.set(position, item);
     }
 
     public void setOnItemClickListener(OnExerciseClickListener listener) {
@@ -68,20 +80,21 @@ public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAd
         }
     }
 
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         View view1;
         TextView nametextview;
         TextView partextview;
+        TextView explain;
 
-        ImageView imageView1;
+        static ImageView imageView1;
 
-        public ViewHolder(View itemView, final OnExerciseClickListener listener) {
+        public ViewHolder(@Nullable View itemView, final OnExerciseClickListener listener) {
             super(itemView);
 
-            view1 = itemView;
             nametextview = itemView.findViewById(R.id.nametextview);
             partextview = itemView.findViewById(R.id.partextview);
-
+            explain = itemView.findViewById(R.id.explain);
             imageView1 = itemView.findViewById(R.id.imageView1);
 
             itemView.setOnClickListener(new View.OnClickListener(){
@@ -98,8 +111,9 @@ public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAd
         }
         //setItem 부분
         public void setItem(CustomExercise item) {
-            nametextview.setText(String.valueOf(item.igetName()));
+            nametextview.setText(item.igetName());
             partextview.setText(item.igetPart());
+            explain.setText(item.igetExplain());
             imageView1.setImageResource(item.igetImageRes());
         }
 
