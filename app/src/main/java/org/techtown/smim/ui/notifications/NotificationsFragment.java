@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.Toast;
+import android.app.Person;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,11 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.appcompat.app.AppCompatActivity;
 
-
-
 import org.techtown.smim.R;
-import org.techtown.smim.ui.dashboard.Exercise;
-import org.techtown.smim.ui.dashboard.ExerciseAdapter;
 
 import java.util.List;
 
@@ -35,11 +32,13 @@ public class NotificationsFragment extends Fragment {
     private RecyclerView mRecycleView;
     private RecyclerView.Adapter mAdapter;
 
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         notificationsViewModel =
                 new ViewModelProvider(this).get(NotificationsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
+
 
         super.onCreate(savedInstanceState);
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
@@ -47,7 +46,7 @@ public class NotificationsFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        CustomExerciseAdapter adapters = new CustomExerciseAdapter();
+        final CustomExerciseAdapter adapters = new CustomExerciseAdapter();
 
         adapters.addItem(new CustomExercise("푸시업", "가슴", R.drawable.push_up));
         adapters.addItem(new CustomExercise("풀업", "등", R.drawable.pull_up));
