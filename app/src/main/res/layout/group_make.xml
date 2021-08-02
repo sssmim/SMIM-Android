@@ -9,7 +9,7 @@
     tools:context=".MainActivity">
 
     <EditText
-        android:id="@+id/groupname"
+        android:id="@+id/name"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:hint="그룹이름" />

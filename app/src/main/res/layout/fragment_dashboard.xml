@@ -27,7 +27,7 @@
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/groupname"
+        android:id="@+id/name"
         android:text="그룹명"
         android:textColor="#FF0000FF"
         android:textSize="20sp"/>
@@ -64,7 +64,7 @@
             android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/groupinf"
+            android:id="@+id/info"
             android:textColor="@color/black"
             android:text="그룹설명"/>
 
