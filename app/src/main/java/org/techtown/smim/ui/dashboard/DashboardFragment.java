@@ -52,8 +52,8 @@ public class DashboardFragment extends Fragment {
       // dashboardViewModel =
              //   new ViewModelProvider(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        name = root.findViewById(R.id.groupname);
-        info = root.findViewById(R.id.groupinf);
+        name = root.findViewById(R.id.name);
+        info = root.findViewById(R.id.info);
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
 
         RequestQueue requestQueue;

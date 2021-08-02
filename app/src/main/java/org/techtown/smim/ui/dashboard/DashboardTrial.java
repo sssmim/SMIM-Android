@@ -48,8 +48,8 @@ public class DashboardTrial extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_dashboard);
 
-        name = findViewById(R.id.groupname);
-        info = findViewById(R.id.groupinf);
+        name = findViewById(R.id.name);
+        info = findViewById(R.id.info);
 
         //dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
         //View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
