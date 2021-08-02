@@ -32,6 +32,7 @@ import com.google.gson.reflect.TypeToken;
 import org.techtown.smim.R;
 import org.techtown.smim.database.group;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,9 +79,16 @@ public class FindGroup_test extends Fragment {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                // 한글깨짐 해결 코드
+                String changeString = new String();
+                try {
+                    changeString = new String(response.getBytes("8859_1"),"utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 Type listType = new TypeToken<ArrayList<group>>(){}.getType();
-                list = gson.fromJson(response, listType);
+                list = gson.fromJson(changeString, listType);
 
                 for(int i = 0; i< list.size(); i++) {
                     adapter.addItem(new GroupList(list.get(i).group_name, list.get(i).group_desc));
