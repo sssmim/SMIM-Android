@@ -66,8 +66,6 @@ public class FindGroup_test extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         GroupListAdapter adapter = new GroupListAdapter();
 
-
-
         RequestQueue requestQueue;
 
         // Instantiate the cache
@@ -113,128 +111,6 @@ public class FindGroup_test extends Fragment {
 
         // Add the request to the RequestQueue.
         requestQueue.add(stringRequest);
-
-
-        post.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-/*
-                RequestQueue requestQueue1;
-                Cache cache1 = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
-                Network network1 = new BasicNetwork(new HurlStack());
-                requestQueue1 = new RequestQueue(cache1, network1);
-                requestQueue1.start();
-                String url = "http://52.78.235.23:8080/organization";
-                StringRequest stringRequest1 = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                        Log.e("test","post 성공");
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                }) {
-                    @Override
-                    public Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<String, String>();
-
-                        params.put("group_name", "dd");
-                        params.put("group_desc", "dd");
-                        params.put("group_category", "eeeee");
-                        params.put("group_image", "dd");
-                        params.put("view_count", "1");
-                        params.put("authority", "1");
-
-                        return params;
-                    }
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        Map<String, String> headers = new HashMap<String, String>();
-                        headers.put("Content-Type", "application/json");
-                        return headers;
-                    }
-                };
-
-
-                // Add the request to the RequestQueue.
-                requestQueue1.add(stringRequest1);
-
-
-            }*/
-                try {
-                    RequestQueue requestQueue2;
-
-                    // Instantiate the cache
-                    Cache cache2 = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
-
-                    // Set up the network to use HttpURLConnection as the HTTP client.
-                    Network network2 = new BasicNetwork(new HurlStack());
-
-                    // Instantiate the RequestQueue with the cache and network.
-                    requestQueue2 = new RequestQueue(cache2, network2);
-
-                    // Start the queue
-                    requestQueue2.start();
-
-                    String URL = "http://...";
-                    JSONObject jsonBody = new JSONObject();
-                    jsonBody.put("group_name", "firstvalue");
-                    jsonBody.put("group_desc", "secondobject");
-                    jsonBody.put("group_category", "please");
-                    jsonBody.put("view_count", 77);
-                    jsonBody.put("authority", 1);
-                    final String mRequestBody = jsonBody.toString();
-
-                    StringRequest stringRequest2 = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            Log.e("LOG_VOLLEY", response);
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.e("LOG_VOLLEY", error.toString());
-                        }
-                    }) {
-                        @Override
-                        public String getBodyContentType() {
-                            return "application/json; charset=utf-8";
-                        }
-
-                        @Override
-                        public byte[] getBody() throws AuthFailureError {
-                            try {
-                                return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
-                            } catch (UnsupportedEncodingException uee) {
-                                VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", mRequestBody, "utf-8");
-                                return null;
-                            }
-                        }
-
-                        @Override
-                        protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                            String responseString = "";
-                            if (response != null) {
-
-                                responseString = String.valueOf(response.statusCode);
-
-                            }
-                            return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
-                        }
-                    };
-
-                    requestQueue.add(stringRequest);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-
 
 
         //private button button;

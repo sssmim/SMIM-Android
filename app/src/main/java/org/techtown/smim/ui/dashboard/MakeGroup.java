@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,7 +28,7 @@ public class MakeGroup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.group_make);
-        TextView groupname = findViewById(R.id.groupname);
+        TextView groupname = findViewById(R.id.name);
         TextView groupdesc = findViewById(R.id.groupdesc);
     //private Button button;
     Button button =findViewById(R.id.confirm);
