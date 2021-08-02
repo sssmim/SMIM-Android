@@ -85,6 +85,7 @@ public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAd
         View view1;
         TextView nametextview;
         TextView partextview;
+        TextView explain;
 
         static ImageView imageView1;
 
@@ -93,6 +94,7 @@ public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAd
 
             nametextview = itemView.findViewById(R.id.nametextview);
             partextview = itemView.findViewById(R.id.partextview);
+            explain = itemView.findViewById(R.id.explain);
             imageView1 = itemView.findViewById(R.id.imageView1);
 
             itemView.setOnClickListener(new View.OnClickListener(){
@@ -111,6 +113,7 @@ public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAd
         public void setItem(CustomExercise item) {
             nametextview.setText(item.igetName());
             partextview.setText(item.igetPart());
+            explain.setText(item.igetExplain());
             imageView1.setImageResource(item.igetImageRes());
         }
 

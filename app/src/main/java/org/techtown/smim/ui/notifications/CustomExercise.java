@@ -3,13 +3,14 @@ package org.techtown.smim.ui.notifications;
 public class CustomExercise {
     String iname;
     String ipart;
+    String iexplain;
     int iimageRes;
-    private boolean isSelected = false;
 
-    public CustomExercise(String iname, String ipart, int iimageRes) {
+    public CustomExercise(String iname, String ipart, int iimageRes, String iexplain) {
         this.iname = iname;
         this.ipart = ipart;
         this.iimageRes = iimageRes;
+        this.iexplain = iexplain;
     }
 
     public String igetName() {
@@ -36,11 +37,8 @@ public class CustomExercise {
         this.iimageRes = iimageRes;
     }
 
-    public void isetSelected(boolean selected){
-        isSelected = selected;
-    }
+    public String igetExplain() { return iexplain; }
 
-    public boolean iisSelected() {
-        return isSelected;
-    }
+    public void isetExplain() { this.iexplain = iexplain; }
+
 }
