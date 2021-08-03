@@ -1,17 +1,15 @@
 package org.techtown.smim.ui.dashboard;
 
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -78,12 +76,32 @@ public class makegroup1 extends Fragment {
                 queue.add(objectRequest);
                 //finish();
 
+              //  @Override
+               // public void setUserVisibleHint(boolean isVisibleToUser) {
+                //    super.setUserVisibleHint(isVisibleToUser);
+                 //   if (isVisibleToUser) {
+                   //     // Refresh your fragment here
+                    //    getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+                     //   Log.i("IsRefresh", "Yes");
+                   // }
+              //  }
+
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                DashboardFragment fragment2 = new DashboardFragment();
+                FindGroup_test fragment2 = new FindGroup_test();
                 transaction.replace(R.id.container, fragment2);
                 transaction.commit();
+
                 //Intent intent = new Intent(requireContext(), DashboardTrial.class);
-                //startActivityForResult(intent, 101);
+               // startActivityForResult(intent, 101);
+
+               //Fragment frg = null;
+                //frg = getActivity().getSupportFragmentManager().findFragmentByTag("");
+                //final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                //ft.detach(frg);
+                //ft.attach(frg);
+                //ft.commit();
+
+
 
 
             }
