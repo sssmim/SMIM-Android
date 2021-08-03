@@ -118,8 +118,15 @@ public class FindGroup_test extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(requireContext(), MakeGroup.class);
-                startActivityForResult(intent, num1);
+                //Intent intent = new Intent(requireContext(), MakeGroup.class);
+                //startActivityForResult(intent, num1);
+
+                //Intent intent = new Intent(requireContext(), DashboardTrial.class);
+                //startActivityForResult(intent, num2);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                makegroup1 fragment2 = new  makegroup1();
+                transaction.replace(R.id.container, fragment2);
+                transaction.commit();
             }
         });
 
@@ -129,10 +136,10 @@ public class FindGroup_test extends Fragment {
             public void onClick(View v) {
                 //Intent intent = new Intent(requireContext(), DashboardTrial.class);
                 //startActivityForResult(intent, num2);
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                DashboardFragment fragment2 = new DashboardFragment();
-                transaction.replace(R.id.container, fragment2);
-                transaction.commit();
+                //FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                //DashboardFragment fragment2 = new DashboardFragment();
+                //transaction.replace(R.id.container, fragment2);
+                //transaction.commit();
             }
         });
 
