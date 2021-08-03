@@ -103,9 +103,9 @@ public class DashboardTrial extends AppCompatActivity {
 
         ExerciseAdapter adapter = new ExerciseAdapter();
 
-        adapter.addItem(new  Exercise("3시" ,"4시", "상체"));
-        adapter.addItem(new  Exercise("4시" ,"5시", "하체"));
-        adapter.addItem(new  Exercise("5시" ,"6시", "상체"));
+        //adapter.addItem(new  Exercise("3시" ,"4시", "상체"));
+        //adapter.addItem(new  Exercise("4시" ,"5시", "하체"));
+        //adapter.addItem(new  Exercise("5시" ,"6시", "상체"));
 
         recyclerView.setAdapter(adapter);
 

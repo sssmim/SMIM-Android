@@ -29,7 +29,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
         Exercise item = items.get(position);
         viewHolder.setItem(item);
     }
-    //수정부분
+
     @Override
     public int getItemCount() {
         return items.size();
@@ -65,9 +65,9 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
         }
 
         public void setItem(Exercise item) {
-            textView.setText(item.getStime());
-            textView1.setText(item.getEtime());
-            textView2.setText(item.getMeno());
+            textView.setText(item.getGe_start_time().toString());
+            textView1.setText(item.getGe_end_time().toString());
+            textView2.setText(item.getGe_desc());
         }
 
     }

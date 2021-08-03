@@ -1,40 +1,40 @@
 package org.techtown.smim.ui.dashboard;
 
+import java.time.LocalTime;
+import java.util.Date;
+
 public class Exercise {
-    String stime;
-    String etime;
-    String memo;
+    String ge_start_time;
+    String ge_end_time;
+    String ge_desc;
 
-    public Exercise(String stime,String etime,String memo){
-        this.stime=stime;
-        this.etime=etime;
-        this.memo=memo;
+    public Exercise(String ge_start_time, String ge_end_time, String ge_desc){
+        this.ge_start_time = ge_start_time;
+        this.ge_end_time = ge_end_time;
+        this.ge_desc = ge_desc;
     }
 
-    public String getStime() {
-        return stime;
+    public String getGe_start_time() {
+        return ge_start_time;
     }
 
-    public void  setStime(String stime) {
-    this.stime =stime;
+    public void  setGe_start_time(String ge_start_time) {
+    this.ge_start_time = ge_start_time;
     }
 
-    public String getEtime() {
-        return etime;
+    public String getGe_end_time() {
+        return ge_end_time;
     }
 
-    public void  setEtime(String etime) {
-        this.etime =etime;
+    public void  setGe_end_time(String ge_end_time) {
+        this.ge_end_time = ge_end_time;
     }
 
-    public String getMeno() {
-        return memo;
+    public String getGe_desc() {
+        return ge_desc;
     }
 
-    public void  setMemo(String memo) {
-        this.memo =memo;
+    public void  setGe_desc(String ge_desc) {
+        this.ge_desc = ge_desc;
     }
-
-
-
 }
