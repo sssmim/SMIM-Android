@@ -54,6 +54,7 @@ public class DashboardTrial extends AppCompatActivity {
         //dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
         //View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
+
         RequestQueue requestQueue;
 
         // Instantiate the cache

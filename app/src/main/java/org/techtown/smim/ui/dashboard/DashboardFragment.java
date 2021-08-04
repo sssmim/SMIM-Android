@@ -50,7 +50,7 @@ public class DashboardFragment extends Fragment {
 
     public List<group> list = new ArrayList<>();
     public List<gexercise> list2 = new ArrayList<>();
-
+    Integer po;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
       // dashboardViewModel =
@@ -58,6 +58,9 @@ public class DashboardFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
         name = root.findViewById(R.id.name);
         info = root.findViewById(R.id.info);
+        Bundle bundle = getArguments();
+        po =  bundle.getInt("Obj");
+        //System.out.println(a);
 
         RequestQueue requestQueue;
 
@@ -89,8 +92,8 @@ public class DashboardFragment extends Fragment {
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 Type listType = new TypeToken<ArrayList<group>>(){}.getType();
                 list = gson.fromJson(changeString, listType);
-                name.setText(list.get(0).group_name);
-                info.setText(list.get(0).group_desc);
+                name.setText(list.get(po).group_name);
+                info.setText(list.get(po).group_desc);
             }
         }, new Response.ErrorListener() {
             @Override
