@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -66,6 +67,8 @@ public class FindGroup_test extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.bringToFront();
         GroupListAdapter adapter = new GroupListAdapter();
+
+
 
         RequestQueue requestQueue;
 
@@ -144,6 +147,20 @@ public class FindGroup_test extends Fragment {
             }
         });
 
+        adapter.setOnItemClicklistener(new GroupListAdapter.OnPersonItemClickListener(){
+        @Override
+        public void onItemClick(GroupListAdapter.ViewHolder holder, View view, int position)
+        { GroupList item = adapter.getItem(position);
+            //Toast.makeText(getContext(),"아이템 선택 "+position, Toast.LENGTH_LONG).show();
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            DashboardFragment f = new DashboardFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt("Obj", position);
+            f.setArguments(bundle);
+            transaction.replace(R.id.container,f);
+            transaction.commit();
+
+        } });
         return root;
     }
 }
