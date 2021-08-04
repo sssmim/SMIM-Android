@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.techtown.smim.R;
+import org.techtown.smim.ui.dashboard.DashboardFragment;
 import org.techtown.smim.ui.dashboard.DashboardTrial;
 import org.techtown.smim.ui.dashboard.DashboardViewModel;
 import org.techtown.smim.ui.dashboard.MakeGroup;
@@ -49,8 +51,10 @@ public class CrawlingPage extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(requireContext(), NotificationsTrial.class);
-                startActivityForResult(intent, num3);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                NotificationsFragment_test fragment2 = new NotificationsFragment_test();
+                transaction.replace(R.id.container, fragment2);
+                transaction.commit();
             }
         });
 

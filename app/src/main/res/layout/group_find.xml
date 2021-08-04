@@ -5,32 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:id="@+id/gf"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/groupsearch"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:hint="그룹을 검색하세요" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/post"
-        android:text="post"
-        app:icon="@android:drawable/ic_menu_search" />
+        <EditText
+            android:id="@+id/groupsearch"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="그룹을 검색하세요" />
+
+        <Button
+            android:id="@+id/post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            app:icon="@android:drawable/ic_menu_search" />
+    </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="정렬순" />
-
-    <Button
-        android:id="@+id/btn_move"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="(임시)그룹이동" />
 
     <RelativeLayout
         android:layout_width="match_parent"

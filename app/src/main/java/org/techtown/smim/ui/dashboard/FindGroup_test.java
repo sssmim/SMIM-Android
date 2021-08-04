@@ -134,7 +134,7 @@ public class FindGroup_test extends Fragment {
             }
         });
 
-        Button button2 =(Button)root.findViewById(R.id.btn_move);
+        /*Button button2 =(Button)root.findViewById(R.id.btn_move);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,12 +145,12 @@ public class FindGroup_test extends Fragment {
                 transaction.replace(R.id.container, fragment2);
                 transaction.commit();
             }
-        });
+        });*/
 
         adapter.setOnItemClicklistener(new GroupListAdapter.OnPersonItemClickListener(){
         @Override
         public void onItemClick(GroupListAdapter.ViewHolder holder, View view, int position)
-        { GroupList item = adapter.getItem(position);
+        {   GroupList item = adapter.getItem(position);
             //Toast.makeText(getContext(),"아이템 선택 "+position, Toast.LENGTH_LONG).show();
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
             DashboardFragment f = new DashboardFragment();

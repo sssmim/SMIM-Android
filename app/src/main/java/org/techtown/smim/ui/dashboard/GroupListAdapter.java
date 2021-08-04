@@ -21,7 +21,7 @@ import static androidx.core.content.ContentProviderCompat.requireContext;
 public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.ViewHolder> {
     public static final int number = 1099;
     ArrayList<GroupList> items = new ArrayList<GroupList>();
-   static OnPersonItemClickListener listener;
+    static OnPersonItemClickListener listener;
 
     public interface OnPersonItemClickListener {
         public void onItemClick(GroupListAdapter.ViewHolder holder, View view, int position); }
@@ -32,7 +32,6 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.View
     public void onItemClick(ViewHolder holder, View view, int position) {
         if(listener != null){
             listener.onItemClick(holder,view,position); } }
-
 
 
 
