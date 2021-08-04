@@ -118,6 +118,7 @@ public class DashboardFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.bringToFront();
 
         ExerciseAdapter adapter = new ExerciseAdapter();
 

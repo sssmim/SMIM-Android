@@ -137,10 +137,10 @@ public class FindGroup_test extends Fragment {
             public void onClick(View v) {
                 //Intent intent = new Intent(requireContext(), DashboardTrial.class);
                 //startActivityForResult(intent, num2);
-                //FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                //DashboardFragment fragment2 = new DashboardFragment();
-                //transaction.replace(R.id.container, fragment2);
-                //transaction.commit();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                DashboardFragment fragment2 = new DashboardFragment();
+                transaction.replace(R.id.container, fragment2);
+                transaction.commit();
             }
         });
 
