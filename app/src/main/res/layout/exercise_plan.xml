@@ -7,7 +7,13 @@
 
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
+    <Button
+        android:layout_marginTop="10dp"
+        android:id="@+id/chooseyoutube"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="동영상을 먼저 선택하시오" />
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
@@ -158,13 +164,7 @@
             android:hint="상체운동위주로 진행하겠습니다."/>
     </LinearLayout>
 
-    <Button
-        android:layout_marginTop="10dp"
-        android:id="@+id/chooseyoutube"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="동영상 고르기" />
+
 
     <Button
         android:layout_gravity="center_horizontal"

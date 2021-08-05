@@ -7,8 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -32,7 +34,7 @@ public class ExercisePlan extends AppCompatActivity {
     public static final int plantomain = 10;
 
     public String setDay;
-
+    public String youtubeurl;
     public TextView textView1;
     public TextView textView2;
     public TextView textView3;
@@ -42,6 +44,12 @@ public class ExercisePlan extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.exercise_plan);
+        Intent getIntent = getIntent();
+        if(getIntent!=null){
+        String value = getIntent.getStringExtra("key");
+        Toast.makeText(getApplicationContext(), value, Toast.LENGTH_LONG).show();
+        youtubeurl = value;}
+
 
         textView1 = findViewById(R.id.days);
         textView2 = findViewById(R.id.starthour);
@@ -91,7 +99,7 @@ public class ExercisePlan extends AppCompatActivity {
                 map.put("ge_start_time", textView2.getText().toString() + ":00:00");
                 map.put("ge_end_time", textView3.getText().toString() + ":00:00");
                 map.put("ge_run_time", "08:48:00");
-                map.put("video_url", "www.google.com");
+                map.put("video_url", youtubeurl);
                 JSONObject params = new JSONObject(map);
 
                 JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, params,
@@ -113,7 +121,12 @@ public class ExercisePlan extends AppCompatActivity {
                 };
                 RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
                 queue.add(objectRequest);
-                finish();
+                //Toast.makeText(getApplicationContext(), "추가되었습니다", Toast.LENGTH_LONG).show();
+                //FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                //DashboardFragment fragment2 = new DashboardFragment();
+                //transaction.replace(R.id.container, fragment2);
+                //transaction.commit();
+
             }
         });
     }

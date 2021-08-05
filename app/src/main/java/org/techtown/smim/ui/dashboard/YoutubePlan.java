@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,21 +40,15 @@ public class YoutubePlan extends AppCompatActivity {
     public static final int youtubetoplan = 102;
 
     public List<video> list = new ArrayList<>();
-
+    public List<String> url2 = new ArrayList<>();
+    public List<String> title2 = new ArrayList<>();
+   public String realurl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_youtube_plan);
 
-        Button button = findViewById(R.id.youtubeadd);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),ExercisePlan.class);
-                startActivityForResult(intent,youtubetoplan);
-                finish();
-            }
-        });
+
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView1);
 
@@ -87,6 +83,8 @@ public class YoutubePlan extends AppCompatActivity {
                 for(int i = 0; i< list.size(); i++) {
                     int image = getResources().getIdentifier(list.get(i).video_image , "drawable", getPackageName());
                     adapter.addItem(new Youtube(list.get(i).video_name, image));
+                    url2.add(list.get(i).video_url);
+                    title2.add(list.get(i).video_name);
                 }
 
                 recyclerView.setAdapter(adapter);
@@ -104,7 +102,31 @@ public class YoutubePlan extends AppCompatActivity {
         //adapter.addItem(new Youtube("복부"));
         //adapter.addItem(new Youtube("스쿼트"));
         //recyclerView.setAdapter(adapter);
+        adapter.setOnItemClicklistener(new YoutubeAdapter.OnYoutubeItemClickListener(){
+            @Override
+            public void onItemClick(YoutubeAdapter.ViewHolder holder, View view, int position) {
+                Youtube item = adapter.getItem(position);
+
+                realurl = url2.get(position);
+                Toast.makeText(getApplicationContext(), title2.get(position)+"동영상이 선택되었습니다", Toast.LENGTH_LONG).show();
+            } });
+
+        Button button = findViewById(R.id.youtubeadd);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(YoutubePlan.this, ExercisePlan.class);
+                intent.putExtra("key", realurl);
+                startActivity(intent);
+
+            }
+        });
 
 
-    }
+
+
+            }
+
+
 }
