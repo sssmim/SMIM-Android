@@ -46,49 +46,42 @@
         android:orientation="horizontal"
         android:layout_height="wrap_content">
         <TextView
-
             android:layout_marginLeft="20dp"
             android:textColor="#2196F3"
             android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="시작시간" />
-
         <EditText
+            android:id="@+id/starthour"
             android:layout_marginLeft="20dp"
             android:textColor="@color/black"
             android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/starthour"
             android:hint="00"/>
-
         <TextView
             android:layout_marginLeft="10dp"
             android:textColor="#2196F3"
             android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:text=" 시 " />
         <EditText
+            android:id="@+id/startmin"
             android:layout_marginLeft="20dp"
             android:textColor="@color/black"
             android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/startmin"
             android:hint="00"/>
-
         <TextView
             android:layout_marginLeft="10dp"
             android:textColor="#2196F3"
             android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:text=" 분" />
-
     </LinearLayout>
 
 
@@ -103,16 +96,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="마칠시간" />
-
         <EditText
+            android:id="@+id/endthour"
             android:layout_marginLeft="20dp"
-            android:textColor="#2196F3"
+            android:textColor="@color/black"
             android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/endthour"
             android:hint="00"/>
-
         <TextView
             android:layout_marginLeft="10dp"
             android:textColor="#2196F3"
@@ -121,12 +112,12 @@
             android:layout_height="wrap_content"
             android:text=" 시 " />
         <EditText
+            android:id="@+id/endmin"
             android:layout_marginLeft="20dp"
             android:textColor="@color/black"
             android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/endmin"
             android:hint="00"/>
 
         <TextView
@@ -147,7 +138,6 @@
         <TextView
             android:layout_marginLeft="20dp"
             android:textColor="#2196F3"
-
             android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -156,7 +146,6 @@
         <EditText
             android:layout_marginLeft="20dp"
             android:textColor="@color/black"
-
             android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -164,13 +153,10 @@
             android:hint="상체운동위주로 진행하겠습니다."/>
     </LinearLayout>
 
-
-
     <Button
         android:layout_gravity="center_horizontal"
         android:layout_width="300dp"
         android:id="@+id/addplan"
-
         android:layout_height="wrap_content"
         android:text="추가" />
 </LinearLayout>

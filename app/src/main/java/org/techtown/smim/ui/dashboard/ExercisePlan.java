@@ -33,35 +33,38 @@ public class ExercisePlan extends AppCompatActivity {
     public static final int plantoyoutbe = 102;
     public static final int plantomain = 10;
 
-    public String setDay;
     public String youtubeurl;
-    public TextView textView1;
-    public TextView textView2;
-    public TextView textView3;
-    public TextView textView4;
+    public TextView days;
+    public TextView startHour;
+    public TextView startMin;
+    public TextView endHour;
+    public TextView endMin;
+    public TextView planMemo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.exercise_plan);
+
         Intent getIntent = getIntent();
-        if(getIntent!=null){
+        if(getIntent != null){
         String value = getIntent.getStringExtra("key");
-        Toast.makeText(getApplicationContext(), value, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), value, Toast.LENGTH_LONG).show();  //에러가 뜹니다..?
         youtubeurl = value;}
 
-
-        textView1 = findViewById(R.id.days);
-        textView2 = findViewById(R.id.starthour);
-        textView3 = findViewById(R.id.endthour);
-        textView4 = findViewById(R.id.planmemo);
+        days = findViewById(R.id.days);
+        startHour = findViewById(R.id.starthour);
+        startMin = findViewById(R.id.startmin);
+        endHour = findViewById(R.id.endthour);
+        endMin = findViewById(R.id.endmin);
+        planMemo = findViewById(R.id.planmemo);
 
         CalendarView calendar = (CalendarView) findViewById(R.id.calendarView);
         SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
         Date time = new Date();
 
         String time1 = format1.format(time);
-        textView1.setText(time1);
+        days.setText(time1);
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
@@ -69,21 +72,19 @@ public class ExercisePlan extends AppCompatActivity {
                 try {
                     Date date = new SimpleDateFormat("yyyy-MM-dd").parse(setDay);
                     String newString = new SimpleDateFormat("yyyy-MM-dd").format(date);
-                    textView1.setText(newString);
+                    days.setText(newString);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
             }
         });
 
-        //textView1.setText(textView2.getText());  << 선택 날짜 포스트 하는 방법임.
-
         Button button = findViewById(R.id.chooseyoutube);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), YoutubePlan.class);
-                startActivityForResult(intent,plantoyoutbe);
+                startActivityForResult(intent, plantoyoutbe);
             }
         });
 
@@ -93,12 +94,13 @@ public class ExercisePlan extends AppCompatActivity {
             public void onClick(View v) {
                 String url = "http://52.78.235.23:8080/gexercise";
                 Map map = new HashMap();
-                map.put("ge_name", "test");
-                map.put("ge_desc", textView4.getText().toString());
-                map.put("ge_date", textView1.getText().toString());
-                map.put("ge_start_time", textView2.getText().toString() + ":00:00");
-                map.put("ge_end_time", textView3.getText().toString() + ":00:00");
-                map.put("ge_run_time", "08:48:00");
+                map.put("ge_date", days.getText().toString());
+                String start_time = startHour.getText().toString() + ":" + startMin.getText().toString() + ":00";
+                map.put("ge_start_time", start_time);
+                String end_time = endHour.getText().toString() + ":" + endMin.getText().toString() + ":00";
+                map.put("ge_end_time", end_time);
+                map.put("ge_run_time", "08:48:00"); // run_time이 필요한가? 각자 실행한 시간이 다를텐데??
+                map.put("ge_desc", planMemo.getText().toString());
                 map.put("video_url", youtubeurl);
                 JSONObject params = new JSONObject(map);
 
@@ -121,12 +123,11 @@ public class ExercisePlan extends AppCompatActivity {
                 };
                 RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
                 queue.add(objectRequest);
-                //Toast.makeText(getApplicationContext(), "추가되었습니다", Toast.LENGTH_LONG).show();
-                //FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                //DashboardFragment fragment2 = new DashboardFragment();
-                //transaction.replace(R.id.container, fragment2);
-                //transaction.commit();
-
+                Toast.makeText(getApplicationContext(), "추가되었습니다", Toast.LENGTH_LONG).show();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                DashboardFragment fragment2 = new DashboardFragment();
+                transaction.replace(R.id.container, fragment2);
+                transaction.commit();
             }
         });
     }
