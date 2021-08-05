@@ -1,22 +1,21 @@
 package org.techtown.smim.ui.dashboard;
 
 public class Youtube {
-    int  imgsrc;
     String title;
+    int image;
 
 
-    public Youtube(int imgsrc, String title){
-       this.imgsrc=imgsrc;
-        this.title=title;
-
+    public Youtube(String title, int image){
+        this.title = title;
+        this.image = image;
     }
 
-    public int  getImgsrc() {
-      return imgsrc;
+    public int getImage() {
+           return image;
     }
 
-    public void  setImgsrc(int  imgsrc) {
-   this.imgsrc =imgsrc;
+    public void setImage(int image) {
+        this.image = image;
     }
 
     public String getTitle() {
@@ -27,6 +26,11 @@ public class Youtube {
         this.title =title;
     }
 
+    public int getImageRes() {
+        return image;
+    }
 
-
+    public void setImageRes(int image) {
+        this.image = image;
+    }
 }

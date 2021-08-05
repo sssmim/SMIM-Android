@@ -54,15 +54,14 @@ public class YoutubeAdapter extends RecyclerView.Adapter<YoutubeAdapter.ViewHold
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        //TextView textView;
         TextView textView1;
-         ImageView i1;
+        static ImageView imageView1;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            i1 = itemView.findViewById(R.id.youtubeimage);
             textView1 = itemView.findViewById(R.id.youtubename);
+            imageView1 = itemView.findViewById(R.id.youtubeimage);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -71,15 +70,11 @@ public class YoutubeAdapter extends RecyclerView.Adapter<YoutubeAdapter.ViewHold
 
                 }
             });
-
-
         }
 
         public void setItem(Youtube item) {
-
             textView1.setText(item.getTitle());
-            i1.setImageResource(item.getImgsrc());
-
+            imageView1.setImageResource(item.getImageRes());
         }
 
     }
