@@ -69,7 +69,6 @@ public class FindGroup_test extends Fragment {
         GroupListAdapter adapter = new GroupListAdapter();
 
 
-
         RequestQueue requestQueue;
 
         // Instantiate the cache
