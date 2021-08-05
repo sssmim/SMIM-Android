@@ -49,7 +49,11 @@ public class ExercisePlan extends AppCompatActivity {
         textView4 = findViewById(R.id.planmemo);
 
         CalendarView calendar = (CalendarView) findViewById(R.id.calendarView);
+        SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
+        Date time = new Date();
 
+        String time1 = format1.format(time);
+        textView1.setText(time1);
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {

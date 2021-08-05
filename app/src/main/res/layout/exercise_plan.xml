@@ -65,6 +65,23 @@
             android:layout_height="wrap_content"
 
             android:text=" 시 " />
+        <EditText
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/startmin"
+            android:hint="00"/>
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:textColor="#2196F3"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text=" 분" />
 
     </LinearLayout>
 
@@ -97,7 +114,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" 시 " />
+        <EditText
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/endmin"
+            android:hint="00"/>
 
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:textColor="#2196F3"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text=" 분" />
 
     </LinearLayout>
 

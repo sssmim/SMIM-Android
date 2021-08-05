@@ -3,6 +3,7 @@ package org.techtown.smim.ui.dashboard;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -55,12 +56,12 @@ public class YoutubeAdapter extends RecyclerView.Adapter<YoutubeAdapter.ViewHold
     static class ViewHolder extends RecyclerView.ViewHolder {
         //TextView textView;
         TextView textView1;
-
+         ImageView i1;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-           // textView = itemView.findViewById(R.id.youtubeimage);
+            i1 = itemView.findViewById(R.id.youtubeimage);
             textView1 = itemView.findViewById(R.id.youtubename);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +78,7 @@ public class YoutubeAdapter extends RecyclerView.Adapter<YoutubeAdapter.ViewHold
         public void setItem(Youtube item) {
 
             textView1.setText(item.getTitle());
+            i1.setImageResource(item.getImgsrc());
 
         }
 
