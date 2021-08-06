@@ -3,14 +3,12 @@ package org.techtown.smim.ui.notifications;
 public class CustomExercise {
     String iname;
     String ipart;
-    String iexplain;
     int iimageRes;
 
-    public CustomExercise(String iname, String ipart, int iimageRes, String iexplain) {
+    public CustomExercise(String iname, String ipart, int iimageRes) {
         this.iname = iname;
         this.ipart = ipart;
         this.iimageRes = iimageRes;
-        this.iexplain = iexplain;
     }
 
     public String igetName() {
@@ -36,9 +34,4 @@ public class CustomExercise {
     public void isetImageRes(int iimageRes) {
         this.iimageRes = iimageRes;
     }
-
-    public String igetExplain() { return iexplain; }
-
-    public void isetExplain() { this.iexplain = iexplain; }
-
 }
