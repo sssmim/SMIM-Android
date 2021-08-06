@@ -51,6 +51,7 @@ public class DashboardFragment extends Fragment {
     public List<group> list = new ArrayList<>();
     public List<gexercise> list2 = new ArrayList<>();
     Integer po;
+    Long Group_num;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
       // dashboardViewModel =
@@ -60,6 +61,7 @@ public class DashboardFragment extends Fragment {
         info = root.findViewById(R.id.info);
         Bundle bundle = getArguments();
         po =  bundle.getInt("Obj");
+        Group_num = bundle.getLong("Group_num");
         //System.out.println(a);
 
         RequestQueue requestQueue;
@@ -144,7 +146,9 @@ public class DashboardFragment extends Fragment {
                 list2 = gson.fromJson(changeString2, listType);
 
                 for(int i = 0; i< list2.size(); i++) {
-                    adapter.addItem(new Exercise(list2.get(i).ge_start_time, list2.get(i).ge_end_time, list2.get(i).ge_desc));
+                    if(list2.get(i).group_num == Group_num){
+                        adapter.addItem(new Exercise(list2.get(i).ge_start_time, list2.get(i).ge_end_time, list2.get(i).ge_desc));
+                    }
                 }
 
                 recyclerView.setAdapter(adapter);

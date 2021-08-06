@@ -54,6 +54,7 @@ public class FindGroup_test extends Fragment {
     private DashboardViewModel dashboardViewModel;
 
     public List<group> list = new ArrayList<>();
+    public List<Long> list2 = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -101,6 +102,7 @@ public class FindGroup_test extends Fragment {
                 list = gson.fromJson(changeString, listType);
 
                 for(int i = 0; i< list.size(); i++) {
+                    list2.add(list.get(i).group_num);
                     adapter.addItem(new GroupList(list.get(i).group_name, list.get(i).group_desc));
                 }
 
@@ -155,10 +157,10 @@ public class FindGroup_test extends Fragment {
             DashboardFragment f = new DashboardFragment();
             Bundle bundle = new Bundle();
             bundle.putInt("Obj", position);
+            bundle.putLong("Group_num", list.get(position).group_num);
             f.setArguments(bundle);
             transaction.replace(R.id.container,f);
             transaction.commit();
-
         } });
         return root;
     }
