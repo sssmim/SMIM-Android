@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="org.techtown.smim">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Smim">
+        android:theme="@style/Theme.Smim"
+        android:usesCleartextTraffic="true">
         <activity android:name=".ui.home.test"></activity>
         <activity android:name=".ui.dashboard.YoutubePlan" />
         <activity android:name=".ui.dashboard.ExercisePlan" />
@@ -21,6 +22,8 @@
         <activity android:name=".ui.notifications.NotificationsTrial" />
         <activity android:name=".ui.notifications.Timer" />
         <activity android:name=".ui.dashboard.GroupExercisePlay" />
+        <activity
+            android:name=".ui.notifications.ExerciseInfo" />
 
         <activity
             android:name=".MainActivity"

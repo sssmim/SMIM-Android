@@ -170,7 +170,8 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(requireContext(), ExercisePlan.class);
-                startActivityForResult(intent, REQUEST_CODE_MENU);
+               // startActivityForResult(intent, REQUEST_CODE_MENU);
+                startActivity(intent);
             }
         });
 
