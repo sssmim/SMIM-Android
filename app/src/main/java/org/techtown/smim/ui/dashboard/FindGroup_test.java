@@ -78,7 +78,6 @@ public class FindGroup_test extends Fragment {
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.RecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        //recyclerView.bringToFront();
         GroupListAdapter adapter = new GroupListAdapter();
 
         RequestQueue requestQueue;
