@@ -2,16 +2,17 @@ package org.techtown.smim.ui.dashboard;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,8 +30,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-//eee
-public class ExercisePlan extends AppCompatActivity {
+public class ExercisePlanFragment extends Fragment {
+
     public static final int plantoyoutbe = 102;
     public static final int plantomain = 10;
 
@@ -42,27 +43,26 @@ public class ExercisePlan extends AppCompatActivity {
     public TextView endMin;
     public TextView planMemo;
 
-
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_exercise_plan);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view=inflater.inflate(R.layout.fragment_exercise_plan, container, false);
 
-        Intent getIntent = getIntent();
-        if(getIntent != null){
-        String value = getIntent.getStringExtra("key");
-        //Toast.makeText(getApplicationContext(), value, Toast.LENGTH_LONG).show();  //에러가 뜹니다..?
-        youtubeurl = value;}
+       // Intent getIntent = getIntent();
+        //if(getIntent != null){
+          //  String value = getIntent.getStringExtra("key");
+            //Toast.makeText(getApplicationContext(), value, Toast.LENGTH_LONG).show();  //에러가 뜹니다..?
+           // youtubeurl = value;}
 
-        days = findViewById(R.id.days);
-        startHour = findViewById(R.id.starthour);
-        startMin = findViewById(R.id.startmin);
-        endHour = findViewById(R.id.endthour);
-        endMin = findViewById(R.id.endmin);
-        planMemo = findViewById(R.id.planmemo);
+        days = view.findViewById(R.id.days);
+        startHour = view.findViewById(R.id.starthour);
+        startMin = view.findViewById(R.id.startmin);
+        endHour = view.findViewById(R.id.endthour);
+        endMin = view.findViewById(R.id.endmin);
+        planMemo = view.findViewById(R.id.planmemo);
 
-        CalendarView calendar = (CalendarView) findViewById(R.id.calendarView);
+        CalendarView calendar = (CalendarView) view.findViewById(R.id.calendarView);
         SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
         Date time = new Date();
 
@@ -82,45 +82,23 @@ public class ExercisePlan extends AppCompatActivity {
             }
         });
 
-        Button button = findViewById(R.id.chooseyoutube);
+        Button button = view.findViewById(R.id.chooseyoutube);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Intent intent = new Intent(getApplicationContext(), YoutubePlan.class);
+                //Intent intent = new Intent(getApplicationContext(), YoutubePlan.class);
                 //startActivityForResult(intent, plantoyoutbe);
-                FragmentTransaction transaction =getSupportFragmentManager().beginTransaction();
+                /*FragmentTransaction transaction =getSupportFragmentManager().beginTransaction();
                 DashboardFragment f = new DashboardFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("Obj", "positio");
                 f.setArguments(bundle);
                 transaction.replace(R.id.container,f);
-                transaction.commit();
-            }
-        });
-
-        Button button3 = findViewById(R.id.addplan1);
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-/*
-                FragmentTransaction transaction =getSupportFragmentManager().beginTransaction();
-                DashboardFragment f1 = new DashboardFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("Obj", "positio");
-                f1.setArguments(bundle);
-                transaction.replace(R.id.container,f1);
                 transaction.commit();*/
-
-                FragmentTransaction transaction1 = getSupportFragmentManager().beginTransaction();
-                DashboardFragment f= new DashboardFragment();
-                transaction1.replace(R.id.container, f);
-                transaction1.commit();
             }
         });
 
-
-
-        Button button1 = findViewById(R.id.addplan);
+        Button button1 = view.findViewById(R.id.addplan);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,22 +131,28 @@ public class ExercisePlan extends AppCompatActivity {
                         return "application/json; charset=UTF-8";
                     }
                 };
-                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+                RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
                 queue.add(objectRequest);
-                Toast.makeText(getApplicationContext(), "추가되었습니다", Toast.LENGTH_LONG).show();
-                //FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-               // DashboardFragment fragment2 = new DashboardFragment();
-                //transaction.replace(R.id.container, fragment2);
-                //transaction.commit();
-                //finish();
-                //finish();
-                //finish();
+                Toast.makeText(getActivity().getApplicationContext(), "추가되었습니다", Toast.LENGTH_LONG).show();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                DashboardFragment fragment2 = new DashboardFragment();
+                transaction.replace(R.id.container, fragment2);
+                transaction.commit();
+
+
 
             }
         });
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+
+
+
+
+
+
+
+
+
+
+        return view;
     }
 }

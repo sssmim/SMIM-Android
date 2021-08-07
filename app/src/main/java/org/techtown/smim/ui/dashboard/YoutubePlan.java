@@ -119,7 +119,8 @@ public class YoutubePlan extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(YoutubePlan.this, ExercisePlan.class);
                 intent.putExtra("key", realurl);
-                startActivity(intent);
+                setResult(RESULT_OK,intent);
+                finish();
             }
         });
     }

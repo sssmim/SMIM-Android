@@ -63,8 +63,10 @@ public class DashboardFragment extends Fragment {
         info = root.findViewById(R.id.info);
 
         Bundle bundle = getArguments();
+        //if(bundle!=null){
         po =  bundle.getInt("Obj");
         Group_num = bundle.getLong("Group_num");
+    //}
         //System.out.println(a);
 
         RequestQueue requestQueue;
@@ -152,6 +154,11 @@ public class DashboardFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(requireContext(), ExercisePlan.class);
                 startActivityForResult(intent, REQUEST_CODE_MENU);
+                //FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                //ExercisePlanFragment fragment2 = new ExercisePlanFragment();
+                //transaction.replace(R.id.container, fragment2);
+                //transaction.commit();
+
             }
         });
 
