@@ -3,12 +3,17 @@ package org.techtown.smim.ui.notifications;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.techtown.smim.R;
+import org.techtown.smim.ui.dashboard.GroupList;
+import org.techtown.smim.ui.dashboard.GroupListAdapter;
 
 import java.util.ArrayList;
 
@@ -35,7 +40,12 @@ public class CustomExerciseChoiceAdapter extends RecyclerView.Adapter<CustomExer
     @Override
     public int getItemCount() { return items.size(); }
     public void addItem(CustomExerciseChoice person){ items.add(person); }
-
+    public CustomExerciseChoice getItem(int position) {
+        return items.get(position);
+    }
+    public void setItem(int position, CustomExerciseChoice item) {
+        items.set(position, item);
+    }
     @Override
     public boolean onItemMove(int from_position, int to_position) {
         //이동할 객체 저장
@@ -57,20 +67,50 @@ public class CustomExerciseChoiceAdapter extends RecyclerView.Adapter<CustomExer
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
-        TextView list_name,list_part;
+        TextView list_name,list_part,tv_count;
         ImageView list_image;
-
+Button add;
+        Button mis;
+        CustomExerciseChoice x=null;
         public ItemViewHolder(View itemView) {
             super(itemView);
             list_name = itemView.findViewById(R.id.list_name);
             list_part = itemView.findViewById(R.id.list_part);
             list_image = itemView.findViewById(R.id.list_image);
+            tv_count = itemView.findViewById(R.id.tv_count);
+            add= itemView.findViewById(R.id.btn_add);
+
+            add.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Integer a = person.cgetCount();
+                   // tv_count.setText(a.toString());
+                    int position = getAdapterPosition();
+                   CustomExerciseMerge.addmethod(x, position);
+                }
+            });
+            mis= itemView.findViewById(R.id.btn_minus);
+            mis.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Toast.makeText(itemView.getContext(), "value", Toast.LENGTH_LONG).show();
+                    int position = getAdapterPosition();
+                    CustomExerciseMerge.minusmethod(x, position);
+                }
+            });
+
         }
+
+
 
         public void onBind(CustomExerciseChoice person) {
             list_name.setText(person.cgetName());
             list_part.setText(String.valueOf(person.cgetPart()));
             list_image.setImageResource(person.cgetImage());
+            Integer a = person.cgetCount();
+            tv_count.setText(a.toString());
+            this.x=person;
+
         }
     }
 }

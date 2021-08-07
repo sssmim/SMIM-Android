@@ -103,11 +103,8 @@ public class ExercisePlan extends AppCompatActivity {
                 f1.setArguments(bundle);
                 transaction.replace(R.id.container,f1);
                 transaction.commit();*/
+finish();
 
-                FragmentTransaction transaction1 = getSupportFragmentManager().beginTransaction();
-                DashboardFragment f= new DashboardFragment();
-                transaction1.replace(R.id.container, f);
-                transaction1.commit();
             }
         });
 
@@ -117,6 +114,11 @@ public class ExercisePlan extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
+
+                //if(startMin.getText().toString()<="")
                 String url = "http://52.78.235.23:8080/gexercise";
                 Map map = new HashMap();
                 map.put("ge_date", days.getText().toString());
@@ -124,6 +126,7 @@ public class ExercisePlan extends AppCompatActivity {
                 map.put("ge_start_time", start_time);
                 String end_time = endHour.getText().toString() + ":" + endMin.getText().toString() + ":00";
                 map.put("ge_end_time", end_time);
+                map.put("ge_name", "Ddd");
                 //map.put("ge_run_time", "08:48:00"); // run_time이 필요한가? 각자 실행한 시간이 다를텐데??
                 map.put("ge_desc", planMemo.getText().toString());
                 map.put("video_url", "youtubeurl");
@@ -154,9 +157,9 @@ public class ExercisePlan extends AppCompatActivity {
                // DashboardFragment fragment2 = new DashboardFragment();
                 //transaction.replace(R.id.container, fragment2);
                 //transaction.commit();
-                //finish();
-                //finish();
-                //finish();
+                finish();
+                finish();
+                finish();
 
             }
         });

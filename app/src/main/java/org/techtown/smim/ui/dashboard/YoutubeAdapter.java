@@ -1,5 +1,6 @@
 package org.techtown.smim.ui.dashboard;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,6 +79,8 @@ public class YoutubeAdapter extends RecyclerView.Adapter<YoutubeAdapter.ViewHold
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
+                    v.setBackgroundColor(Color.BLUE);
+
                     if(listener1 != null){
                         listener1.onItemClick(ViewHolder.this, v, position);
                     } } });

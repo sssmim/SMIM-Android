@@ -121,7 +121,7 @@ public class YoutubePlan extends AppCompatActivity {
                 intent.putExtra("key", realurl);
                 //setResult(RESULT_OK,intent);
                 startActivity(intent);
-                //finish();
+                finish();
             }
         });
     }
