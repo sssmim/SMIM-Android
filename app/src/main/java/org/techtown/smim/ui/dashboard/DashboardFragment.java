@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -59,9 +60,12 @@ public class DashboardFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
         name = root.findViewById(R.id.name);
         info = root.findViewById(R.id.info);
+
         Bundle bundle = getArguments();
+        //if(bundle!=null){
         po =  bundle.getInt("Obj");
         Group_num = bundle.getLong("Group_num");
+    //}
         //System.out.println(a);
 
         RequestQueue requestQueue;
@@ -175,6 +179,11 @@ public class DashboardFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(requireContext(), ExercisePlan.class);
                 startActivityForResult(intent, REQUEST_CODE_MENU);
+                //FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                //ExercisePlanFragment fragment2 = new ExercisePlanFragment();
+                //transaction.replace(R.id.container, fragment2);
+                //transaction.commit();
+
             }
         });
 
