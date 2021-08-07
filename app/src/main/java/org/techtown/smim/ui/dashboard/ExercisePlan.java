@@ -86,15 +86,8 @@ public class ExercisePlan extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Intent intent = new Intent(getApplicationContext(), YoutubePlan.class);
-                //startActivityForResult(intent, plantoyoutbe);
-                FragmentTransaction transaction =getSupportFragmentManager().beginTransaction();
-                DashboardFragment f = new DashboardFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("Obj", "positio");
-                f.setArguments(bundle);
-                transaction.replace(R.id.container,f);
-                transaction.commit();
+               Intent intent = new Intent(getApplicationContext(), YoutubePlan.class);
+               startActivityForResult(intent, plantoyoutbe);
             }
         });
 
@@ -131,9 +124,10 @@ public class ExercisePlan extends AppCompatActivity {
                 map.put("ge_start_time", start_time);
                 String end_time = endHour.getText().toString() + ":" + endMin.getText().toString() + ":00";
                 map.put("ge_end_time", end_time);
-                map.put("ge_run_time", "08:48:00"); // run_time이 필요한가? 각자 실행한 시간이 다를텐데??
+                //map.put("ge_run_time", "08:48:00"); // run_time이 필요한가? 각자 실행한 시간이 다를텐데??
                 map.put("ge_desc", planMemo.getText().toString());
-                map.put("video_url", youtubeurl);
+                map.put("video_url", "youtubeurl");
+                map.put("group_num", 2);
                 JSONObject params = new JSONObject(map);
 
                 JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, params,
@@ -166,9 +160,5 @@ public class ExercisePlan extends AppCompatActivity {
 
             }
         });
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
     }
 }

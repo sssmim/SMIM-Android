@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,7 +41,10 @@ import org.techtown.smim.R;
 import org.techtown.smim.database.gexercise;
 import org.techtown.smim.database.group;
 import org.techtown.smim.database.iexercise;
+import org.techtown.smim.ui.dashboard.DashboardFragment;
 import org.techtown.smim.ui.dashboard.Exercise;
+import org.techtown.smim.ui.dashboard.GroupList;
+import org.techtown.smim.ui.dashboard.GroupListAdapter;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -51,12 +55,15 @@ public class NotificationsFragment_test extends Fragment {
 
     //private NotificationsViewModel notificationsViewModel;
     public static final int customexerciseplan = 1;
+    public static final int number = 7;
 
     private List<CustomExercise> mExerciseList;
     private RecyclerView mRecycleView;
     private RecyclerView.Adapter mAdapter;
 
     public List<iexercise> list = new ArrayList<>();
+
+    public List<String> list2 = new ArrayList<>();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -104,7 +111,8 @@ public class NotificationsFragment_test extends Fragment {
                 for(int i = 0; i< list.size(); i++) {
                     String description = list.get(i).ie_dsec.replace("\\r\\n", "\r\n");
                     int image = getResources().getIdentifier(list.get(i).ie_image , "drawable", getContext().getPackageName());
-                    adapter.addItem(new CustomExercise(list.get(i).ie_name, list.get(i).ie_part, image, description));
+                    list2.add(list.get(i).ie_dsec);
+                    adapter.addItem(new CustomExercise(list.get(i).ie_name, list.get(i).ie_part, image));
                 }
 
                 recyclerView.setAdapter(adapter);
@@ -138,6 +146,18 @@ public class NotificationsFragment_test extends Fragment {
             }
         });
 
+        adapter.setOnItemClicklistener(new CustomExerciseAdapter.OnPersonItemClickListener(){
+            @Override
+            public void onItemClick(CustomExerciseAdapter.ViewHolder holder, View view, int position)
+            {   CustomExercise item = adapter.getItem(position);
+                //Toast.makeText(getContext(),"아이템 선택 "+position, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),"아이템 선택 "+position, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(requireContext(), ExerciseInfo.class);
+                intent.putExtra("obj", position);
+                startActivity(intent);
+               // startActivityForResult(intent, number);
+
+            } });
         return root;
     }
 }
