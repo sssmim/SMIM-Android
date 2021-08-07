@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -52,6 +53,7 @@ public class DashboardFragment extends Fragment {
     public List<gexercise> list2 = new ArrayList<>();
     Integer po;
     Long Group_num;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
       // dashboardViewModel =
@@ -59,28 +61,20 @@ public class DashboardFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
         name = root.findViewById(R.id.name);
         info = root.findViewById(R.id.info);
+
         Bundle bundle = getArguments();
         po =  bundle.getInt("Obj");
         Group_num = bundle.getLong("Group_num");
         //System.out.println(a);
 
         RequestQueue requestQueue;
-
-        // Instantiate the cache
         Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
-
-        // Set up the network to use HttpURLConnection as the HTTP client.
         Network network = new BasicNetwork(new HurlStack());
-
-        // Instantiate the RequestQueue with the cache and network.
         requestQueue = new RequestQueue(cache, network);
-
-        // Start the queue
         requestQueue.start();
 
         String url = "http://52.78.235.23:8080/organization";
 
-        // Formulate the request and handle the response.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -107,29 +101,20 @@ public class DashboardFragment extends Fragment {
         requestQueue.add(stringRequest);
 
         RequestQueue requestQueue1;
-
-        // Instantiate the cache
         Cache cache1 = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
-
-        // Set up the network to use HttpURLConnection as the HTTP client.
         Network network1 = new BasicNetwork(new HurlStack());
-
-        // Instantiate the RequestQueue with the cache and network.
         requestQueue1 = new RequestQueue(cache, network);
-
-        // Start the queue
         requestQueue1.start();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.bringToFront();
+
 
         ExerciseAdapter adapter = new ExerciseAdapter();
 
         String url2 = "http://52.78.235.23:8080/gexercise";
 
-        // Formulate the request and handle the response.
         StringRequest stringRequest2 = new StringRequest(Request.Method.GET, url2, new Response.Listener<String>() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
@@ -159,23 +144,14 @@ public class DashboardFragment extends Fragment {
             }
         });
 
-        // Add the request to the RequestQueue.
         requestQueue.add(stringRequest2);
-
-
-        //adapter.addItem(new  Exercise("3시" ,"4시", "상체"));
-        //adapter.addItem(new  Exercise("4시" ,"5시", "하체"));
-        //adapter.addItem(new  Exercise("5시" ,"6시", "상체"));
-
-        //recyclerView.setAdapter(adapter);
 
         Button button = root.findViewById(R.id.groupplan);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(requireContext(), ExercisePlan.class);
-               // startActivityForResult(intent, REQUEST_CODE_MENU);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_CODE_MENU);
             }
         });
 
@@ -185,6 +161,14 @@ public class DashboardFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(requireContext(), GroupExercisePlay.class);
                 startActivityForResult(intent, REQUEST_CODE_MENU);
+            }
+        });
+
+        Button refresh_button = root.findViewById(R.id.refresh);
+        refresh_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 

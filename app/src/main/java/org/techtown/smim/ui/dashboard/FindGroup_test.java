@@ -1,5 +1,6 @@
 package org.techtown.smim.ui.dashboard;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -63,30 +64,31 @@ public class FindGroup_test extends Fragment {
         View root = (View)inflater.inflate(R.layout.group_find, container, false);
         Button post = (Button)root.findViewById(R.id.post);
 
+        try {
+            Thread.sleep(25); //0.025초 대기
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("Fragment1", "onCreateView");
+
+        //FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        //transaction.detach(this).attach(this).commit();
+
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.RecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.bringToFront();
+        //recyclerView.bringToFront();
         GroupListAdapter adapter = new GroupListAdapter();
 
-
         RequestQueue requestQueue;
-
-        // Instantiate the cache
         Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
-
-        // Set up the network to use HttpURLConnection as the HTTP client.
         Network network = new BasicNetwork(new HurlStack());
-
-        // Instantiate the RequestQueue with the cache and network.
         requestQueue = new RequestQueue(cache, network);
-
-        // Start the queue
         requestQueue.start();
 
         String url = "http://52.78.235.23:8080/organization";
 
-        // Formulate the request and handle the response.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -114,39 +116,18 @@ public class FindGroup_test extends Fragment {
             }
         });
 
-        // Add the request to the RequestQueue.
         requestQueue.add(stringRequest);
 
-
-        //private button button;
         FloatingActionButton button =(FloatingActionButton)root.findViewById(R.id.floatingActionButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(requireContext(), MakeGroup.class);
-                //startActivityForResult(intent, num1);
-
-                //Intent intent = new Intent(requireContext(), DashboardTrial.class);
-                //startActivityForResult(intent, num2);
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 makegroup1 fragment2 = new  makegroup1();
                 transaction.replace(R.id.container, fragment2);
                 transaction.commit();
             }
         });
-
-        /*Button button2 =(Button)root.findViewById(R.id.btn_move);
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Intent intent = new Intent(requireContext(), DashboardTrial.class);
-                //startActivityForResult(intent, num2);
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                DashboardFragment fragment2 = new DashboardFragment();
-                transaction.replace(R.id.container, fragment2);
-                transaction.commit();
-            }
-        });*/
 
         adapter.setOnItemClicklistener(new GroupListAdapter.OnPersonItemClickListener(){
         @Override
@@ -163,5 +144,59 @@ public class FindGroup_test extends Fragment {
             transaction.commit();
         } });
         return root;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        Log.d("Fragment", "onAttach");
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d("Fragment", "onCreate");
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.d("Fragment1", "onCreate");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d("Fragment1", "onStart");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("Fragment1", "onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("Fragment1", "onPause");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("Fragment1", "onStop");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();;
+        Log.d("Fragment1", "onDestroyView");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.d("Fragment1", "onDetach");
     }
 }
