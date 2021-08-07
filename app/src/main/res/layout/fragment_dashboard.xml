@@ -31,13 +31,14 @@
         android:text="그룹명"
         android:textColor="#FF0000FF"
         android:textSize="20sp"/>
+
         <Button
 
-          android:layout_alignParentRight="true"
-            android:id="@+id/groupga"
+            android:id="@+id/refresh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="그룹가입" />
+            android:layout_alignParentRight="true"
+            android:text="새로고침" />
     </RelativeLayout>
  <LinearLayout
      android:layout_width="wrap_content"

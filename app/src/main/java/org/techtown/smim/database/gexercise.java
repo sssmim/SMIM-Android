@@ -11,7 +11,6 @@ public class gexercise {
     public String ge_desc;
     public String ge_start_time;
     public String ge_end_time;
-    public String ge_run_time;
     public String video_url;
     public int group_num;
 }
