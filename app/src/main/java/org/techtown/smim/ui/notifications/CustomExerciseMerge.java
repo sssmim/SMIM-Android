@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.annotation.Nullable;
+
 import org.techtown.smim.R;
 import org.techtown.smim.database.group;
 import org.techtown.smim.ui.dashboard.GroupList;
@@ -80,7 +80,7 @@ public class CustomExerciseMerge extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Timer.class);
+                Intent intent = new Intent(getApplicationContext(), ExerciseTimer.class);
                 startActivityForResult(intent, number22);
             }
         });
