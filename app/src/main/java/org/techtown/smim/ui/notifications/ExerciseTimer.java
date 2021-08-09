@@ -1,4 +1,5 @@
 package org.techtown.smim.ui.notifications;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -96,11 +97,11 @@ public class ExerciseTimer extends AppCompatActivity {
                 }.getType();
                 list2 = gson.fromJson(changeString, listType);
 
-                for(int i=0; i<list2.size(); i++) {
+                for (int i = 0; i < list2.size(); i++) {
                     secList.add(list2.get(i).ie_sec);
                 }
 
-                if(secList.size() != 0) {
+                if (secList.size() != 0) {
                     secText.setText(secList.get(0));
                 }
             }
@@ -130,7 +131,7 @@ public class ExerciseTimer extends AppCompatActivity {
                 }.getType();
                 list = gson.fromJson(changeString, listType);
 
-                for(int i=0; i<list.size(); i++) {
+                for (int i = 0; i < list.size(); i++) {
                     nameList.add(list.get(i).name1);
                     nameList.add(list.get(i).name2);
                     nameList.add(list.get(i).name3);
@@ -138,12 +139,11 @@ public class ExerciseTimer extends AppCompatActivity {
                     nameList.add(list.get(i).name5);
                 }
 
-                if(nameList.size() != 0) {
+                if (nameList.size() != 0) {
                     exercise_name.setText(nameList.get(0));
-                    index++;
                 }
 
-                for(int i=0; i<list.size(); i++) {
+                for (int i = 0; i < list.size(); i++) {
                     countList.add(list.get(i).count1);
                     countList.add(list.get(i).count2);
                     countList.add(list.get(i).count3);
@@ -151,7 +151,7 @@ public class ExerciseTimer extends AppCompatActivity {
                     countList.add(list.get(i).count5);
                 }
 
-                if(countList.size() != 0) {
+                if (countList.size() != 0) {
                     countdownText.setText(Integer.toString(countList.get(0)));
                 }
             }
@@ -164,23 +164,22 @@ public class ExerciseTimer extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
 
-
         requestQueue.add(stringRequest1);
 
         Button button = findViewById(R.id.gonext);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(nameList.size() != 0) {
+                index++;
+                if (nameList.size() != 0) {
                     exercise_name.setText(nameList.get(index));
                 }
-                if(countList.size() != 0) {
+                if (countList.size() != 0) {
                     countdownText.setText(Integer.toString(countList.get(index)));
                 }
-                if(secList.size() != 0) {
+                if (secList.size() != 0) {
                     secText.setText(secList.get(index));
                 }
-                index++;
             }
         });
 
@@ -225,6 +224,30 @@ public class ExerciseTimer extends AppCompatActivity {
 
             private void updateTimer() {
                 int seconds = (int) tempTime % 3600000 % 60000 / 1000;
+
+
+                if (seconds == 0) {
+                    Integer temp = countList.get(index)- 1;
+                    countList.set(index, temp);
+                    Integer inte = countList.get(index);
+                    countdownText.setText(Integer.toString(inte));
+                    seconds = Integer.parseInt(secList.get(index));
+                    countDownTimer.start();
+                }
+                if (countList.get(index) < 0) {
+                    index++;
+                    if (nameList.size() != 0) {
+                        exercise_name.setText(nameList.get(index));
+                    }
+                    if (countList.size() != 0) {
+                        countdownText.setText(Integer.toString(countList.get(index)));
+                    }
+                    if (secList.size() != 0) {
+                        secText.setText(secList.get(index));
+                    }
+
+                }
+
 
                 secText.setText(Integer.toString(seconds));
             }
