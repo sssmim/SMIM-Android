@@ -41,10 +41,7 @@ import com.google.gson.reflect.TypeToken;
 import org.techtown.smim.R;
 import org.techtown.smim.database.ielist;
 import org.techtown.smim.database.iexercise;
-import org.techtown.smim.database.video;
-import org.techtown.smim.ui.dashboard.ExercisePlan;
-import org.techtown.smim.ui.dashboard.Youtube;
-import org.techtown.smim.ui.dashboard.YoutubePlan;
+
 
 public class ExerciseTimer extends AppCompatActivity {
 
@@ -60,6 +57,7 @@ public class ExerciseTimer extends AppCompatActivity {
 
     private Integer index = 0;
     private Integer Max = 0;
+    private Long last = 0L;
 
     private boolean firstState = true;
 
@@ -124,6 +122,8 @@ public class ExerciseTimer extends AppCompatActivity {
                         Type listType = new TypeToken<ArrayList<ielist>>() {
                         }.getType();
                         list2 = gson.fromJson(changeString, listType);
+
+                        last = list2.get(list2.size() - 1).list_num;
 
                         for (int i = 0; i < list2.size(); i++) {
                             nameList.add(list2.get(i).name1);
@@ -296,8 +296,27 @@ public class ExerciseTimer extends AppCompatActivity {
 
                 }
 
-
                 secText.setText(Integer.toString(seconds));
+            }
+        });
+
+        Button complete = findViewById(R.id.btnComplete);
+        complete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "http://52.78.235.23:8080/list/" + Long.toString(last);
+
+                StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                });
+
+                requestQueue.add(stringRequest);
             }
         });
     }
