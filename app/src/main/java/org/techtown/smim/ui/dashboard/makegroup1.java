@@ -57,7 +57,6 @@ public class makegroup1 extends Fragment {
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject obj) {
-                                Log.e("dd", "ss");
                             }
                         },
                         new Response.ErrorListener() {
