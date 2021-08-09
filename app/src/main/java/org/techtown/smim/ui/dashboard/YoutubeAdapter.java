@@ -1,8 +1,10 @@
 package org.techtown.smim.ui.dashboard;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,17 @@ import java.util.ArrayList;
 
 public class YoutubeAdapter extends RecyclerView.Adapter<YoutubeAdapter.ViewHolder> {
     ArrayList<Youtube> items = new ArrayList<Youtube>();
+     static YoutubeAdapter.OnYoutubeItemClickListener listener1;
+
+    public interface OnYoutubeItemClickListener {
+        public void onItemClick(YoutubeAdapter.ViewHolder holder, View view, int position); }
+
+    public void setOnItemClicklistener(YoutubeAdapter.OnYoutubeItemClickListener listener){ this.listener1 = listener; }
+
+
+    public void onItemClick(YoutubeAdapter.ViewHolder holder, View view, int position) {
+        if(listener1 != null){
+            listener1.onItemClick(holder,view,position); } }
 
     @NonNull
     @Override
@@ -53,31 +66,29 @@ public class YoutubeAdapter extends RecyclerView.Adapter<YoutubeAdapter.ViewHold
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        //TextView textView;
         TextView textView1;
-
+        static ImageView imageView1;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-           // textView = itemView.findViewById(R.id.youtubeimage);
             textView1 = itemView.findViewById(R.id.youtubename);
+            imageView1 = itemView.findViewById(R.id.youtubeimage);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int pos = getAdapterPosition() ;
+                    int position = getAdapterPosition();
+                    v.setBackgroundColor(Color.BLUE);
 
-                }
-            });
-
-
+                    if(listener1 != null){
+                        listener1.onItemClick(ViewHolder.this, v, position);
+                    } } });
         }
 
         public void setItem(Youtube item) {
-
             textView1.setText(item.getTitle());
-
+            imageView1.setImageResource(item.getImageRes());
         }
 
     }

@@ -21,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.techtown.smim.R;
+import org.techtown.smim.ui.dashboard.GroupListAdapter;
 
 import java.util.ArrayList;
 
@@ -29,6 +30,18 @@ public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAd
     private static final String TAG = "MainCustomExerciseAdapter";
 
     OnExerciseClickListener listener;
+    static OnPersonItemClickListener listener2;
+
+    public interface OnPersonItemClickListener {
+        public void onItemClick(CustomExerciseAdapter.ViewHolder holder, View view, int position); }
+
+    public void setOnItemClicklistener(OnPersonItemClickListener listener2){ this.listener2 = listener2; }
+
+    public void onItemClick(ViewHolder holder, View view, int position) {
+        if(listener != null){
+            listener.onItemClick(holder, view, position);
+        }
+    }
 
     @NonNull
     @Override
@@ -36,7 +49,7 @@ public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAd
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         View itemView = inflater.inflate(R.layout.custom_exercise_list, viewGroup, false);
 
-        return new ViewHolder(itemView, this);
+        return new ViewHolder(itemView);
     }
 
     @SuppressLint("LongLogTag")
@@ -45,9 +58,8 @@ public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAd
         // Log.d(TAG, "onBindViewHolder: position ▶ " + position);
         CustomExercise item = itemList.get(position);
         holder.setItem(item);
-
-
     }
+
 
     @Override
     public int getItemCount() {
@@ -72,48 +84,31 @@ public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAd
         this.listener = listener;
     }
 
-
-    @Override
-    public void onItemClick(ViewHolder holder, View view, int position) {
-        if(listener != null){
-            listener.onItemClick(holder, view, position);
-        }
-    }
-
-
     static class ViewHolder extends RecyclerView.ViewHolder {
-        View view1;
         TextView nametextview;
         TextView partextview;
-        TextView explain;
 
         static ImageView imageView1;
 
-        public ViewHolder(@Nullable View itemView, final OnExerciseClickListener listener) {
+        public ViewHolder(View itemView) {
             super(itemView);
 
             nametextview = itemView.findViewById(R.id.nametextview);
             partextview = itemView.findViewById(R.id.partextview);
-            explain = itemView.findViewById(R.id.explain);
             imageView1 = itemView.findViewById(R.id.imageView1);
 
-            itemView.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View view) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
                     int position = getAdapterPosition();
-
-                    if (listener != null){
-                        listener.onItemClick(ViewHolder.this, view, position);
-                    }
-                }
-            });
+                    if(listener2 != null){
+                        listener2.onItemClick(ViewHolder.this, v, position);
+                    } } });
 
         }
         //setItem 부분
         public void setItem(CustomExercise item) {
             nametextview.setText(item.igetName());
             partextview.setText(item.igetPart());
-            explain.setText(item.igetExplain());
             imageView1.setImageResource(item.igetImageRes());
         }
 

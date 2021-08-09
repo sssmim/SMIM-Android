@@ -52,7 +52,7 @@ public class FindGroup extends Fragment {
             }
         });
 
-        Button button2 =(Button)root.findViewById(R.id.btn_move);
+        /*Button button2 =(Button)root.findViewById(R.id.btn_move);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +63,7 @@ public class FindGroup extends Fragment {
                 transaction.replace(R.id.container, fragment2);
                 transaction.commit();
             }
-        });
+        });*/
 
         return root;
     }

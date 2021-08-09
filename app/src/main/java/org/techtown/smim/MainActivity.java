@@ -21,6 +21,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import org.techtown.smim.ui.dashboard.FindGroup;
+import org.techtown.smim.ui.dashboard.FindGroup_test;
 import org.techtown.smim.ui.home.HomeFragment;
 import org.techtown.smim.ui.notifications.CrawlingPage;
 
@@ -28,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private HomeFragment homeFragment = new HomeFragment();
-    private FindGroup findGroup = new FindGroup();
+    //private FindGroup findGroup = new FindGroup();
+    private FindGroup_test findGroup_test = new FindGroup_test();
     private CrawlingPage crawlingPage = new CrawlingPage();
 
     @Override
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
                     break;
                 case R.id.navigation_dashboard:
-                    transaction.replace(R.id.container, findGroup).commitAllowingStateLoss();
+                    transaction.replace(R.id.container, findGroup_test).commitAllowingStateLoss();
                     break;
                 case R.id.navigation_notifications:
                     transaction.replace(R.id.container,crawlingPage).commitAllowingStateLoss();

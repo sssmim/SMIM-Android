@@ -91,19 +91,25 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingTop="130dp">
-            <Button
-                android:id="@+id/btn_add"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="증가" />
 
             <Button
                 android:id="@+id/btn_minus"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="감소" />
+                android:layout_weight="1"
+                android:layout_gravity="center_horizontal"
+                android:layout_centerHorizontal="true"
+                app:icon="@android:drawable/arrow_down_float"
+                />
+
+            <Button
+                android:id="@+id/btn_add"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+
+                app:icon="@android:drawable/arrow_up_float" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

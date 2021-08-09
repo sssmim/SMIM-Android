@@ -1,7 +1,6 @@
 package org.techtown.smim.ui.dashboard;
 
 public class GroupList {
-    //image
     String grouptitle;
     String groupdesc;
 
