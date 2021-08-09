@@ -103,10 +103,9 @@ public class ExercisePlan extends AppCompatActivity {
                 f1.setArguments(bundle);
                 transaction.replace(R.id.container,f1);
                 transaction.commit();*/
-finish();
+            finish();
 
-            }
-        });
+            }});
 
 
 
@@ -114,54 +113,186 @@ finish();
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String cchour="";
+                Integer chour=null;
+                String ccehour="";
+                Integer cehour=null;
+                String rstartmin="";
+                Integer startmin=null;
+                String rendmin="";
+                Integer endmin=null;
+                try {
+                     chour= Integer.parseInt(startHour.getText().toString());
+                     cehour=Integer.parseInt(endHour.getText().toString());
+                     startmin=Integer.parseInt(startMin.getText().toString());
+                     endmin=Integer.parseInt(endMin.getText().toString());
 
+                    if ((chour / 10) < 1) {
+                        if((cehour / 10) < 1){
+                            cchour = "0" + chour;
+                            ccehour = "0"+ cehour;
+                                if ((startmin / 10) < 1) {
+                                    if((endmin / 10) < 1){
+                                        rstartmin = "0" + startmin;
+                                        rendmin = "0"+ endmin;
+                                    }
+                                    else{
+                                        rstartmin = "0" + startmin;
+                                        rendmin = endMin.getText().toString();
+                                    }
 
+                                } else {
+                                    if((endmin / 10) < 1){
+                                        rstartmin = startMin.getText().toString();
+                                        rendmin = "0"+ endmin;
+                                    }
+                                    else{
+                                        rstartmin = startMin.getText().toString();
+                                        rendmin = endMin.getText().toString();
+                                    }
 
+                                }
+                        }
+                        else{
+                            cchour = "0" + chour;
+                            ccehour = endHour.getText().toString();
+                                if ((startmin / 10) < 1) {
+                                    if((endmin / 10) < 1){
+                                        rstartmin = "0" + startmin;
+                                        rendmin = "0"+ endmin;
+                                    }
+                                    else{
+                                        rstartmin = "0" + startmin;
+                                        rendmin = endMin.getText().toString();
+                                    }
 
-                //if(startMin.getText().toString()<="")
-                String url = "http://52.78.235.23:8080/gexercise";
-                Map map = new HashMap();
-                map.put("ge_date", days.getText().toString());
-                String start_time = startHour.getText().toString() + ":" + startMin.getText().toString() + ":00";
-                map.put("ge_start_time", start_time);
-                String end_time = endHour.getText().toString() + ":" + endMin.getText().toString() + ":00";
-                map.put("ge_end_time", end_time);
-                map.put("ge_name", "Ddd");
-                //map.put("ge_run_time", "08:48:00"); // run_time이 필요한가? 각자 실행한 시간이 다를텐데??
-                map.put("ge_desc", planMemo.getText().toString());
-                map.put("video_url", "youtubeurl");
-                map.put("group_num", 2);
-                JSONObject params = new JSONObject(map);
+                                } else {
+                                    if((endmin / 10) < 1){
+                                        rstartmin = startMin.getText().toString();
+                                        rendmin = "0"+ endmin;
+                                    }
+                                    else{
+                                        rstartmin = startMin.getText().toString();
+                                        rendmin = endMin.getText().toString();
+                                    }
 
-                JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, params,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject obj) {
+                                }
+                        }
+
+                    } else {
+                        if((cehour / 10) < 1){
+                            cchour = startHour.getText().toString();
+                            ccehour = "0"+ cehour;
+                                if ((startmin / 10) < 1) {
+                                    if((endmin / 10) < 1){
+                                        rstartmin = "0" + startmin;
+                                        rendmin = "0"+ endmin;
+                                    }
+                                    else{
+                                        rstartmin = "0" + startmin;
+                                        rendmin = endMin.getText().toString();
+                                    }
+
+                                } else {
+                                    if((endmin / 10) < 1){
+                                        rstartmin = startMin.getText().toString();
+                                        rendmin = "0"+ endmin;
+                                    }
+                                    else{
+                                        rstartmin = startMin.getText().toString();
+                                        rendmin = endMin.getText().toString();
+                                    }
+
+                                }
+                        }
+                        else{
+                            cchour = startHour.getText().toString();
+                            ccehour = endHour.getText().toString();
+                            if ((startmin / 10) < 1) {
+                                if((endmin / 10) < 1){
+                                    rstartmin = "0" + startmin;
+                                    rendmin = "0"+ endmin;
+                                }
+                                else{
+                                    rstartmin = "0" + startmin;
+                                    rendmin = endMin.getText().toString();
+                                }
+
+                            } else {
+                                if((endmin / 10) < 1){
+                                    rstartmin = startMin.getText().toString();
+                                    rendmin = "0"+ endmin;
+                                }
+                                else{
+                                    rstartmin = startMin.getText().toString();
+                                    rendmin = endMin.getText().toString();
+                                }
+
                             }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                            }
-                        }) {
+                        }
 
-                    @Override
-                    public String getBodyContentType() {
-                        return "application/json; charset=UTF-8";
                     }
-                };
-                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-                queue.add(objectRequest);
-                Toast.makeText(getApplicationContext(), "추가되었습니다", Toast.LENGTH_LONG).show();
-                //FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-               // DashboardFragment fragment2 = new DashboardFragment();
-                //transaction.replace(R.id.container, fragment2);
-                //transaction.commit();
-                finish();
-                finish();
-                finish();
+                    //Toast.makeText(getApplicationContext(), cchour, Toast.LENGTH_LONG).show();
+                    //Log.e("Test", cchour);
+                } catch (NumberFormatException e) {
+
+                } catch (Exception e) {
+
+                }
+                if((Integer.parseInt(cchour)<0||Integer.parseInt(cchour)>24)||(Integer.parseInt(ccehour)<0||Integer.parseInt(ccehour)>24)||(Integer.parseInt(rstartmin)<0||Integer.parseInt(rstartmin)>60)||(Integer.parseInt(rendmin)<0||Integer.parseInt(rendmin)>60)) {
+                    Toast.makeText(getApplicationContext(),"시는 0~24시,분은 0~60분안으로 설정해주세요", Toast.LENGTH_LONG).show();
+
+                }else{
+
+                    String url = "http://52.78.235.23:8080/gexercise";
+                    Map map = new HashMap();
+                    map.put("ge_date", days.getText().toString());
+                    String start_time = cchour + ":" + rstartmin + ":00";
+                    map.put("ge_start_time", start_time);
+                    String end_time = ccehour + ":" + rendmin + ":00";
+                    map.put("ge_end_time", end_time);
+                    map.put("ge_name", "Ddd");
+                    //map.put("ge_run_time", "08:48:00"); // run_time이 필요한가? 각자 실행한 시간이 다를텐데??
+                    map.put("ge_desc", planMemo.getText().toString());
+                    map.put("video_url", "youtubeurl");
+                    map.put("group_num", 2);
+                    JSONObject params = new JSONObject(map);
+
+                    JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, params,
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject obj) {
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                }
+                            }) {
+
+                        @Override
+                        public String getBodyContentType() {
+                            return "application/json; charset=UTF-8";
+                        }
+                    };
+                    RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+                    queue.add(objectRequest);
+                    Toast.makeText(getApplicationContext(), "추가되었습니다", Toast.LENGTH_LONG).show();
+                    startHour.setText("");
+                    endHour.setText("");
+                    startMin.setText("");
+                    endMin.setText("");
+                    planMemo.setText("");
+                    days.setText("");
+                    //FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    // DashboardFragment fragment2 = new DashboardFragment();
+                    //transaction.replace(R.id.container, fragment2);
+                    //transaction.commit();
+                    //finish();
+                }
 
             }
-        });
+        }
+        );
     }
 }
