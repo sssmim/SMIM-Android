@@ -1,5 +1,6 @@
 package org.techtown.smim.ui.notifications;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.io.UnsupportedEncodingException;
@@ -21,7 +23,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.Cache;
 import com.android.volley.Network;
@@ -166,11 +170,38 @@ public class ExerciseTimer extends AppCompatActivity {
 
         requestQueue.add(stringRequest1);
 
+        Button btnComplete = findViewById(R.id.btnComplete);
+        btnComplete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                show();
+
+            }
+        });
+
         Button button = findViewById(R.id.gonext);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 index++;
+                if (nameList.size() != 0) {
+                    exercise_name.setText(nameList.get(index));
+                }
+                if (countList.size() != 0) {
+                    countdownText.setText(Integer.toString(countList.get(index)));
+                }
+                if (secList.size() != 0) {
+                    secText.setText(secList.get(index));
+                }
+            }
+        });
+
+        Button button2 = findViewById(R.id.goprev);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                index--;
                 if (nameList.size() != 0) {
                     exercise_name.setText(nameList.get(index));
                 }
@@ -222,6 +253,8 @@ public class ExerciseTimer extends AppCompatActivity {
                 }
             }
 
+
+
             private void updateTimer() {
                 int seconds = (int) tempTime % 3600000 % 60000 / 1000;
 
@@ -253,4 +286,22 @@ public class ExerciseTimer extends AppCompatActivity {
             }
         });
     }
+
+
+    void show(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("마일리지 500점 획득!"); //나중에 DB연결 필요
+
+
+        builder.setNegativeButton("확인",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(getApplicationContext(), CustomExerciseMerge.class); //크롤링 초기화면으로 돌아가려하면 오류
+                        startActivity(intent);
+                    }
+                });
+        builder.show();
+    }
+
+
 }
