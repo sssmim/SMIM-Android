@@ -14,17 +14,15 @@
         app:cardUseCompatPadding="true" >
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/reservation"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:padding="5dp"
-                android:text="예약"/>
-
+                android:id="@+id/groupplay"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="운동하기" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -108,8 +106,11 @@
 
             </LinearLayout>
 
+            </LinearLayout>
+
+
         </LinearLayout>
-        </LinearLayout>
+
     </androidx.cardview.widget.CardView>
 
 </LinearLayout>

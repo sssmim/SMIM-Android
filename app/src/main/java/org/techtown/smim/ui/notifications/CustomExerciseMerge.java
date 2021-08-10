@@ -59,11 +59,22 @@ public class CustomExerciseMerge extends AppCompatActivity {
 
     public List<Long> getList = new ArrayList<>();
     public static List<iexercise> list = new ArrayList<>();
-
+    ArrayList<Integer> value;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.custom_exercise_merge);
+
+        Intent getIntent = getIntent();
+        if(getIntent != null){
+          value = getIntent.getIntegerArrayListExtra("key");
+            //Toast.makeText(getApplicationContext(), value, Toast.LENGTH_LONG).show();  //에러가 뜹니다..?
+            //Log.e("S",value.get(1).toString());
+            //Log.e("S1",value.get(0).toString());
+
+
+        }
+
 
         getList.add(0L);
         getList.add(2L);
@@ -111,7 +122,7 @@ public class CustomExerciseMerge extends AppCompatActivity {
                 list = gson.fromJson(changeString, listType);
 
                 for(int i = 0; i< list.size(); i++) {
-                    for(int j=0; j<getList.size(); j++) {
+                    for(int j=0; j<value.size(); j++) {
                         if(list.get(i).ie_num == getList.get(j)) {
                             int image = getResources().getIdentifier(list.get(i).ie_image , "drawable", getPackageName());
                             cadapter.addItem(new CustomExerciseChoice(image, list.get(i).ie_name, list.get(i).ie_part, 0));

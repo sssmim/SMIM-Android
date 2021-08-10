@@ -62,6 +62,11 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
             textView = itemView.findViewById(R.id.textView);
             textView1 = itemView.findViewById(R.id.textView1);
             textView2 = itemView.findViewById(R.id.textView2);
+
+
+
+
+
         }
 
         public void setItem(Exercise item) {
