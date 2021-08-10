@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +35,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import org.techtown.smim.CustomDialog;
 import org.techtown.smim.R;
 import org.techtown.smim.database.gexercise;
 import org.techtown.smim.database.group;
@@ -170,6 +172,22 @@ public class DashboardFragment extends Fragment {
             }
         });
 */
+
+        adapter.setOnItemClicklistener(new ExerciseAdapter.OnPersonItemClickListener(){
+            @Override
+            public void onItemClick(ExerciseAdapter.ViewHolder holder, View view, int position)
+            {   Exercise item = adapter.getItem(position);
+
+                CustomDialog dlg = new CustomDialog(getContext());
+                dlg.show();
+
+
+
+
+                Toast.makeText(getContext(),"아이템 선택 ", Toast.LENGTH_LONG).show();
+
+            } });
+
         Button refresh_button = root.findViewById(R.id.refresh);
         refresh_button.setOnClickListener(new View.OnClickListener() {
             @Override
