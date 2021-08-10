@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -87,29 +88,40 @@ public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAd
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView nametextview;
         TextView partextview;
-
+CheckBox icheckbox;
         static ImageView imageView1;
-
+CustomExercise x=null;
         public ViewHolder(View itemView) {
             super(itemView);
 
             nametextview = itemView.findViewById(R.id.nametextview);
             partextview = itemView.findViewById(R.id.partextview);
             imageView1 = itemView.findViewById(R.id.imageView1);
-
+            icheckbox = itemView.findViewById(R.id.icheckbox);
             itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener2 != null) {
+                        listener2.onItemClick(ViewHolder.this, v, position);
+                    }
+                }
+            });
+
+
+            icheckbox.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     int position = getAdapterPosition();
-                    if(listener2 != null){
-                        listener2.onItemClick(ViewHolder.this, v, position);
-                    } } });
-
+                  NotificationsFragment_test.checklist(position, x);
+                }} );
         }
+
         //setItem 부분
         public void setItem(CustomExercise item) {
             nametextview.setText(item.igetName());
             partextview.setText(item.igetPart());
             imageView1.setImageResource(item.igetImageRes());
+            icheckbox.setChecked(item.isSelected());
         }
 
     }
