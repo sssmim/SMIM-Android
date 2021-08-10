@@ -57,6 +57,8 @@ public class FindGroup_test extends Fragment {
     public List<group> list = new ArrayList<>();
     public List<Long> list2 = new ArrayList<>();
 
+    String mem_num;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         dashboardViewModel =
@@ -64,16 +66,15 @@ public class FindGroup_test extends Fragment {
         View root = (View)inflater.inflate(R.layout.group_find, container, false);
         Button post = (Button)root.findViewById(R.id.post);
 
+        Bundle bundle = getArguments();
+        mem_num = bundle.getString("mem_num");
+        Log.d("test_FindGroup_test", mem_num);
+
         try {
             Thread.sleep(25); //0.025초 대기
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        Log.d("Fragment1", "onCreateView");
-
-        //FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        //transaction.detach(this).attach(this).commit();
 
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.RecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -123,6 +124,9 @@ public class FindGroup_test extends Fragment {
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 makegroup1 fragment2 = new  makegroup1();
+                Bundle bundle = new Bundle();
+                bundle.putString("mem_num", mem_num);
+                fragment2.setArguments(bundle);
                 transaction.replace(R.id.container, fragment2);
                 transaction.commit();
             }
@@ -131,71 +135,16 @@ public class FindGroup_test extends Fragment {
         adapter.setOnItemClicklistener(new GroupListAdapter.OnPersonItemClickListener(){
         @Override
         public void onItemClick(GroupListAdapter.ViewHolder holder, View view, int position)
-        {   GroupList item = adapter.getItem(position);
-            //Toast.makeText(getContext(),"아이템 선택 "+position, Toast.LENGTH_LONG).show();
-            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        {   FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
             DashboardFragment f = new DashboardFragment();
             Bundle bundle = new Bundle();
             bundle.putInt("Obj", position);
             bundle.putLong("Group_num", list.get(position).group_num);
+            bundle.putLong("mem_num", Long.parseLong(mem_num));
             f.setArguments(bundle);
             transaction.replace(R.id.container,f);
             transaction.commit();
         } });
         return root;
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        Log.d("Fragment", "onAttach");
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.d("Fragment", "onCreate");
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        Log.d("Fragment1", "onCreate");
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d("Fragment1", "onStart");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("Fragment1", "onResume");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d("Fragment1", "onPause");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d("Fragment1", "onStop");
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();;
-        Log.d("Fragment1", "onDestroyView");
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Log.d("Fragment1", "onDetach");
     }
 }

@@ -2,6 +2,7 @@ package org.techtown.smim.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,11 +30,17 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
 
+    String mem_num;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
+        Bundle bundle = getArguments();
+        mem_num = bundle.getString("mem_num");
+        Log.d("test_HomeFragment", mem_num);
 
         TextView textView01 = (TextView) root.findViewById(R.id.textView1);
 

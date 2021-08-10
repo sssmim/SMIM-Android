@@ -80,9 +80,6 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
                     if(listener != null){
                         listener.onItemClick(ExerciseAdapter.ViewHolder.this, v, position);
                     } } });
-
-
-
         }
 
         public void setItem(Exercise item) {

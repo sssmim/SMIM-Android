@@ -2,6 +2,7 @@ package org.techtown.smim.ui.notifications;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,11 +29,17 @@ public class CrawlingPage extends Fragment {
 
     private NotificationsViewModel NotificationsViewModel;
 
+    String mem_num;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         NotificationsViewModel =
                 new ViewModelProvider(this).get(NotificationsViewModel.class);
         View root = (View)inflater.inflate(R.layout.individual_page, container, false);
+
+        Bundle bundle = getArguments();
+        mem_num = bundle.getString("mem_num");
+        Log.d("test_CrawlingPage", mem_num);
 
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.RecyclerView);
 
