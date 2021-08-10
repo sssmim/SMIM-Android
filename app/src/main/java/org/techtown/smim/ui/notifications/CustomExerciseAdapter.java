@@ -88,9 +88,9 @@ public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAd
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView nametextview;
         TextView partextview;
-CheckBox icheckbox;
+        CheckBox icheckbox;
         static ImageView imageView1;
-CustomExercise x=null;
+        CustomExercise x=null;
         public ViewHolder(View itemView) {
             super(itemView);
 
@@ -112,7 +112,7 @@ CustomExercise x=null;
             icheckbox.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     int position = getAdapterPosition();
-                  NotificationsFragment_test.checklist(position, x);
+                    NotificationsFragment_test.checklist(position, x);
                 }} );
         }
 

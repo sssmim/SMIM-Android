@@ -165,8 +165,8 @@ public class NotificationsFragment_test extends Fragment {
             } });
         return root;
     }
-    public static void checklist(int position, CustomExercise x){
 
+    public static void checklist(int position, CustomExercise x){
          m.add(position);
     }
 }
