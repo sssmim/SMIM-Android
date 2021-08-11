@@ -68,16 +68,11 @@ public class CustomExerciseMerge extends AppCompatActivity {
         Intent getIntent = getIntent();
         if(getIntent != null){
           value = getIntent.getIntegerArrayListExtra("key");
-            //Toast.makeText(getApplicationContext(), value, Toast.LENGTH_LONG).show();  //에러가 뜹니다..?
-            //Log.e("S",value.get(1).toString());
-            //Log.e("S1",value.get(0).toString());
-
-
         }
 
-
-        getList.add(0L);
-        getList.add(2L);
+        for(int i=0; i<value.size(); i++) {
+            getList.add(Long.valueOf(value.get(i)));
+        }
 
         rv = findViewById(R.id.rv);
         //RecyclerView의 레이아웃 방식을 지정
