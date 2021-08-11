@@ -3,6 +3,7 @@ package org.techtown.smim.ui.dashboard;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +70,8 @@ public class DashboardFragment1 extends Fragment {
 
         Bundle bundle = getArguments();
         mem_num = bundle.getLong("mem_num");
+        group_num = bundle.getLong("group_num");
+        Log.d("test_dashboradFragment1", String.valueOf(mem_num));
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
@@ -98,9 +101,13 @@ public class DashboardFragment1 extends Fragment {
                 Type listType = new TypeToken<ArrayList<personal>>(){}.getType();
                 list3 = gson.fromJson(changeString, listType);
 
-                for(int i=0; i<list3.size(); i++) {
-                    if (list3.get(i).mem_num == mem_num) {
-                        group_num = list3.get(i).group_num;
+                if(group_num.compareTo(0L) == 0) {
+                    for(int i=0; i<list3.size(); i++) {
+                        Log.d("test_mem", String.valueOf(mem_num));
+                        if (list3.get(i).mem_num.compareTo(mem_num) == 0) {
+                            group_num = list3.get(i).group_num;
+                            Log.d("test_gro", String.valueOf(group_num));
+                        }
                     }
                 }
 
@@ -121,6 +128,7 @@ public class DashboardFragment1 extends Fragment {
                         list = gson.fromJson(changeString, listType);
 
                         for(int i=0; i<list.size(); i++) {
+                            Log.d("test_group", String.valueOf(group_num));
                             if(list.get(i).group_num.compareTo(group_num) == 0) {
                                 name.setText(list.get(i).group_name);
                                 info.setText(list.get(i).group_desc);
@@ -153,6 +161,7 @@ public class DashboardFragment1 extends Fragment {
                         list2 = gson.fromJson(changeString2, listType);
 
                         for(int i = 0; i< list2.size(); i++) {
+
                             if(list2.get(i).group_num.compareTo(group_num) == 0) {
                                 adapter.addItem(new Exercise(list2.get(i).ge_start_time, list2.get(i).ge_end_time, list2.get(i).ge_desc));
                             }

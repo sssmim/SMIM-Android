@@ -29,7 +29,7 @@ public class CrawlingPage extends Fragment {
 
     private NotificationsViewModel NotificationsViewModel;
 
-    String mem_num;
+    Long mem_num;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -38,8 +38,8 @@ public class CrawlingPage extends Fragment {
         View root = (View)inflater.inflate(R.layout.individual_page, container, false);
 
         Bundle bundle = getArguments();
-        mem_num = bundle.getString("mem_num");
-        Log.d("test_CrawlingPage", mem_num);
+        mem_num = bundle.getLong("mem_num");
+        Log.d("test_CrawlingPage", String.valueOf(mem_num));
 
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.RecyclerView);
 

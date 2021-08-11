@@ -57,7 +57,7 @@ public class FindGroup_test extends Fragment {
     public List<group> list = new ArrayList<>();
     public List<Long> list2 = new ArrayList<>();
 
-    String mem_num;
+    Long mem_num;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -67,8 +67,8 @@ public class FindGroup_test extends Fragment {
         Button post = (Button)root.findViewById(R.id.post);
 
         Bundle bundle = getArguments();
-        mem_num = bundle.getString("mem_num");
-        Log.d("test_FindGroup_test", mem_num);
+        mem_num = bundle.getLong("mem_num");
+        Log.d("test_FindGroup_test", String.valueOf(mem_num));
 
         try {
             Thread.sleep(25); //0.025초 대기
@@ -125,7 +125,7 @@ public class FindGroup_test extends Fragment {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 makegroup1 fragment2 = new  makegroup1();
                 Bundle bundle = new Bundle();
-                bundle.putString("mem_num", mem_num);
+                bundle.putLong("mem_num", mem_num);
                 fragment2.setArguments(bundle);
                 transaction.replace(R.id.container, fragment2);
                 transaction.commit();
@@ -140,7 +140,7 @@ public class FindGroup_test extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putInt("Obj", position);
             bundle.putLong("Group_num", list.get(position).group_num);
-            bundle.putLong("mem_num", Long.parseLong(mem_num));
+            bundle.putLong("mem_num", mem_num);
             f.setArguments(bundle);
             transaction.replace(R.id.container,f);
             transaction.commit();

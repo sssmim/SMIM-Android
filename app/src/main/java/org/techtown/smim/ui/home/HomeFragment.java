@@ -30,7 +30,7 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
 
-    String mem_num;
+    Long mem_num;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -39,8 +39,8 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         Bundle bundle = getArguments();
-        mem_num = bundle.getString("mem_num");
-        Log.d("test_HomeFragment", mem_num);
+        mem_num = bundle.getLong("mem_num");
+        Log.d("test_HomeFragment", String.valueOf(mem_num));
 
         TextView textView01 = (TextView) root.findViewById(R.id.textView1);
 

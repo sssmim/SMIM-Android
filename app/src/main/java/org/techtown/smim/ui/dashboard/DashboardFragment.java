@@ -58,7 +58,7 @@ public class DashboardFragment extends Fragment {
     public List<personal> list3 = new ArrayList<>();
 
     Integer po;
-    public Long Group_num;
+    Long Group_num;
     Long mem_num;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -255,11 +255,11 @@ public class DashboardFragment extends Fragment {
                 });
                 requestQueue.add(stringRequest);
 
-
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 DashboardFragment1 fragment1 = new DashboardFragment1();
                 Bundle bundle = new Bundle();
                 bundle.putLong("mem_num", mem_num);
+                bundle.putLong("group_num", Group_num);
                 fragment1.setArguments(bundle);
                 transaction.replace(R.id.container, fragment1);
                 transaction.commit();
