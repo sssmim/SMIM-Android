@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
         crawlingPage.setArguments(bundle);
         dashboardFragment1.setArguments(bundle);
 
-
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.container, homeFragment).commitAllowingStateLoss();
 
