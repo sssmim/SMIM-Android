@@ -13,18 +13,18 @@ import org.techtown.smim.R;
 import java.util.ArrayList;
 
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHolder> {
-    ArrayList<Exercise> items = new ArrayList<Exercise>();
+    static ArrayList<Exercise> items = new ArrayList<Exercise>();
     static ExerciseAdapter.OnPersonItemClickListener listener;
 
     public interface OnPersonItemClickListener {
-        public void onItemClick(ExerciseAdapter.ViewHolder holder, View view, int position); }
+        public void onItemClick(ExerciseAdapter.ViewHolder holder, View view,ArrayList<Exercise> items, int position); }
 
     public void setOnItemClicklistener(ExerciseAdapter.OnPersonItemClickListener listener){ this.listener = listener; }
 
 
-    public void onItemClick(ExerciseAdapter.ViewHolder holder, View view, int position) {
+    public void onItemClick(ExerciseAdapter.ViewHolder holder, View view,ArrayList<Exercise> items, int position) {
         if(listener != null){
-            listener.onItemClick(holder,view,position); } }
+            listener.onItemClick(holder,view,items,position); } }
 
     @NonNull
     @Override
@@ -78,7 +78,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
                 @Override public void onClick(View v) {
                     int position = getAdapterPosition();
                     if(listener != null){
-                        listener.onItemClick(ExerciseAdapter.ViewHolder.this, v, position);
+                        listener.onItemClick(ExerciseAdapter.ViewHolder.this, v,items, position);
                     } } });
         }
 
