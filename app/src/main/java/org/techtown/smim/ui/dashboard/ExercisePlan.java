@@ -45,8 +45,6 @@ public class ExercisePlan extends AppCompatActivity {
     public TextView endMin;
     public TextView planMemo;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

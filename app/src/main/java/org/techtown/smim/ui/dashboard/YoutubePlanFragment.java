@@ -2,11 +2,15 @@ package org.techtown.smim.ui.dashboard;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -37,7 +41,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class YoutubePlan extends AppCompatActivity {
+public class YoutubePlanFragment extends Fragment {
     public static final int youtubetoplan = 102;
 
     public List<video> list = new ArrayList<>();
@@ -45,20 +49,31 @@ public class YoutubePlan extends AppCompatActivity {
     public List<String> title2 = new ArrayList<>();
     public String realurl;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_youtube_plan);
+    public Long mem_num;
+    public Long group_num;
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView1);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        View root = inflater.inflate(R.layout.activity_youtube_plan, container, false);
+
+        Bundle bundle = getArguments();
+        if(String.valueOf(bundle.getLong("mem_num")) != null) {
+            mem_num = bundle.getLong("mem_num");
+        }
+        if(String.valueOf(bundle.getLong("group_num")) != null) {
+            group_num = bundle.getLong("group_num");
+        }
+
+        RecyclerView recyclerView = root.findViewById(R.id.recyclerView1);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
         YoutubeAdapter adapter = new YoutubeAdapter();
 
         RequestQueue requestQueue;
-        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+        Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
         Network network = new BasicNetwork(new HurlStack());
         requestQueue = new RequestQueue(cache, network);
         requestQueue.start();
@@ -81,7 +96,7 @@ public class YoutubePlan extends AppCompatActivity {
                 list = gson.fromJson(changeString, listType);
 
                 for (int i = 0; i < list.size(); i++) {
-                    int image = getResources().getIdentifier(list.get(i).video_image, "drawable", getPackageName());
+                    int image = getResources().getIdentifier(list.get(i).video_image, "drawable", getActivity().getPackageName());
                     adapter.addItem(new Youtube(list.get(i).video_name, image));
                     url2.add(list.get(i).video_url);
                     title2.add(list.get(i).video_name);
@@ -108,22 +123,25 @@ public class YoutubePlan extends AppCompatActivity {
                 Youtube item = adapter.getItem(position);
 
                 realurl = url2.get(position);
-                Toast.makeText(getApplicationContext(), title2.get(position) + "동영상이 선택되었습니다", Toast.LENGTH_LONG).show();
+                Toast.makeText(requireContext(), title2.get(position) + "동영상이 선택되었습니다", Toast.LENGTH_LONG).show();
             }
         });
 
-        Button button = findViewById(R.id.youtubeadd);
+        Button button = root.findViewById(R.id.youtubeadd);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ExercisePlanFragment exercisePlanFragment = new ExercisePlanFragment();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                ExercisePlanFragment fragment2 = new ExercisePlanFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("realurl", realurl);
-                exercisePlanFragment.setArguments(bundle);
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.container, exercisePlanFragment).commitAllowingStateLoss();
-                finish();
+                bundle.putLong("mem_num", mem_num);
+                bundle.putLong("group_num", group_num);
+                fragment2.setArguments(bundle);
+                transaction.replace(R.id.container, fragment2);
+                transaction.commit();
             }
         });
+        return root;
     }
 }

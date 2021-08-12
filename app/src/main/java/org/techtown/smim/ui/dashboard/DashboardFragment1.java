@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,7 +50,7 @@ import java.util.Map;
 
 public class DashboardFragment1 extends Fragment {
     public static final int REQUEST_CODE_MENU = 101;
-    //private DashboardViewModel dashboardViewModel;
+
     public TextView name;
     public TextView info;
 
@@ -69,9 +70,19 @@ public class DashboardFragment1 extends Fragment {
         info = root.findViewById(R.id.info);
 
         Bundle bundle = getArguments();
-        mem_num = bundle.getLong("mem_num");
-        group_num = bundle.getLong("group_num");
-        Log.d("test_dashboradFragment1", String.valueOf(mem_num));
+        if(bundle != null) {
+            mem_num = bundle.getLong("mem_num");
+            group_num = bundle.getLong("group_num");
+            Log.d("test_dashboradFragment1", String.valueOf(mem_num));
+        }
+
+        mem_num = 1L;
+
+        try {
+            Thread.sleep(25); //0.025초 대기
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
@@ -101,7 +112,7 @@ public class DashboardFragment1 extends Fragment {
                 Type listType = new TypeToken<ArrayList<personal>>(){}.getType();
                 list3 = gson.fromJson(changeString, listType);
 
-                if(group_num.compareTo(0L) == 0) {
+                if(group_num == null || group_num.compareTo(0L) == 0) {
                     for(int i=0; i<list3.size(); i++) {
                         Log.d("test_mem", String.valueOf(mem_num));
                         if (list3.get(i).mem_num.compareTo(mem_num) == 0) {
@@ -189,8 +200,18 @@ public class DashboardFragment1 extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
                 Intent intent = new Intent(requireContext(), ExercisePlan.class);
                 startActivityForResult(intent, REQUEST_CODE_MENU);
+                */
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                ExercisePlanFragment fragment2 = new ExercisePlanFragment();
+                Bundle bundle = new Bundle();
+                bundle.putLong("mem_num", mem_num);
+                bundle.putLong("group_num", group_num);
+                fragment2.setArguments(bundle);
+                transaction.replace(R.id.container, fragment2);
+                transaction.commit();
             }
         });
 /*
