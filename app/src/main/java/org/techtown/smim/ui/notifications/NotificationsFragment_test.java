@@ -143,7 +143,7 @@ public class NotificationsFragment_test extends Fragment {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(requireContext(), CustomExerciseMerge.class);
+              Intent intent = new Intent(requireContext(), CustomExerciseMerge.class);
                 intent.putIntegerArrayListExtra("key",  m);
                 startActivityForResult(intent, customexerciseplan);
 
@@ -166,7 +166,14 @@ public class NotificationsFragment_test extends Fragment {
         return root;
     }
 
-    public static void checklist(int position, CustomExercise x){
+    public static void ischeck(int position){
          m.add(position);
     }
+    public static void uncheck(int position){
+        m.remove(position);
+    }
+
+
+
+
 }

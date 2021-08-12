@@ -56,11 +56,11 @@ public class DashboardFragment extends Fragment {
     public List<group> list = new ArrayList<>();
     public List<gexercise> list2 = new ArrayList<>();
     public List<personal> list3 = new ArrayList<>();
-
+    public List<Long> ge_numlist = new ArrayList<>();
     Integer po;
     Long Group_num;
     Long mem_num;
-
+    ExerciseAdapter adapter;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
       // dashboardViewModel =
@@ -118,7 +118,7 @@ public class DashboardFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        ExerciseAdapter adapter = new ExerciseAdapter();
+       adapter = new ExerciseAdapter();
 
         String url2 = "http://52.78.235.23:8080/gexercise";
 
@@ -140,6 +140,7 @@ public class DashboardFragment extends Fragment {
                 for(int i = 0; i< list2.size(); i++) {
                     if(Group_num.compareTo(list2.get(i).group_num) == 0) {
                         adapter.addItem(new Exercise(list2.get(i).ge_start_time, list2.get(i).ge_end_time, list2.get(i).ge_desc));
+                        ge_numlist.add(list2.get(i).ge_num);
                     }
                 }
 
@@ -171,17 +172,23 @@ public class DashboardFragment extends Fragment {
         });
 */
 
+
+
         adapter.setOnItemClicklistener(new ExerciseAdapter.OnPersonItemClickListener(){
             @Override
-            public void onItemClick(ExerciseAdapter.ViewHolder holder, View view, int position)
-            {   Exercise item = adapter.getItem(position);
+            public void onItemClick(ExerciseAdapter.ViewHolder holder, View view, ArrayList<Exercise> items,int position)
+            {
 
-                CustomDialog dlg = new CustomDialog(getContext());
+                CustomDialog dlg = new CustomDialog(getContext(),position,ge_numlist.get(position),items,adapter);
                 dlg.show();
 
                 Toast.makeText(getContext(),"아이템 선택 ", Toast.LENGTH_LONG).show();
-
             } });
+
+
+
+
+
 
         Button refresh_button = root.findViewById(R.id.join);
         refresh_button.setOnClickListener(new View.OnClickListener() {

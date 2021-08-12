@@ -14,12 +14,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.chip.ChipGroup;
 
 import org.techtown.smim.R;
 import org.techtown.smim.ui.dashboard.GroupListAdapter;
@@ -59,6 +62,8 @@ public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAd
         // Log.d(TAG, "onBindViewHolder: position ▶ " + position);
         CustomExercise item = itemList.get(position);
         holder.setItem(item);
+
+
     }
 
 
@@ -109,11 +114,25 @@ public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAd
             });
 
 
-            icheckbox.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
+
+           // int position = getAdapterPosition();
+            //icheckbox.setChecked();
+             ArrayList<Integer> m=new ArrayList<>();
+            icheckbox.setOnCheckedChangeListener(null);
+            icheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    //set your object's last status
                     int position = getAdapterPosition();
-                    NotificationsFragment_test.checklist(position, x);
-                }} );
+                    icheckbox.setSelected(isChecked);
+                    if(icheckbox.isSelected()==true){
+                        NotificationsFragment_test.ischeck(position);
+                    }else{
+                        NotificationsFragment_test.uncheck(position);
+                    }
+                                                           }});
+
+
         }
 
         //setItem 부분
