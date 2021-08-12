@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,14 +50,12 @@ public class YoutubePlan extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_youtube_plan);
 
-
         RecyclerView recyclerView = findViewById(R.id.recyclerView1);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
         YoutubeAdapter adapter = new YoutubeAdapter();
-
 
         RequestQueue requestQueue;
         Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
@@ -117,10 +116,12 @@ public class YoutubePlan extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(YoutubePlan.this, ExercisePlan.class);
-                intent.putExtra("key", realurl);
-                //setResult(RESULT_OK,intent);
-                startActivity(intent);
+                ExercisePlanFragment exercisePlanFragment = new ExercisePlanFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("realurl", realurl);
+                exercisePlanFragment.setArguments(bundle);
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, exercisePlanFragment).commitAllowingStateLoss();
                 finish();
             }
         });

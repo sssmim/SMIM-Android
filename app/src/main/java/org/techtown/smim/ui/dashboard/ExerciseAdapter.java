@@ -14,6 +14,17 @@ import java.util.ArrayList;
 
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHolder> {
     ArrayList<Exercise> items = new ArrayList<Exercise>();
+    static ExerciseAdapter.OnPersonItemClickListener listener;
+
+    public interface OnPersonItemClickListener {
+        public void onItemClick(ExerciseAdapter.ViewHolder holder, View view, int position); }
+
+    public void setOnItemClicklistener(ExerciseAdapter.OnPersonItemClickListener listener){ this.listener = listener; }
+
+
+    public void onItemClick(ExerciseAdapter.ViewHolder holder, View view, int position) {
+        if(listener != null){
+            listener.onItemClick(holder,view,position); } }
 
     @NonNull
     @Override
@@ -62,6 +73,13 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
             textView = itemView.findViewById(R.id.textView);
             textView1 = itemView.findViewById(R.id.textView1);
             textView2 = itemView.findViewById(R.id.textView2);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if(listener != null){
+                        listener.onItemClick(ExerciseAdapter.ViewHolder.this, v, position);
+                    } } });
         }
 
         public void setItem(Exercise item) {

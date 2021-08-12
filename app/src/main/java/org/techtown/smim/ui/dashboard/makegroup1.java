@@ -29,12 +29,16 @@ public class makegroup1 extends Fragment {
 
     public TextView groupname;
     public TextView groupdesc;
+
+    String mem_num;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
         View root = inflater.inflate(R.layout.fragment_makegroup1, container, false);
+
+        Bundle bundle = getArguments();
+        mem_num = bundle.getString("mem_num");
 
         groupname = root.findViewById(R.id.groupname2);
         groupdesc = root.findViewById(R.id.groupdesc);
@@ -48,9 +52,9 @@ public class makegroup1 extends Fragment {
                 Map map = new HashMap();
                 map.put("group_name", groupname.getText().toString());
                 map.put("group_desc", groupdesc.getText().toString());
-                map.put("group_category", "and test33");
-                map.put("view_count", 22);
-                map.put("authority", 1);
+                map.put("group_category", "category");
+                map.put("view_count", 0);
+                map.put("authority", mem_num);
                 JSONObject params = new JSONObject(map);
 
                 JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, params,
@@ -70,46 +74,15 @@ public class makegroup1 extends Fragment {
                         return "application/json; charset=UTF-8";
                     }
                 };
-                objectRequest.setTag("post");
                 RequestQueue queue = Volley.newRequestQueue(requireContext());
                 queue.add(objectRequest);
-                //finish();
-
-              //  @Override
-               // public void setUserVisibleHint(boolean isVisibleToUser) {
-                //    super.setUserVisibleHint(isVisibleToUser);
-                 //   if (isVisibleToUser) {
-                   //     // Refresh your fragment here
-                    //    getFragmentManager().beginTransaction().detach(this).attach(this).commit();
-                     //   Log.i("IsRefresh", "Yes");
-                   // }
-              //  }
 
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 FindGroup_test fragment2 = new FindGroup_test();
                 transaction.replace(R.id.container, fragment2);
                 transaction.commit();
-
-                //Intent intent = new Intent(requireContext(), DashboardTrial.class);
-               // startActivityForResult(intent, 101);
-
-               //Fragment frg = null;
-                //frg = getActivity().getSupportFragmentManager().findFragmentByTag("");
-                //final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                //ft.detach(frg);
-                //ft.attach(frg);
-                //ft.commit();
-
-
-
-
             }
-
         });
-
-
-
-
         return root;
     }
 }

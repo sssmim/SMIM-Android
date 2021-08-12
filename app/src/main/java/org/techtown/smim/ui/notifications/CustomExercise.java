@@ -4,11 +4,13 @@ public class CustomExercise {
     String iname;
     String ipart;
     int iimageRes;
+    boolean isSelected;
 
-    public CustomExercise(String iname, String ipart, int iimageRes) {
+    public CustomExercise(String iname, String ipart, int iimageRes,boolean isSelected) {
         this.iname = iname;
         this.ipart = ipart;
         this.iimageRes = iimageRes;
+        this.isSelected = isSelected;
     }
 
     public String igetName() {
@@ -34,4 +36,14 @@ public class CustomExercise {
     public void isetImageRes(int iimageRes) {
         this.iimageRes = iimageRes;
     }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+
 }
