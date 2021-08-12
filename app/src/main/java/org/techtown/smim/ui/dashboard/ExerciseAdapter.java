@@ -13,7 +13,7 @@ import org.techtown.smim.R;
 import java.util.ArrayList;
 
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHolder> {
-    static ArrayList<Exercise> items = new ArrayList<Exercise>();
+     static ArrayList<Exercise> items = new ArrayList<Exercise>();
     static ExerciseAdapter.OnPersonItemClickListener listener;
 
     public interface OnPersonItemClickListener {
@@ -45,7 +45,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
     public int getItemCount() {
         return items.size();
     }
-
+    public void clearItem(){ items.clear();}
     public void addItem(Exercise item) {
         items.add(item);
     }
