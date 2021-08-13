@@ -19,12 +19,17 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
+import org.json.JSONObject;
 import org.techtown.smim.ui.dashboard.Exercise;
 import org.techtown.smim.ui.dashboard.ExerciseAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class CustomDialog extends Dialog {
@@ -35,10 +40,11 @@ public class CustomDialog extends Dialog {
     ArrayList<Exercise> items;
     ExerciseAdapter adapter;
     int adapterposition;
-
-    public CustomDialog(Context mContext,int adapterposition, Long position, ArrayList<Exercise> items,ExerciseAdapter adapter) {
+    Long mem_num;
+    public CustomDialog(Context mContext,Long mem_num,int adapterposition, Long position, ArrayList<Exercise> items,ExerciseAdapter adapter) {
         super(mContext);
         this.mContext = mContext;
+        this.mem_num=mem_num;
         this.position = position;
         this.items= items;
         this.adapterposition=adapterposition;
@@ -67,7 +73,32 @@ public class CustomDialog extends Dialog {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(mContext,"j", Toast.LENGTH_SHORT).show();
+                String url = "http://52.78.235.23:8080/reservation";
+                Map map = new HashMap();
+                map.put("pnum", mem_num);
+                map.put("gnum",position);
+                JSONObject params = new JSONObject(map);
+
+                JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, params,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject obj) {
+                                Toast.makeText(mContext,"예약되었습니다", Toast.LENGTH_SHORT).show();
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                            }
+                        }) {
+
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/json; charset=UTF-8";
+                    }
+                };
+                RequestQueue queue = Volley.newRequestQueue(getContext());
+                queue.add(objectRequest);
 
                 dismiss();
             }
