@@ -2,7 +2,6 @@ package org.techtown.smim;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.android.volley.Cache;
@@ -25,9 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import org.techtown.smim.database.group;
 import org.techtown.smim.database.personal;
-import org.techtown.smim.ui.LoginActivity;
 import org.techtown.smim.ui.dashboard.DashboardFragment1;
 import org.techtown.smim.ui.dashboard.FindGroup_test;
 import org.techtown.smim.ui.home.HomeFragment;
@@ -47,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private DashboardFragment1 dashboardFragment1 = new DashboardFragment1();
     private CrawlingPage crawlingPage = new CrawlingPage();
 
-    public String mem_num;
+    public Long mem_num;
     public Long group_num;
     public List<personal> list = new ArrayList<>();
 
@@ -57,10 +54,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Intent intent1 = getIntent();
-        mem_num = intent1.getStringExtra("mem_num");
+        mem_num = intent1.getLongExtra("mem_num", 0L);
 
         Bundle bundle = new Bundle();
-        bundle.putLong("mem_num", Long.parseLong(mem_num));
+        bundle.putLong("mem_num", mem_num);
 
         homeFragment.setArguments(bundle);
         findGroup_test.setArguments(bundle);
@@ -110,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                             list = gson.fromJson(changeString, listType);
 
                             for(int i=0; i<list.size(); i++) {
-                                if(list.get(i).mem_num.compareTo(Long.parseLong(mem_num)) == 0) {
+                                if(list.get(i).mem_num.compareTo(mem_num) == 0) {
                                     group_num = list.get(i).group_num;
                                 }
                             }
