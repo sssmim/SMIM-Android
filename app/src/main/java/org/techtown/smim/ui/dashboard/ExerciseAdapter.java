@@ -1,5 +1,6 @@
 package org.techtown.smim.ui.dashboard;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,12 +32,14 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         View itemView = inflater.inflate(R.layout.excercise_item, viewGroup, false);
+        Log.d("test_adapter", "onCrateViewHolder");
 
         return new ViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+        Log.d("test_adapter", "onBindViewHolder");
         Exercise item = items.get(position);
         viewHolder.setItem(item);
     }
@@ -44,6 +47,10 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    public void clearItem() {
+        items.clear();
     }
 
     public void addItem(Exercise item) {
@@ -78,7 +85,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
                 @Override public void onClick(View v) {
                     int position = getAdapterPosition();
                     if(listener != null){
-                        listener.onItemClick(ExerciseAdapter.ViewHolder.this, v,items, position);
+                        listener.onItemClick(ExerciseAdapter.ViewHolder.this, v, items, position);
                     } } });
         }
 

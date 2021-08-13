@@ -60,6 +60,9 @@ public class CrawlingPage extends Fragment {
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 NotificationsFragment_test fragment2 = new NotificationsFragment_test();
+                Bundle bundle = new Bundle();
+                bundle.putLong("mem_num", mem_num);
+                fragment2.setArguments(bundle);
                 transaction.replace(R.id.container, fragment2);
                 transaction.commit();
             }
