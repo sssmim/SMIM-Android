@@ -60,6 +60,8 @@ public class CustomExerciseMerge extends AppCompatActivity {
     public List<Long> getList = new ArrayList<>();
     public static List<iexercise> list = new ArrayList<>();
     ArrayList<Integer> value;
+    Long mem_num;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +70,7 @@ public class CustomExerciseMerge extends AppCompatActivity {
         Intent getIntent = getIntent();
         if(getIntent != null){
           value = getIntent.getIntegerArrayListExtra("key");
+          mem_num = getIntent.getLongExtra("mem_num", 0L);
         }
 
         for(int i=0; i<value.size(); i++) {
@@ -182,6 +185,7 @@ public class CustomExerciseMerge extends AppCompatActivity {
                 RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
                 queue.add(objectRequest);
                 Intent intent = new Intent(getApplicationContext(), ExerciseTimer.class);
+                intent.putExtra("mem_num", mem_num);
                 startActivityForResult(intent, number22);
             }
         });

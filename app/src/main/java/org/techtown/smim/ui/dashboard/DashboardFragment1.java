@@ -57,7 +57,7 @@ public class DashboardFragment1 extends Fragment {
     public List<group> list = new ArrayList<>();
     public List<gexercise> list2 = new ArrayList<>();
     public List<personal> list3 = new ArrayList<>();
-
+    public List<Long> ge_numlist = new ArrayList<>();
     Long mem_num;
     Long group_num;
 
@@ -76,8 +76,6 @@ public class DashboardFragment1 extends Fragment {
             Log.d("test_dashboradFragment1", String.valueOf(mem_num));
         }
 
-        mem_num = 1L;
-
         try {
             Thread.sleep(25); //0.025초 대기
         } catch (InterruptedException e) {
@@ -89,6 +87,7 @@ public class DashboardFragment1 extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         ExerciseAdapter adapter = new ExerciseAdapter();
+        adapter.clearItem();
 
         RequestQueue requestQueue;
         Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
@@ -171,12 +170,17 @@ public class DashboardFragment1 extends Fragment {
                         Type listType = new TypeToken<ArrayList<gexercise>>(){}.getType();
                         list2 = gson.fromJson(changeString2, listType);
 
-                        for(int i = 0; i< list2.size(); i++) {
+                        int many = 0;
 
+                        for(int i = 0; i< list2.size(); i++) {
                             if(list2.get(i).group_num.compareTo(group_num) == 0) {
                                 adapter.addItem(new Exercise(list2.get(i).ge_start_time, list2.get(i).ge_end_time, list2.get(i).ge_desc));
+                                many++;
+                                ge_numlist.add(list2.get(i).ge_num);
                             }
                         }
+
+                        Log.d("test_many" , String.valueOf(many));
 
                         recyclerView.setAdapter(adapter);
                     }
@@ -225,15 +229,17 @@ public class DashboardFragment1 extends Fragment {
 
         adapter.setOnItemClicklistener(new ExerciseAdapter.OnPersonItemClickListener(){
             @Override
-            public void onItemClick(ExerciseAdapter.ViewHolder holder, View view, int position)
-            {   Exercise item = adapter.getItem(position);
+            public void onItemClick(ExerciseAdapter.ViewHolder holder, View view, ArrayList<Exercise> items,int position)
+            {
 
-                CustomDialog dlg = new CustomDialog(getContext());
+                CustomDialog dlg = new CustomDialog(getContext(),position,ge_numlist.get(position),items,adapter);
                 dlg.show();
 
                 Toast.makeText(getContext(),"아이템 선택 ", Toast.LENGTH_LONG).show();
-
             } });
+
+
+
 
         return root;
     }

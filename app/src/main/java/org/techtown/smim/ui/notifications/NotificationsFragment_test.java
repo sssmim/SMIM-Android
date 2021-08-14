@@ -67,6 +67,8 @@ public class NotificationsFragment_test extends Fragment {
     public static ArrayList<Integer> m=new ArrayList<>();
     public List<String> list2 = new ArrayList<>();
 
+    Long mem_num;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -76,6 +78,10 @@ public class NotificationsFragment_test extends Fragment {
 
         super.onCreate(savedInstanceState);
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
+
+        Bundle bundle = getArguments();
+        mem_num = bundle.getLong("mem_num");
+        Log.d("test_CrawlingPage", String.valueOf(mem_num));
 
         RequestQueue requestQueue;
         // Instantiate the cache
@@ -145,9 +151,8 @@ public class NotificationsFragment_test extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(requireContext(), CustomExerciseMerge.class);
                 intent.putIntegerArrayListExtra("key",  m);
+                intent.putExtra("mem_num", mem_num);
                 startActivityForResult(intent, customexerciseplan);
-
-
             }
         });
 
@@ -166,7 +171,14 @@ public class NotificationsFragment_test extends Fragment {
         return root;
     }
 
-    public static void checklist(int position, CustomExercise x){
+    public static void ischeck(int position){
          m.add(position);
     }
+    public static void uncheck(int position){
+        m.remove(position);
+    }
+
+
+
+
 }

@@ -69,10 +69,17 @@ public class ExerciseTimer extends AppCompatActivity {
     public List<String> ie_secList = new ArrayList<>();
     public List<String> secList = new ArrayList<>();
 
+    Long mem_num;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timer);
+
+        Intent getIntent = getIntent();
+        if(getIntent != null){
+            mem_num = getIntent.getLongExtra("mem_num", 0L);
+        }
 
         secText = findViewById(R.id.secTextView);
         exercise_name = findViewById(R.id.exercisename);
