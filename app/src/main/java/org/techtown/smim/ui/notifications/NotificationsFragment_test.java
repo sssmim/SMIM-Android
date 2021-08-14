@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -64,7 +65,7 @@ public class NotificationsFragment_test extends Fragment {
     private RecyclerView.Adapter mAdapter;
 
     public List<iexercise> list = new ArrayList<>();
-    public static ArrayList<Integer> m=new ArrayList<>();
+    public static ArrayList<Integer> m = new ArrayList<>();
     public List<String> list2 = new ArrayList<>();
 
     Long mem_num;
@@ -149,10 +150,17 @@ public class NotificationsFragment_test extends Fragment {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(requireContext(), CustomExerciseMerge.class);
-                intent.putIntegerArrayListExtra("key",  m);
-                intent.putExtra("mem_num", mem_num);
-                startActivityForResult(intent, customexerciseplan);
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                CustomExerciseMergeFragment MergeFragment  = new CustomExerciseMergeFragment();
+                Bundle bundle = new Bundle();
+                bundle.putLong("mem_num",mem_num);
+                bundle.putIntegerArrayList("key", m);
+                MergeFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.container, MergeFragment);
+                fragmentTransaction.commit();
             }
         });
 

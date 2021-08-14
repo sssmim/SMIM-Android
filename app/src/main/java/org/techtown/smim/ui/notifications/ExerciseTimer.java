@@ -228,11 +228,11 @@ public class ExerciseTimer extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 index++;
-                Log.d("test_Max", String.valueOf(Max));
-                Log.d("test_index+1", String.valueOf(index+1));
-                Log.d("test_compare", String.valueOf(Max.compareTo(index+1)));
+            //    Log.d("test_Max", String.valueOf(Max));
+            //    Log.d("test_index+1", String.valueOf(index+1));
+            //    Log.d("test_compare", String.valueOf(Max.compareTo(index+1)));
                 if(Max.compareTo(index+1) == 0) {
-                    Log.d("test_finish", "stop");
+            //        Log.d("test_finish", "stop");
                 }
                 if (nameList.size() != 0) {
                     exercise_name.setText(nameList.get(index));

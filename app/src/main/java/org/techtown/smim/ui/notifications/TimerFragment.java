@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,18 +64,18 @@ public class TimerFragment extends Fragment {
     public List<Integer> countList = new ArrayList<>();
     public List<String> secList = new ArrayList<>();
 
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
+    Long mem_num;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //super.onCreate(savedInstanceState);
        // setContentView(R.layout.timer);
         View view = inflater.inflate(R.layout.timer,container,false);
+
+        Bundle bundle = getArguments();
+        if(bundle != null) {
+            mem_num = bundle.getLong("mem_num");
+        }
 
         RequestQueue requestQueue;
         Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
@@ -307,7 +308,11 @@ public class TimerFragment extends Fragment {
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
                         CrawlingPage crawlfragment = new CrawlingPage();
+                        Bundle bundle = new Bundle();
+                        bundle.putLong("mem_num",mem_num);
+                        crawlfragment.setArguments(bundle);
                         fragmentTransaction.replace(R.id.container, crawlfragment);
+
                         fragmentTransaction.commit();
 
                         //Fragment fragment = new CrawlingPage();
