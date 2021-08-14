@@ -3,6 +3,8 @@ package org.techtown.smim.ui.login;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -23,6 +25,7 @@ import org.techtown.smim.R;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class LoginActivity_getExtra extends AppCompatActivity {
 
@@ -35,6 +38,18 @@ public class LoginActivity_getExtra extends AppCompatActivity {
     String Id;
     String pwd;
 
+    //한글만 입력받게 설정
+    public InputFilter filterKor = new InputFilter() {
+        public CharSequence filter(CharSequence source, int start, int end,
+                                   Spanned dest, int dstart, int dend) {
+            Pattern ps = Pattern.compile("^[ㄱ-가-힣]+$");
+            if (!ps.matcher(source).matches()) {
+                return "";
+            }
+            return null;
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +60,7 @@ public class LoginActivity_getExtra extends AppCompatActivity {
         pwd = intent1.getStringExtra("PWD");
 
         getInterest = findViewById(R.id.getINTEREST);
+        getInterest.setFilters(new InputFilter[] {filterKor});
         getImage = findViewById(R.id.getIMAGE);
         finish = findViewById(R.id.finish);
 
