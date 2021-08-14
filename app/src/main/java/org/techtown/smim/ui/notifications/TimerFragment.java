@@ -4,7 +4,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -39,7 +41,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExerciseTimer extends AppCompatActivity {
+public class TimerFragment extends Fragment {
 
     private TextView exercise_name;
     private TextView countdownText;
@@ -61,20 +63,28 @@ public class ExerciseTimer extends AppCompatActivity {
     public List<Integer> countList = new ArrayList<>();
     public List<String> secList = new ArrayList<>();
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.timer);
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        //super.onCreate(savedInstanceState);
+       // setContentView(R.layout.timer);
+        View view = inflater.inflate(R.layout.timer,container,false);
 
         RequestQueue requestQueue;
-        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+        Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
         Network network = new BasicNetwork(new HurlStack());
         requestQueue = new RequestQueue(cache, network);
         requestQueue.start();
 
         String url2 = "http://52.78.235.23:8080/iexercise";
 
-        secText = findViewById(R.id.secTextView);
+        secText =  (TextView)view.findViewById(R.id.secTextView);
 
         StringRequest stringRequest1 = new StringRequest(Request.Method.GET, url2, new Response.Listener<String>() {
             @Override
@@ -107,8 +117,9 @@ public class ExerciseTimer extends AppCompatActivity {
 
         String url = "http://52.78.235.23:8080/list";
 
-        exercise_name = findViewById(R.id.exercisename);
-        countdownText = findViewById(R.id.countTextView);
+
+        exercise_name =  (TextView)view.findViewById(R.id.exercisename);
+        countdownText =  (TextView)view.findViewById(R.id.countTextView);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -160,7 +171,8 @@ public class ExerciseTimer extends AppCompatActivity {
 
         requestQueue.add(stringRequest1);
 
-        Button btnComplete = findViewById(R.id.btnComplete);
+        Button btnComplete =  (Button) view.findViewById(R.id.btnComplete);
+
         btnComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,7 +182,7 @@ public class ExerciseTimer extends AppCompatActivity {
             }
         });
 
-        Button button = findViewById(R.id.gonext);
+        Button button =  (Button) view.findViewById(R.id.gonext);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,7 +199,7 @@ public class ExerciseTimer extends AppCompatActivity {
             }
         });
 
-        Button button2 = findViewById(R.id.goprev);
+        Button button2 =  (Button) view.findViewById(R.id.goprev);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -204,7 +216,7 @@ public class ExerciseTimer extends AppCompatActivity {
             }
         });
 
-        start_stop = (ToggleButton) findViewById(R.id.start_stop);
+        start_stop =  (ToggleButton) view.findViewById(R.id.start_stop);
         start_stop.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -275,30 +287,34 @@ public class ExerciseTimer extends AppCompatActivity {
                 secText.setText(Integer.toString(seconds));
             }
         });
+
+        return view;
     }
 
 
     void show(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("마일리지 500점 획득!"); //나중에 DB연결 필요
 
 
         builder.setNegativeButton("확인",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                     //   Intent intent = new Intent(getApplicationContext(), CustomExerciseMerge.class); //크롤링 초기화면으로 돌아가려하면 오류
-                      //  startActivity(intent);
+                        //   Intent intent = new Intent(getApplicationContext(), CustomExerciseMerge.class); //크롤링 초기화면으로 돌아가려하면 오류
+                        //  startActivity(intent);
 
-                       // FragmentTransaction transaction = this.getSupportFragmentManager().beginTransaction();
-                      //  CrawlingPage crawlfragment = new CrawlingPage();
-                     //   transaction.replace(R.id.container, crawlfragment);
-                      //  transaction.commit();
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                        Fragment fragment = new CrawlingPage();
-                      //  FragmentManager fm = ((MainActivity) mContext).getSupportFragmentManager();
-             //           FragmentTransaction ft = fm.beginTransaction();
-                      //  ft.replace(R.id.container, fragment);
-                     //   ft.commit();
+                        CrawlingPage crawlfragment = new CrawlingPage();
+                        fragmentTransaction.replace(R.id.container, crawlfragment);
+                        fragmentTransaction.commit();
+
+                        //Fragment fragment = new CrawlingPage();
+                        //FragmentManager fm = ((MainActivity) mContext).getSupportFragmentManager();
+                        //FragmentTransaction ft = fm.beginTransaction();
+                        //ft.add(R.id., fragment);
+                        //ft.commit();
                     }
                 });
         builder.show();

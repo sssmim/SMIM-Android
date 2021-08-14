@@ -175,8 +175,8 @@ public class CustomExerciseMerge extends AppCompatActivity {
                 objectRequest.setTag("post");
                 RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
                 queue.add(objectRequest);
-                Intent intent = new Intent(getApplicationContext(), ExerciseTimer.class);
-                startActivityForResult(intent, number22);
+                Intent intent = new Intent(getApplicationContext(), TimerFragment.class);
+               // startActivityForResult(intent, number22);
             }
         });
     }

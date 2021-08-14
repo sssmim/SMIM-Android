@@ -67,9 +67,10 @@ public class CustomExerciseChoiceAdapter extends RecyclerView.Adapter<CustomExer
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
+        int plusforced=0;
         TextView list_name,list_part,tv_count;
         ImageView list_image;
-Button add;
+        Button add;
         Button mis;
         CustomExerciseChoice x=null;
         public ItemViewHolder(View itemView) {
@@ -87,15 +88,20 @@ Button add;
                    // tv_count.setText(a.toString());
                     int position = getAdapterPosition();
                    CustomExerciseMerge.addmethod(x, position);
+                    plusforced++;
                 }
             });
             mis= itemView.findViewById(R.id.btn_minus);
             mis.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Toast.makeText(itemView.getContext(), "value", Toast.LENGTH_LONG).show();
-                    int position = getAdapterPosition();
-                    CustomExerciseMerge.minusmethod(x, position);
+
+                    if(plusforced>0) {
+                        //Toast.makeText(itemView.getContext(), "value", Toast.LENGTH_LONG).show();
+                        int position = getAdapterPosition();
+                        CustomExerciseMerge.minusmethod(x, position);
+
+                    }
                 }
             });
 
