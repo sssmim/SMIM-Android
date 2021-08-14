@@ -76,8 +76,6 @@ public class DashboardFragment1 extends Fragment {
             Log.d("test_dashboradFragment1", String.valueOf(mem_num));
         }
 
-        mem_num = 1L;
-
         try {
             Thread.sleep(25); //0.025초 대기
         } catch (InterruptedException e) {
@@ -94,6 +92,7 @@ public class DashboardFragment1 extends Fragment {
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(layoutManager);
         ExerciseAdapter adapter = new ExerciseAdapter();
+        adapter.clearItem();
 
         adapter.clearItem();
         RequestQueue requestQueue;
@@ -178,14 +177,18 @@ public class DashboardFragment1 extends Fragment {
                         Type listType = new TypeToken<ArrayList<gexercise>>(){}.getType();
                         list2 = gson.fromJson(changeString2, listType);
 
-                        for(int i = 0; i< list2.size(); i++) {
+                        int many = 0;
 
+                        for(int i = 0; i< list2.size(); i++) {
                             if(list2.get(i).group_num.compareTo(group_num) == 0) {
 
                                 adapter.addItem(new Exercise(list2.get(i).ge_start_time, list2.get(i).ge_end_time, list2.get(i).ge_desc));
+                                many++;
                                 ge_numlist.add(list2.get(i).ge_num);
                             }
                         }
+
+                        Log.d("test_many" , String.valueOf(many));
 
                         recyclerView.setAdapter(adapter);
                     }
