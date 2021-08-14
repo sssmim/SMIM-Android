@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.Request;
@@ -22,6 +23,8 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 import org.techtown.smim.R;
+import org.techtown.smim.ui.home.HomeFragment;
+import org.techtown.smim.ui.notifications.CrawlingPage;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,8 +44,6 @@ public class ExercisePlan extends AppCompatActivity {
     public TextView endHour;
     public TextView endMin;
     public TextView planMemo;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,15 +96,15 @@ public class ExercisePlan extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-/*
-                FragmentTransaction transaction =getSupportFragmentManager().beginTransaction();
-                DashboardFragment f1 = new DashboardFragment();
+               /* FragmentTransaction transaction =getSupportFragmentManager().beginTransaction();
+                CrawlingPage f1 = new DashboardFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("Obj", "positio");
                 f1.setArguments(bundle);
-                transaction.replace(R.id.container,f1);
-                transaction.commit();*/
-            finish();
+                transaction.replace(R.id.fragment_container,f1);
+                transaction.commit();
+            //finish();*/
+
 
             }});
 

@@ -2,10 +2,7 @@ package org.techtown.smim.ui.dashboard;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +10,12 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -30,8 +33,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+//eee
 public class ExercisePlanFragment extends Fragment {
-
     public static final int plantoyoutbe = 102;
     public static final int plantomain = 10;
 
@@ -43,26 +46,35 @@ public class ExercisePlanFragment extends Fragment {
     public TextView endMin;
     public TextView planMemo;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_exercise_plan, container, false);
+    public String realurl;
+    public Long mem_num;
+    public Long group_num;
 
-       // Intent getIntent = getIntent();
-        //if(getIntent != null){
-          //  String value = getIntent.getStringExtra("key");
-            //Toast.makeText(getApplicationContext(), value, Toast.LENGTH_LONG).show();  //에러가 뜹니다..?
-           // youtubeurl = value;}
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
 
-        days = view.findViewById(R.id.days);
-        startHour = view.findViewById(R.id.starthour);
-        startMin = view.findViewById(R.id.startmin);
-        endHour = view.findViewById(R.id.endthour);
-        endMin = view.findViewById(R.id.endmin);
-        planMemo = view.findViewById(R.id.planmemo);
+        View root = inflater.inflate(R.layout.fragment_exercise_plan, container, false);
 
-        CalendarView calendar = (CalendarView) view.findViewById(R.id.calendarView);
+        Bundle bundle = getArguments();
+        if(String.valueOf(bundle.getLong("mem_num")) != null) {
+            mem_num = bundle.getLong("mem_num");
+        }
+        if(String.valueOf(bundle.getLong("group_num")) != null) {
+            group_num = bundle.getLong("group_num");
+        }
+        if(bundle.getString("realurl") != null) {
+            realurl = bundle.getString("realurl");
+            Log.d("test_realurl", realurl);
+        }
+
+        days = root.findViewById(R.id.days);
+        startHour = root.findViewById(R.id.starthour);
+        startMin = root.findViewById(R.id.startmin);
+        endHour = root.findViewById(R.id.endthour);
+        endMin = root.findViewById(R.id.endmin);
+        planMemo = root.findViewById(R.id.planmemo);
+
+        CalendarView calendar = (CalendarView) root.findViewById(R.id.calendarView);
         SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
         Date time = new Date();
 
@@ -82,77 +94,222 @@ public class ExercisePlanFragment extends Fragment {
             }
         });
 
-        Button button = view.findViewById(R.id.chooseyoutube);
+        Button button = root.findViewById(R.id.chooseyoutube);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(getApplicationContext(), YoutubePlan.class);
+                //Intent intent = new Intent(requireContext(), YoutubePlan.class);
                 //startActivityForResult(intent, plantoyoutbe);
-                /*FragmentTransaction transaction =getSupportFragmentManager().beginTransaction();
-                DashboardFragment f = new DashboardFragment();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                YoutubePlanFragment fragment3 = new YoutubePlanFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("Obj", "positio");
-                f.setArguments(bundle);
-                transaction.replace(R.id.container,f);
-                transaction.commit();*/
+                bundle.putLong("mem_num", mem_num);
+                bundle.putLong("group_num", group_num);
+                fragment3.setArguments(bundle);
+                transaction.replace(R.id.container, fragment3);
+                transaction.commit();
             }
         });
 
-        Button button1 = view.findViewById(R.id.addplan);
-        button1.setOnClickListener(new View.OnClickListener() {
+        Button button3 = root.findViewById(R.id.addplan1);
+        button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "http://52.78.235.23:8080/gexercise";
-                Map map = new HashMap();
-                map.put("ge_date", days.getText().toString());
-                String start_time = startHour.getText().toString() + ":" + startMin.getText().toString() + ":00";
-                map.put("ge_start_time", start_time);
-                String end_time = endHour.getText().toString() + ":" + endMin.getText().toString() + ":00";
-                map.put("ge_end_time", end_time);
-                map.put("ge_run_time", "08:48:00"); // run_time이 필요한가? 각자 실행한 시간이 다를텐데??
-                map.put("ge_desc", planMemo.getText().toString());
-                map.put("video_url", youtubeurl);
-                JSONObject params = new JSONObject(map);
-
-                JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, params,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject obj) {
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                            }
-                        }) {
-
-                    @Override
-                    public String getBodyContentType() {
-                        return "application/json; charset=UTF-8";
-                    }
-                };
-                RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-                queue.add(objectRequest);
-                Toast.makeText(getActivity().getApplicationContext(), "추가되었습니다", Toast.LENGTH_LONG).show();
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                DashboardFragment fragment2 = new DashboardFragment();
+                DashboardFragment1 fragment2 = new DashboardFragment1();
                 transaction.replace(R.id.container, fragment2);
                 transaction.commit();
+            }});
 
 
 
-            }
-        });
+        Button button1 = root.findViewById(R.id.addplan);
+        button1.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   String cchour="";
+                   Integer chour=null;
+                   String ccehour="";
+                   Integer cehour=null;
+                   String rstartmin="";
+                   Integer startmin=null;
+                   String rendmin="";
+                   Integer endmin=null;
+                   try {
+                       chour= Integer.parseInt(startHour.getText().toString());
+                       cehour=Integer.parseInt(endHour.getText().toString());
+                       startmin=Integer.parseInt(startMin.getText().toString());
+                       endmin=Integer.parseInt(endMin.getText().toString());
 
+                       if ((chour / 10) < 1) {
+                           if((cehour / 10) < 1){
+                               cchour = "0" + chour;
+                               ccehour = "0"+ cehour;
+                               if ((startmin / 10) < 1) {
+                                   if((endmin / 10) < 1){
+                                       rstartmin = "0" + startmin;
+                                       rendmin = "0"+ endmin;
+                                   }
+                                   else{
+                                       rstartmin = "0" + startmin;
+                                       rendmin = endMin.getText().toString();
+                                   }
 
+                               } else {
+                                   if((endmin / 10) < 1){
+                                       rstartmin = startMin.getText().toString();
+                                       rendmin = "0"+ endmin;
+                                   }
+                                   else{
+                                       rstartmin = startMin.getText().toString();
+                                       rendmin = endMin.getText().toString();
+                                   }
 
+                               }
+                           }
+                           else{
+                               cchour = "0" + chour;
+                               ccehour = endHour.getText().toString();
+                               if ((startmin / 10) < 1) {
+                                   if((endmin / 10) < 1){
+                                       rstartmin = "0" + startmin;
+                                       rendmin = "0"+ endmin;
+                                   }
+                                   else{
+                                       rstartmin = "0" + startmin;
+                                       rendmin = endMin.getText().toString();
+                                   }
 
+                               } else {
+                                   if((endmin / 10) < 1){
+                                       rstartmin = startMin.getText().toString();
+                                       rendmin = "0"+ endmin;
+                                   }
+                                   else{
+                                       rstartmin = startMin.getText().toString();
+                                       rendmin = endMin.getText().toString();
+                                   }
 
+                               }
+                           }
 
+                       } else {
+                           if((cehour / 10) < 1){
+                               cchour = startHour.getText().toString();
+                               ccehour = "0"+ cehour;
+                               if ((startmin / 10) < 1) {
+                                   if((endmin / 10) < 1){
+                                       rstartmin = "0" + startmin;
+                                       rendmin = "0"+ endmin;
+                                   }
+                                   else{
+                                       rstartmin = "0" + startmin;
+                                       rendmin = endMin.getText().toString();
+                                   }
 
+                               } else {
+                                   if((endmin / 10) < 1){
+                                       rstartmin = startMin.getText().toString();
+                                       rendmin = "0"+ endmin;
+                                   }
+                                   else{
+                                       rstartmin = startMin.getText().toString();
+                                       rendmin = endMin.getText().toString();
+                                   }
 
+                               }
+                           }
+                           else{
+                               cchour = startHour.getText().toString();
+                               ccehour = endHour.getText().toString();
+                               if ((startmin / 10) < 1) {
+                                   if((endmin / 10) < 1){
+                                       rstartmin = "0" + startmin;
+                                       rendmin = "0"+ endmin;
+                                   }
+                                   else{
+                                       rstartmin = "0" + startmin;
+                                       rendmin = endMin.getText().toString();
+                                   }
 
+                               } else {
+                                   if((endmin / 10) < 1){
+                                       rstartmin = startMin.getText().toString();
+                                       rendmin = "0"+ endmin;
+                                   }
+                                   else{
+                                       rstartmin = startMin.getText().toString();
+                                       rendmin = endMin.getText().toString();
+                                   }
 
-        return view;
+                               }
+                           }
+
+                       }
+                       //Toast.makeText(getApplicationContext(), cchour, Toast.LENGTH_LONG).show();
+                       //Log.e("Test", cchour);
+                   } catch (NumberFormatException e) {
+
+                   } catch (Exception e) {
+
+                   }
+                   if((Integer.parseInt(cchour)<0||Integer.parseInt(cchour)>24)||(Integer.parseInt(ccehour)<0||Integer.parseInt(ccehour)>24)||(Integer.parseInt(rstartmin)<0||Integer.parseInt(rstartmin)>60)||(Integer.parseInt(rendmin)<0||Integer.parseInt(rendmin)>60)) {
+                       Toast.makeText(requireContext(),"시는 0~24시,분은 0~60분안으로 설정해주세요", Toast.LENGTH_LONG).show();
+
+                   }else{
+
+                       String url = "http://52.78.235.23:8080/gexercise";
+                       Map map = new HashMap();
+                       map.put("ge_date", days.getText().toString());
+                       String start_time = cchour + ":" + rstartmin + ":00";
+                       map.put("ge_start_time", start_time);
+                       String end_time = ccehour + ":" + rendmin + ":00";
+                       map.put("ge_end_time", end_time);
+                       map.put("ge_desc", planMemo.getText().toString());
+                       map.put("video_url", realurl);
+                       map.put("group_num", group_num);
+                       JSONObject params = new JSONObject(map);
+
+                       JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, params,
+                               new Response.Listener<JSONObject>() {
+                                   @Override
+                                   public void onResponse(JSONObject obj) {
+                                   }
+                               },
+                               new Response.ErrorListener() {
+                                   @Override
+                                   public void onErrorResponse(VolleyError error) {
+                                   }
+                               }) {
+
+                           @Override
+                           public String getBodyContentType() {
+                               return "application/json; charset=UTF-8";
+                           }
+                       };
+                       RequestQueue queue = Volley.newRequestQueue(requireContext());
+                       queue.add(objectRequest);
+                       Toast.makeText(requireContext(), "추가되었습니다", Toast.LENGTH_LONG).show();
+                       startHour.setText("");
+                       endHour.setText("");
+                       startMin.setText("");
+                       endMin.setText("");
+                       planMemo.setText("");
+                       days.setText("");
+
+                       FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                       DashboardFragment1 fragment2 = new DashboardFragment1();
+                       Bundle bundle = new Bundle();
+                       bundle.putLong("mem_num", mem_num);
+                       bundle.putLong("group_num", group_num);
+                       fragment2.setArguments(bundle);
+                       transaction.replace(R.id.container, fragment2);
+                       transaction.commit();
+                   }
+
+               }
+           }
+        );
+        return root;
     }
 }
