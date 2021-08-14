@@ -2,6 +2,7 @@ package org.techtown.smim;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.android.volley.Cache;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     public Long mem_num;
     public Long group_num;
     public List<personal> list = new ArrayList<>();
+    public String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +56,56 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Intent intent1 = getIntent();
-        mem_num = intent1.getLongExtra("mem_num", 0L);
+        if(intent1 != null) {
+            id = intent1.getStringExtra("ID");
+        }
+
+        try {
+            Thread.sleep(25); //0.025초 대기
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        RequestQueue requestQueue;
+        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+        Network network = new BasicNetwork(new HurlStack());
+        requestQueue = new RequestQueue(cache, network);
+        requestQueue.start();
+
+        String url = "http://52.78.235.23:8080/personal";
 
         Bundle bundle = new Bundle();
-        bundle.putLong("mem_num", mem_num);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // 한글깨짐 해결 코드
+                String changeString = new String();
+                try {
+                    changeString = new String(response.getBytes("8859_1"), "utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                Type listType = new TypeToken<ArrayList<personal>>() {
+                }.getType();
+                list = gson.fromJson(changeString, listType);
+
+                for(int i=0; i<list.size(); i++) {
+                    if(id.compareTo(list.get(i).id) == 0) {
+                        mem_num = list.get(i).mem_num;
+                        break;
+                    }
+                }
+
+                bundle.putLong("mem_num", mem_num);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+        requestQueue.add(stringRequest);
 
         homeFragment.setArguments(bundle);
         findGroup_test.setArguments(bundle);

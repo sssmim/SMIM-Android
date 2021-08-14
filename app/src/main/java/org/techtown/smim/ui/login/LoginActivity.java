@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                                 check = true;
                                 Long temp = list.get(i).mem_num;
                                 Intent intent = new Intent(getApplicationContext(), LoginActivity_checkPwd.class);
-                                intent.putExtra("mem_num", temp);
+                                intent.putExtra("ID", Id);
                                 startActivity(intent);
                                 finish();
                                 break;

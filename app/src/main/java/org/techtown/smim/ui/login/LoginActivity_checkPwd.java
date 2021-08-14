@@ -43,7 +43,7 @@ public class LoginActivity_checkPwd extends AppCompatActivity {
 
     Dialog dialog;
 
-    Long mem_num;
+    String Id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class LoginActivity_checkPwd extends AppCompatActivity {
         setContentView(R.layout.login_check);
 
         Intent intent1 = getIntent();
-        mem_num = intent1.getLongExtra("mem_num", 0L);
+        String Id = intent1.getStringExtra("ID");
 
         getPwd = findViewById(R.id.getPwd);
         checkPwd = findViewById(R.id.checkPwd);
@@ -85,7 +85,7 @@ public class LoginActivity_checkPwd extends AppCompatActivity {
                         list = gson.fromJson(changeString, listType);
 
                         for(int i=0; i<list.size(); i++) {
-                            if(mem_num.compareTo(list.get(i).mem_num) == 0) {
+                            if(Id.compareTo(list.get(i).id) == 0) {
                                 if(Pwd.compareTo(list.get(i).pwd) == 0) {
                                     check = true;
                                 }
@@ -107,7 +107,7 @@ public class LoginActivity_checkPwd extends AppCompatActivity {
                             });
                         } else {
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            intent.putExtra("mem_num" , mem_num);
+                            intent.putExtra("ID", Id);
                             startActivity(intent);
                             finish();
                         }
