@@ -99,6 +99,7 @@ public class NotificationsFragment_test extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         final CustomExerciseAdapter adapter = new CustomExerciseAdapter();
+        adapter.clearItem();
 
         String url = "http://52.78.235.23:8080/iexercise";
 
