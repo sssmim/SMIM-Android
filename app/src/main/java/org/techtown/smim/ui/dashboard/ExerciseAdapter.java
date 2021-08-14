@@ -1,5 +1,6 @@
 package org.techtown.smim.ui.dashboard;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,19 +14,32 @@ import org.techtown.smim.R;
 import java.util.ArrayList;
 
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHolder> {
-    ArrayList<Exercise> items = new ArrayList<Exercise>();
+    static ArrayList<Exercise> items = new ArrayList<Exercise>();
+    static ExerciseAdapter.OnPersonItemClickListener listener;
+
+    public interface OnPersonItemClickListener {
+        public void onItemClick(ExerciseAdapter.ViewHolder holder, View view,ArrayList<Exercise> items, int position); }
+
+    public void setOnItemClicklistener(ExerciseAdapter.OnPersonItemClickListener listener){ this.listener = listener; }
+
+
+    public void onItemClick(ExerciseAdapter.ViewHolder holder, View view,ArrayList<Exercise> items, int position) {
+        if(listener != null){
+            listener.onItemClick(holder,view,items,position); } }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         View itemView = inflater.inflate(R.layout.excercise_item, viewGroup, false);
+        Log.d("test_adapter", "onCrateViewHolder");
 
         return new ViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+        Log.d("test_adapter", "onBindViewHolder");
         Exercise item = items.get(position);
         viewHolder.setItem(item);
     }
@@ -33,6 +47,10 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    public void clearItem() {
+        items.clear();
     }
 
     public void addItem(Exercise item) {
@@ -62,6 +80,13 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
             textView = itemView.findViewById(R.id.textView);
             textView1 = itemView.findViewById(R.id.textView1);
             textView2 = itemView.findViewById(R.id.textView2);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if(listener != null){
+                        listener.onItemClick(ExerciseAdapter.ViewHolder.this, v, items, position);
+                    } } });
         }
 
         public void setItem(Exercise item) {

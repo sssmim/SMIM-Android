@@ -43,8 +43,10 @@ import org.techtown.smim.database.group;
 import org.techtown.smim.database.iexercise;
 import org.techtown.smim.ui.dashboard.DashboardFragment;
 import org.techtown.smim.ui.dashboard.Exercise;
+import org.techtown.smim.ui.dashboard.ExercisePlan;
 import org.techtown.smim.ui.dashboard.GroupList;
 import org.techtown.smim.ui.dashboard.GroupListAdapter;
+import org.techtown.smim.ui.dashboard.YoutubePlan;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -62,8 +64,10 @@ public class NotificationsFragment_test extends Fragment {
     private RecyclerView.Adapter mAdapter;
 
     public List<iexercise> list = new ArrayList<>();
-
+    public static ArrayList<Integer> m=new ArrayList<>();
     public List<String> list2 = new ArrayList<>();
+
+    Long mem_num;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -74,6 +78,10 @@ public class NotificationsFragment_test extends Fragment {
 
         super.onCreate(savedInstanceState);
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
+
+        Bundle bundle = getArguments();
+        mem_num = bundle.getLong("mem_num");
+        Log.d("test_CrawlingPage", String.valueOf(mem_num));
 
         RequestQueue requestQueue;
         // Instantiate the cache
@@ -112,7 +120,7 @@ public class NotificationsFragment_test extends Fragment {
                     String description = list.get(i).ie_dsec.replace("\\r\\n", "\r\n");
                     int image = getResources().getIdentifier(list.get(i).ie_image , "drawable", getContext().getPackageName());
                     list2.add(list.get(i).ie_dsec);
-                    adapter.addItem(new CustomExercise(list.get(i).ie_name, list.get(i).ie_part, image));
+                    adapter.addItem(new CustomExercise(list.get(i).ie_name, list.get(i).ie_part, image,false));
                 }
 
                 recyclerView.setAdapter(adapter);
@@ -142,6 +150,8 @@ public class NotificationsFragment_test extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(requireContext(), CustomExerciseMerge.class);
+                intent.putIntegerArrayListExtra("key",  m);
+                intent.putExtra("mem_num", mem_num);
                 startActivityForResult(intent, customexerciseplan);
             }
         });
@@ -160,4 +170,15 @@ public class NotificationsFragment_test extends Fragment {
             } });
         return root;
     }
+
+    public static void ischeck(int position){
+         m.add(position);
+    }
+    public static void uncheck(int position){
+        m.remove(position);
+    }
+
+
+
+
 }
