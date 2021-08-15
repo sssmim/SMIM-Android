@@ -38,7 +38,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
     public void addItem(ActivityList item) {
         items.add(item);
     }
-
+public void clearItem(){items.clear();}
     public void setItems(ArrayList<ActivityList> items) {
         this.items = items;
     }
