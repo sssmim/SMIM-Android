@@ -2,11 +2,13 @@ package org.techtown.smim.ui.home;
 
 public class ActivityList {
     String name;
-    String time;
+    String stime;
+    String etime;
 
-    public ActivityList(String name, String time) {
+    public ActivityList(String name, String stime,String etime) {
         this.name = name;
-        this.time = time;
+        this.stime = stime;
+        this.etime = etime;
     }
 
     public String getName() {
@@ -17,11 +19,19 @@ public class ActivityList {
         this.name = name;
     }
 
-    public String getTime() {
-        return time;
+    public String getStime() {
+        return stime;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setStime(String stime) {
+        this.stime = stime;
+    }
+
+    public String getEtime() {
+        return etime;
+    }
+
+    public void setEtime(String etime) {
+        this.etime = etime;
     }
 }
