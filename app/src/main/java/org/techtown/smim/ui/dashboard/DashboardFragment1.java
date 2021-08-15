@@ -53,7 +53,7 @@ public class DashboardFragment1 extends Fragment {
 
     public TextView name;
     public TextView info;
-
+    public ArrayList<Exercise> list222 = new ArrayList<>();
     public List<group> list = new ArrayList<>();
     public List<gexercise> list2 = new ArrayList<>();
     public List<personal> list3 = new ArrayList<>();
@@ -81,14 +81,20 @@ public class DashboardFragment1 extends Fragment {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+        Button button1 = root.findViewById(R.id.groupplay);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { Intent intent = new Intent(requireContext(), GroupExercisePlay.class);
+                startActivityForResult(intent, REQUEST_CODE_MENU);
+            }
+        });
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(layoutManager);
-
         ExerciseAdapter adapter = new ExerciseAdapter();
         adapter.clearItem();
 
+        adapter.clearItem();
         RequestQueue requestQueue;
         Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
         Network network = new BasicNetwork(new HurlStack());
@@ -153,6 +159,7 @@ public class DashboardFragment1 extends Fragment {
 
                 requestQueue.add(stringRequest0);
 
+
                 String url2 = "http://52.78.235.23:8080/gexercise";
 
                 StringRequest stringRequest2 = new StringRequest(Request.Method.GET, url2, new Response.Listener<String>() {
@@ -174,6 +181,7 @@ public class DashboardFragment1 extends Fragment {
 
                         for(int i = 0; i< list2.size(); i++) {
                             if(list2.get(i).group_num.compareTo(group_num) == 0) {
+
                                 adapter.addItem(new Exercise(list2.get(i).ge_start_time, list2.get(i).ge_end_time, list2.get(i).ge_desc));
                                 many++;
                                 ge_numlist.add(list2.get(i).ge_num);
