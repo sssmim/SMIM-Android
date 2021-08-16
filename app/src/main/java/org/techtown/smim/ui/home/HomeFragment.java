@@ -60,9 +60,9 @@ public class HomeFragment extends Fragment {
 
         org.techtown.smim.ui.home.ActivityListAdapter adapter = new org.techtown.smim.ui.home.ActivityListAdapter();
 
-        adapter.addItem(new org.techtown.smim.ui.home.ActivityList("스쿼트", "10:00 ~ 12:00"));
-        adapter.addItem(new org.techtown.smim.ui.home.ActivityList("런지", "14:00 ~ 17:00"));
-        adapter.addItem(new org.techtown.smim.ui.home.ActivityList("무야호", "15:00 ~ 19:00"));
+        adapter.addItem(new org.techtown.smim.ui.home.ActivityList("스쿼트", "10:00 ~ 12:00","10:00 ~ 12:00"));
+        adapter.addItem(new org.techtown.smim.ui.home.ActivityList("런지", "14:00 ~ 17:00","10:00 ~ 12:00"));
+        adapter.addItem(new org.techtown.smim.ui.home.ActivityList("무야호", "15:00 ~ 19:00","10:00 ~ 12:00"));
 
         recyclerView.setAdapter(adapter);
 

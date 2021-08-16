@@ -189,7 +189,7 @@ public class CustomExerciseMerge extends AppCompatActivity {
             }
         });
     }
-
+/*
     public static void addmethod(CustomExerciseChoice x,  int position){
         if (position ==0){
             num0++;
@@ -244,5 +244,5 @@ public class CustomExerciseMerge extends AppCompatActivity {
             x.count = num4;
             cadapter.setItem(position,x);
             cadapter.notifyDataSetChanged();}
-    }
+    }*/
 }

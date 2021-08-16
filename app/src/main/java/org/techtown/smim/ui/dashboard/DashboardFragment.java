@@ -63,8 +63,8 @@ public class DashboardFragment extends Fragment {
     ExerciseAdapter adapter;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-      // dashboardViewModel =
-             //   new ViewModelProvider(this).get(DashboardViewModel.class);
+        // dashboardViewModel =
+        //   new ViewModelProvider(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
         name = root.findViewById(R.id.name);
         info = root.findViewById(R.id.info);
@@ -117,8 +117,7 @@ public class DashboardFragment extends Fragment {
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(layoutManager);
 
-
-       adapter = new ExerciseAdapter();
+        adapter = new ExerciseAdapter();
 
         String url2 = "http://52.78.235.23:8080/gexercise";
 
@@ -179,7 +178,7 @@ public class DashboardFragment extends Fragment {
             public void onItemClick(ExerciseAdapter.ViewHolder holder, View view, ArrayList<Exercise> items,int position)
             {
 
-                CustomDialog dlg = new CustomDialog(getContext(),position,ge_numlist.get(position),items,adapter);
+                CustomDialog dlg = new CustomDialog(getContext(),mem_num,position,ge_numlist.get(position),items,adapter);
                 dlg.show();
 
                 Toast.makeText(getContext(),"아이템 선택 ", Toast.LENGTH_LONG).show();
