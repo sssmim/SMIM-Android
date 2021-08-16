@@ -4,12 +4,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.techtown.smim.R;
+import org.techtown.smim.ui.notifications.CustomExerciseMerge;
 
 import java.util.ArrayList;
 
@@ -26,6 +29,23 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
     public void onItemClick(ExerciseAdapter.ViewHolder holder, View view,ArrayList<Exercise> items, int position) {
         if(listener != null){
             listener.onItemClick(holder,view,items,position); } }
+
+
+    static ExerciseAdapter.OnItemsClickListener listener3;
+
+    public interface OnItemsClickListener {
+        public void onItemsClick( int position); }
+
+    public void setOnItemsClicklistener(ExerciseAdapter.OnItemsClickListener listener3){ this.listener3 = listener3; }
+
+
+    public void onItemsClick(int position) {
+        if(listener3 != null){
+            listener3.onItemsClick(position); } }
+
+
+
+
 
     @NonNull
     @Override
@@ -73,13 +93,23 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
         TextView textView;
         TextView textView1;
         TextView textView2;
-
+        Button grouplay;
         public ViewHolder(View itemView) {
             super(itemView);
 
             textView = itemView.findViewById(R.id.textView);
             textView1 = itemView.findViewById(R.id.textView1);
             textView2 = itemView.findViewById(R.id.textView2);
+            grouplay =itemView.findViewById(R.id.groupplay);
+
+           grouplay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if(listener3 != null){
+                        listener3.onItemsClick( position);
+                }}
+            });
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {

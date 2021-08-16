@@ -26,6 +26,7 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 import org.techtown.smim.R;
+import org.techtown.smim.ui.notifications.CustomExerciseChoice;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -312,4 +313,6 @@ public class ExercisePlanFragment extends Fragment {
         );
         return root;
     }
+
+
 }

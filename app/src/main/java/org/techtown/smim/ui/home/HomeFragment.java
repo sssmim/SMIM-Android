@@ -47,6 +47,7 @@ import org.techtown.smim.ui.notifications.CustomExerciseAdapter;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -62,6 +63,8 @@ public class HomeFragment extends Fragment {
     String rday;
     String rselect;
     Long mem_num;
+    Date date = null;
+    Date changedate=null;
     public List<reservation> list3 = new ArrayList<>();
     public List<Long> ge_numlist = new ArrayList<>();
     public List<gexercise> glist = new ArrayList<>();
@@ -81,38 +84,26 @@ public class HomeFragment extends Fragment {
         Date mDate = new Date(Now);
 
         SimpleDateFormat simpleYear = new SimpleDateFormat("yyyy.M");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String getYear = simpleYear.format(mDate);
-        SimpleDateFormat simpleDay = new SimpleDateFormat("dd (EE)", Locale.getDefault());
-        String getDay = simpleDay.format(Now);
+        String getToday = format.format(mDate);
+
         textView01.setText(getYear);
- //Date rselect=2021-08-12;
+
+          String str = getToday;
+        SimpleDateFormat simpleYear2 = new SimpleDateFormat("yyyy-MM-dd");
+
+        try{
+            date = simpleYear2.parse(str);
+        }catch(ParseException e){}
+        //long nt = date.getTime();
+
+
         RecyclerView recyclerView3 = (RecyclerView) root.findViewById(R.id.RecyclerView);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView3.setLayoutManager(layoutManager);
         ActivityListAdapter adapter = new ActivityListAdapter();
-        /*org.techtown.smim.ui.home.ActivityListAdapter adapter = new org.techtown.smim.ui.home.ActivityListAdapter();
-
-        adapter.addItem(new org.techtown.smim.ui.home.ActivityList("스쿼트", "10:00 ~ 12:00","10:00 ~ 12:00"));
-        adapter.addItem(new org.techtown.smim.ui.home.ActivityList("런지", "14:00 ~ 17:00","10:00 ~ 12:00"));
-        adapter.addItem(new org.techtown.smim.ui.home.ActivityList("무야호", "15:00 ~ 19:00","10:00 ~ 12:00"));
-
-        recyclerView.setAdapter(adapter);*/
-
-        CalendarView calendar = (CalendarView) root.findViewById(R.id.calendarView);
-
-        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-              year_m = year + "." + (month + 1);
-                ryear=year+"";
-                rmonth=month+1+"";
-                rday = dayOfMonth+"";
-                rselect = ryear+"-"+rmonth+"-"+rday;
-                textView01.setText(year_m);
-
-            }
-        });
 
 
         RequestQueue requestQueue;
@@ -190,9 +181,9 @@ public class HomeFragment extends Fragment {
                 for(int i = 0; i< ge_numlist.size(); i++) {
                     for(int j = 0; j< glist.size(); j++) {
                     if ( ge_numlist.get(i).compareTo(glist.get(j).ge_num) == 0) {
-                        //if(glist.get(j).ge_date.equals(rselect)) {
+                        if(date.compareTo(glist.get(j).ge_date) == 0) {
                             adapter.addItem(new ActivityList(glist.get(j).ge_desc, glist.get(j).ge_start_time, glist.get(j).ge_end_time));
-                        //}
+                        }
                     }
                 }}
 
@@ -208,6 +199,83 @@ public class HomeFragment extends Fragment {
         // Add the request to the RequestQueue.
         requestQueue.add(stringRequest1);
 
+        CalendarView calendar = (CalendarView) root.findViewById(R.id.calendarView);
+
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                year_m = year + "." + (month + 1);
+                ryear=year+"";
+                if (month/10<1){
+                    rmonth="0"+(month+1)+"";
+                }else{
+                    rmonth=month+1+"";
+                }
+
+                if (dayOfMonth/10<1){
+                    rday = "0"+dayOfMonth+"";
+                }else{
+                    rday = dayOfMonth+"";
+                }
+
+
+                rselect = ryear+"-"+rmonth+"-"+rday;
+                textView01.setText(year_m);
+
+                adapter.clearItem();
+
+
+                String strs = rselect;
+                SimpleDateFormat simpleYeare = new SimpleDateFormat("yyyy-MM-dd");
+
+
+                try{
+                    changedate = simpleYeare.parse(strs);
+                }catch(ParseException e){}
+                String url1 = "http://52.78.235.23:8080/gexercise";
+
+                StringRequest stringRequest1 = new StringRequest(Request.Method.GET, url1, new Response.Listener<String>() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
+                    @Override
+                    public void onResponse(String response) {
+                        // 한글깨짐 해결 코드
+                        String changeString = new String();
+                        try {
+                            changeString = new String(response.getBytes("8859_1"),"utf-8");
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                        Type listType = new TypeToken<ArrayList<gexercise>>(){}.getType();
+                        glist = gson.fromJson(changeString, listType);
+
+
+
+                        for(int i = 0; i< ge_numlist.size(); i++) {
+                            for(int j = 0; j< glist.size(); j++) {
+                                if ( ge_numlist.get(i).compareTo(glist.get(j).ge_num) == 0) {
+                                    if(changedate.compareTo(glist.get(j).ge_date) == 0) {
+                                        adapter.addItem(new ActivityList(glist.get(j).ge_desc, glist.get(j).ge_start_time, glist.get(j).ge_end_time));
+                                    }
+                                }
+                            }}
+                        adapter.notifyDataSetChanged();
+                        //recyclerView3.setAdapter(adapter);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Dd","fail");
+                    }
+                });
+
+                // Add the request to the RequestQueue.
+                requestQueue.add(stringRequest1);
+
+
+
+            }
+        });
 
 
 

@@ -62,6 +62,7 @@ public void clearItem(){items.clear();}
             hs= itemView.findViewById(R.id.hs);
             he = itemView.findViewById(R.id.he);
             hd = itemView.findViewById(R.id.hd);
+
         }
 
         public void setItem(ActivityList item) {
