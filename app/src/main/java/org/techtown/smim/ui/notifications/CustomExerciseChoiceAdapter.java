@@ -20,7 +20,6 @@ import java.util.ArrayList;
 public class CustomExerciseChoiceAdapter extends RecyclerView.Adapter<CustomExerciseChoiceAdapter.ItemViewHolder> implements ItemTouchHelperListener {
     ArrayList<CustomExerciseChoice> items = new ArrayList<>();
     public CustomExerciseChoiceAdapter(){
-        
     }
     @NonNull
     @Override
@@ -39,6 +38,9 @@ public class CustomExerciseChoiceAdapter extends RecyclerView.Adapter<CustomExer
 
     @Override
     public int getItemCount() { return items.size(); }
+    public void clearItem() {
+        items.clear();
+    }
     public void addItem(CustomExerciseChoice person){ items.add(person); }
     public CustomExerciseChoice getItem(int position) {
         return items.get(position);
@@ -64,10 +66,6 @@ public class CustomExerciseChoiceAdapter extends RecyclerView.Adapter<CustomExer
     public void onItemSwipe(int position) {
         items.remove(position);
         notifyItemRemoved(position);
-    }
-
-    public void clearItem() {
-        items.clear();
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
