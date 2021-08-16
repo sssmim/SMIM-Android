@@ -40,6 +40,7 @@ import org.techtown.smim.R;
 import org.techtown.smim.database.gexercise;
 import org.techtown.smim.database.group;
 import org.techtown.smim.database.personal;
+import org.techtown.smim.ui.notifications.CustomExerciseChoice;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -58,6 +59,7 @@ public class DashboardFragment1 extends Fragment {
     public List<gexercise> list2 = new ArrayList<>();
     public List<personal> list3 = new ArrayList<>();
     public List<Long> ge_numlist = new ArrayList<>();
+    public List<String> urlList = new ArrayList<>();
     Long mem_num;
     Long group_num;
 
@@ -181,7 +183,7 @@ public class DashboardFragment1 extends Fragment {
 
                         for(int i = 0; i< list2.size(); i++) {
                             if(list2.get(i).group_num.compareTo(group_num) == 0) {
-
+                                urlList.add(list2.get(i).video_url);
                                 adapter.addItem(new Exercise(list2.get(i).ge_start_time, list2.get(i).ge_end_time, list2.get(i).ge_desc));
                                 many++;
                                 ge_numlist.add(list2.get(i).ge_num);
@@ -246,9 +248,22 @@ public class DashboardFragment1 extends Fragment {
                 Toast.makeText(getContext(),"아이템 선택 ", Toast.LENGTH_LONG).show();
             } });
 
-
+        adapter.setOnItemsClicklistener(new ExerciseAdapter.OnItemsClickListener(){
+            @Override
+            public void onItemsClick(int position) {
+                Intent intent = new Intent(getContext(), GroupExercisePlay.class);
+                intent.putExtra("url",urlList.get(position));
+                startActivity(intent);
+            }});
 
 
         return root;
     }
+
+/*
+    public  void geturl(int position) {
+        Intent intent = new Intent(getContext(), GroupExercisePlay.class);
+        intent.putExtra("url",urlList.get(position));
+        startActivity(intent);
+    };*/
 }
