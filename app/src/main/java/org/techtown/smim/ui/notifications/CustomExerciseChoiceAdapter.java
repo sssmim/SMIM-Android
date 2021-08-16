@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.techtown.smim.R;
+import org.techtown.smim.ui.dashboard.Exercise;
+import org.techtown.smim.ui.dashboard.ExerciseAdapter;
 import org.techtown.smim.ui.dashboard.GroupList;
 import org.techtown.smim.ui.dashboard.GroupListAdapter;
 
@@ -22,6 +24,36 @@ public class CustomExerciseChoiceAdapter extends RecyclerView.Adapter<CustomExer
     public CustomExerciseChoiceAdapter(){
         
     }
+
+    static CustomExerciseChoiceAdapter.OnPersonItemClickListener listener;
+
+    public interface OnPersonItemClickListener {
+        public void onItemClick(CustomExerciseChoice cec, int position); }
+
+    public void setOnItemClicklistener(CustomExerciseChoiceAdapter.OnPersonItemClickListener listener){ this.listener = listener; }
+
+
+    public void onItemClick(CustomExerciseChoice cec, int position) {
+        if(listener != null){
+            listener.onItemClick(cec,position); } }
+
+
+
+    static CustomExerciseChoiceAdapter.OnItemsClickListener listener1;
+
+    public interface OnItemsClickListener {
+        public void onItemsClick(CustomExerciseChoice cec, int position); }
+
+    public void setOnItemsClicklistener(CustomExerciseChoiceAdapter.OnItemsClickListener listener1){ this.listener1 = listener1; }
+
+
+    public void onItemsClick(CustomExerciseChoice cec, int position) {
+        if(listener1 != null){
+            listener1.onItemsClick(cec,position); } }
+
+
+
+
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -86,12 +118,19 @@ public class CustomExerciseChoiceAdapter extends RecyclerView.Adapter<CustomExer
                 public void onClick(View v) {
                     //Integer a = person.cgetCount();
                    // tv_count.setText(a.toString());
+                    //int position = getAdapterPosition();
+                  // CustomExerciseMerge.addmethod(x, position);
+                   // plusforced++;
+
                     int position = getAdapterPosition();
-                   CustomExerciseMerge.addmethod(x, position);
+                    if(listener != null){
+                        listener.onItemClick(x, position);
+                    }
+
                     plusforced++;
                 }
             });
-            mis= itemView.findViewById(R.id.btn_minus);
+          mis= itemView.findViewById(R.id.btn_minus);
             mis.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -99,7 +138,9 @@ public class CustomExerciseChoiceAdapter extends RecyclerView.Adapter<CustomExer
                     if(plusforced>0) {
                         //Toast.makeText(itemView.getContext(), "value", Toast.LENGTH_LONG).show();
                         int position = getAdapterPosition();
-                        CustomExerciseMerge.minusmethod(x, position);
+                        if(listener1 != null){
+                            listener1.onItemsClick(x, position);
+                        }
 
                     }
                 }
