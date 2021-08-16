@@ -85,13 +85,9 @@ public class NotificationsFragment_test extends Fragment {
         Log.d("test_CrawlingPage", String.valueOf(mem_num));
 
         RequestQueue requestQueue;
-        // Instantiate the cache
         Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
-        // Set up the network to use HttpURLConnection as the HTTP client.
         Network network = new BasicNetwork(new HurlStack());
-        // Instantiate the RequestQueue with the cache and network.
         requestQueue = new RequestQueue(cache, network);
-        // Start the queue
         requestQueue.start();
 
 
@@ -186,8 +182,5 @@ public class NotificationsFragment_test extends Fragment {
     public static void uncheck(int position){
         m.remove(position);
     }
-
-
-
 
 }
