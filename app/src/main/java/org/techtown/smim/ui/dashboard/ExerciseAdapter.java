@@ -52,14 +52,12 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         View itemView = inflater.inflate(R.layout.excercise_item, viewGroup, false);
-        Log.d("test_adapter", "onCrateViewHolder");
 
         return new ViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        Log.d("test_adapter", "onBindViewHolder");
         Exercise item = items.get(position);
         viewHolder.setItem(item);
     }

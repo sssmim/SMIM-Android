@@ -66,6 +66,10 @@ public class CustomExerciseChoiceAdapter extends RecyclerView.Adapter<CustomExer
         notifyItemRemoved(position);
     }
 
+    public void clearItem() {
+        items.clear();
+    }
+
     class ItemViewHolder extends RecyclerView.ViewHolder {
         int plusforced=0;
         TextView list_name,list_part,tv_count;
@@ -87,7 +91,7 @@ public class CustomExerciseChoiceAdapter extends RecyclerView.Adapter<CustomExer
                     //Integer a = person.cgetCount();
                    // tv_count.setText(a.toString());
                     int position = getAdapterPosition();
-                   CustomExerciseMerge.addmethod(x, position);
+                   CustomExerciseMergeFragment.addmethod(x, position);
                     plusforced++;
                 }
             });
@@ -99,15 +103,13 @@ public class CustomExerciseChoiceAdapter extends RecyclerView.Adapter<CustomExer
                     if(plusforced>0) {
                         //Toast.makeText(itemView.getContext(), "value", Toast.LENGTH_LONG).show();
                         int position = getAdapterPosition();
-                        CustomExerciseMerge.minusmethod(x, position);
+                        CustomExerciseMergeFragment.minusmethod(x, position);
 
                     }
                 }
             });
 
         }
-
-
 
         public void onBind(CustomExerciseChoice person) {
             list_name.setText(person.cgetName());
