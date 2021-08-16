@@ -68,6 +68,7 @@ public class HomeFragment extends Fragment {
     public List<reservation> list3 = new ArrayList<>();
     public List<Long> ge_numlist = new ArrayList<>();
     public List<gexercise> glist = new ArrayList<>();
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =

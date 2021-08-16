@@ -60,14 +60,13 @@ public class CustomExerciseMergeFragment extends Fragment {
     public static int num4=0;
 
     RecyclerView rv;
-    static CustomExerciseChoiceAdapter cadapter;
+    static CustomExerciseChoiceAdapter cadapter = new CustomExerciseChoiceAdapter();;
     ItemTouchHelper helper;
 
     public List<Long> getList = new ArrayList<>();
     public static List<iexercise> list = new ArrayList<>();
     ArrayList<Integer> value;
     Long mem_num;
-
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.custom_exercise_merge, container, false);
@@ -92,8 +91,8 @@ public class CustomExerciseMergeFragment extends Fragment {
         rv.setLayoutManager(manager);
 
         //RecyclerView의 Adapter 세팅
-        cadapter = new CustomExerciseChoiceAdapter();
-        cadapter.clearItem();
+        //cadapter = new CustomExerciseChoiceAdapter();
+        //cadapter.clearItem();
 
         //ItemTouchHelper 생성
         helper = new ItemTouchHelper(new ItemTouchHelperCallback(cadapter));
@@ -101,13 +100,9 @@ public class CustomExerciseMergeFragment extends Fragment {
         helper.attachToRecyclerView(rv);
 
         RequestQueue requestQueue;
-        // Instantiate the cache
         Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
-        // Set up the network to use HttpURLConnection as the HTTP client.
         Network network = new BasicNetwork(new HurlStack());
-        // Instantiate the RequestQueue with the cache and network.
         requestQueue = new RequestQueue(cache, network);
-        // Start the queue
         requestQueue.start();
 
         String url = "http://52.78.235.23:8080/iexercise";
@@ -126,6 +121,9 @@ public class CustomExerciseMergeFragment extends Fragment {
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 Type listType = new TypeToken<ArrayList<iexercise>>(){}.getType();
                 list = gson.fromJson(changeString, listType);
+
+                int temp = cadapter.getItemCount();
+                Log.d("test_cadapter", String.valueOf(temp));
 
                 for(int i = 0; i< list.size(); i++) {
                     for(int j=0; j<value.size(); j++) {
