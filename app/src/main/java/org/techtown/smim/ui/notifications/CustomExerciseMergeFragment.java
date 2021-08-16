@@ -164,6 +164,7 @@ public class CustomExerciseMergeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String url = "http://52.78.235.23:8080/list";
+                cadapter.clearItem();
                 Map map = new HashMap();
                 for(int k=0; k<cadapter.getItemCount(); k++) {
                     map.put("name" + (k+1), cadapter.getItem(k).cgetName());
@@ -205,6 +206,7 @@ public class CustomExerciseMergeFragment extends Fragment {
     }
 
     public static void addmethod(CustomExerciseChoice x,  int position){
+
         if (position ==0){
             num0++;
             x.count = num0;
@@ -233,30 +235,47 @@ public class CustomExerciseMergeFragment extends Fragment {
     }
 
     public static void minusmethod(CustomExerciseChoice x,  int position){
+
         if (position ==0){
-            num0--;
-            x.count = num0;
-            cadapter.setItem(position,x);
-            cadapter.notifyDataSetChanged();}
+            if(num0>0) {
+                num0--;
+                x.count = num0;
+                cadapter.setItem(position, x);
+                cadapter.notifyDataSetChanged();
+            }
+        }
         if (position ==1){
-            num1--;
-            x.count = num1;
-            cadapter.setItem(position,x);
-            cadapter.notifyDataSetChanged();}
+            if(num1>0) {
+                num1--;
+                x.count = num1;
+                cadapter.setItem(position, x);
+                cadapter.notifyDataSetChanged();
+            }
+        }
         if (position ==2){
-            num2--;
-            x.count = num2;
-            cadapter.setItem(position,x);
-            cadapter.notifyDataSetChanged();}
+            if(num2>0) {
+                num2--;
+                x.count = num2;
+                cadapter.setItem(position, x);
+                cadapter.notifyDataSetChanged();
+            }
+        }
         if (position ==3){
-            num3--;
-            x.count = num3;
-            cadapter.setItem(position,x);
-            cadapter.notifyDataSetChanged();}
+            if(num3>0) {
+                num3--;
+                x.count = num3;
+                cadapter.setItem(position, x);
+                cadapter.notifyDataSetChanged();
+            }
+        }
         if (position ==4){
-            num4--;
-            x.count = num4;
-            cadapter.setItem(position,x);
-            cadapter.notifyDataSetChanged();}
+            if(num4>0) {
+                num4--;
+                x.count = num4;
+                cadapter.setItem(position, x);
+                cadapter.notifyDataSetChanged();
+            }
+        }
+
     }
 }
