@@ -28,19 +28,27 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONObject;
 import org.techtown.smim.R;
 import org.techtown.smim.database.ielist;
 import org.techtown.smim.database.iexercise;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class TimerFragment extends Fragment {
 
@@ -66,6 +74,10 @@ public class TimerFragment extends Fragment {
 
     Long mem_num;
 
+    Date date1;
+    Date date2;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss", Locale.KOREA);
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //super.onCreate(savedInstanceState);
@@ -76,6 +88,9 @@ public class TimerFragment extends Fragment {
         if(bundle != null) {
             mem_num = bundle.getLong("mem_num");
         }
+
+        Long now = System.currentTimeMillis();
+        date1 = new Date(now);
 
         RequestQueue requestQueue;
         Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
@@ -177,9 +192,7 @@ public class TimerFragment extends Fragment {
         btnComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 show();
-
             }
         });
 
@@ -223,8 +236,7 @@ public class TimerFragment extends Fragment {
                 if (isChecked) {
                     // The toggle is enabled -> start
                     start_stop.setBackgroundDrawable(
-                            getResources().
-                                    getDrawable(R.drawable.red)
+                            getResources().getDrawable(R.drawable.red)
                     );
 
                     if (firstState) {
@@ -234,8 +246,8 @@ public class TimerFragment extends Fragment {
                     } else {
                         time = tempTime;
                     }
-                    countDownTimer = new CountDownTimer(time, 1000) {
-                        @Override
+                        countDownTimer = new CountDownTimer(time, 1000) {
+                            @Override
                         public void onTick(long millisUntilFinished) {
                             tempTime = millisUntilFinished;
                             updateTimer();
@@ -249,13 +261,11 @@ public class TimerFragment extends Fragment {
                 } else {
                     // The toggle is disabled -> pause
                     start_stop.setBackgroundDrawable(
-                            getResources().
-                                    getDrawable(R.drawable.yellow)
+                            getResources().getDrawable(R.drawable.yellow)
                     );
                     countDownTimer.cancel();
                 }
             }
-
 
 
             private void updateTimer() {
@@ -281,9 +291,7 @@ public class TimerFragment extends Fragment {
                     if (secList.size() != 0) {
                         secText.setText(secList.get(index));
                     }
-
                 }
-
 
                 secText.setText(Integer.toString(seconds));
             }
@@ -297,29 +305,60 @@ public class TimerFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("마일리지 500점 획득!"); //나중에 DB연결 필요
 
-
         builder.setNegativeButton("확인",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        //   Intent intent = new Intent(getApplicationContext(), CustomExerciseMerge.class); //크롤링 초기화면으로 돌아가려하면 오류
-                        //  startActivity(intent);
+                        Long now = System.currentTimeMillis();
+                        date2 = new Date(now);
+
+                        SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+                        String getDay = dateFormat1.format(date1);
+
+                        Long diff = date2.getTime() - date1.getTime();
+                        String diffTime = dateFormat.format(diff);
+                        Log.d("test_diff" , diffTime);
+
+                        RequestQueue requestQueue;
+                        Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
+                        Network network = new BasicNetwork(new HurlStack());
+                        requestQueue = new RequestQueue(cache, network);
+                        requestQueue.start();
+
+                        String url = "http://52.78.235.23:8080/ietime";
+
+                        Map map = new HashMap();
+                        map.put("p_num", mem_num);
+                        map.put("daily_record", getDay);
+                        map.put("daily_total", diffTime);
+                        JSONObject params = new JSONObject(map);
+
+                        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, params,
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject obj) {
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                    }
+                                }) {
+
+                            @Override
+                            public String getBodyContentType() {
+                                return "application/json; charset=UTF-8";
+                            }
+                        };
+                        requestQueue.add(objectRequest);
 
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
                         CrawlingPage crawlfragment = new CrawlingPage();
                         Bundle bundle = new Bundle();
                         bundle.putLong("mem_num",mem_num);
                         crawlfragment.setArguments(bundle);
                         fragmentTransaction.replace(R.id.container, crawlfragment);
-
                         fragmentTransaction.commit();
-
-                        //Fragment fragment = new CrawlingPage();
-                        //FragmentManager fm = ((MainActivity) mContext).getSupportFragmentManager();
-                        //FragmentTransaction ft = fm.beginTransaction();
-                        //ft.add(R.id., fragment);
-                        //ft.commit();
                     }
                 });
         builder.show();
