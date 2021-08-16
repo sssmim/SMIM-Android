@@ -196,7 +196,6 @@ public class CustomExerciseMerge extends AppCompatActivity {
         cadapter.setOnItemClicklistener(new CustomExerciseChoiceAdapter.OnPersonItemClickListener(){
             @Override
             public void onItemClick(CustomExerciseChoice x, int position) {
-
                 if (position ==0){
                     num0++;
                     x.count = num0;
@@ -222,10 +221,6 @@ public class CustomExerciseMerge extends AppCompatActivity {
                     x.count = num4;
                     cadapter.setItem(position,x);
                     cadapter.notifyDataSetChanged();}
-
-
-
-
             }});
 
         cadapter.setOnItemsClicklistener(new CustomExerciseChoiceAdapter.OnItemsClickListener(){

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 public class CustomExerciseChoiceAdapter extends RecyclerView.Adapter<CustomExerciseChoiceAdapter.ItemViewHolder> implements ItemTouchHelperListener {
     ArrayList<CustomExerciseChoice> items = new ArrayList<>();
+
     public CustomExerciseChoiceAdapter(){
     }
 
@@ -31,12 +32,9 @@ public class CustomExerciseChoiceAdapter extends RecyclerView.Adapter<CustomExer
 
     public void setOnItemClicklistener(CustomExerciseChoiceAdapter.OnPersonItemClickListener listener){ this.listener = listener; }
 
-
     public void onItemClick(CustomExerciseChoice cec, int position) {
         if(listener != null){
             listener.onItemClick(cec,position); } }
-
-
 
     static CustomExerciseChoiceAdapter.OnItemsClickListener listener1;
 
@@ -44,7 +42,6 @@ public class CustomExerciseChoiceAdapter extends RecyclerView.Adapter<CustomExer
         public void onItemsClick(CustomExerciseChoice cec, int position); }
 
     public void setOnItemsClicklistener(CustomExerciseChoiceAdapter.OnItemsClickListener listener1){ this.listener1 = listener1; }
-
 
     public void onItemsClick(CustomExerciseChoice cec, int position) {
         if(listener1 != null){

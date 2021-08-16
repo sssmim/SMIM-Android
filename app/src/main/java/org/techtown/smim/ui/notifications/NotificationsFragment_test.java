@@ -84,12 +84,13 @@ public class NotificationsFragment_test extends Fragment {
         mem_num = bundle.getLong("mem_num");
         Log.d("test_CrawlingPage", String.valueOf(mem_num));
 
+        m.clear();
+
         RequestQueue requestQueue;
         Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
         Network network = new BasicNetwork(new HurlStack());
         requestQueue = new RequestQueue(cache, network);
         requestQueue.start();
-
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
@@ -147,7 +148,6 @@ public class NotificationsFragment_test extends Fragment {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -171,7 +171,6 @@ public class NotificationsFragment_test extends Fragment {
                 intent.putExtra("obj", position);
                 startActivity(intent);
                // startActivityForResult(intent, number);
-
             } });
         return root;
     }
