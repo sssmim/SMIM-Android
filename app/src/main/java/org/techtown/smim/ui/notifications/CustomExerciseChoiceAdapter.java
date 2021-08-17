@@ -47,8 +47,7 @@ public class CustomExerciseChoiceAdapter extends RecyclerView.Adapter<CustomExer
         if(listener1 != null){
             listener1.onItemsClick(cec,position); } }
 
-
-
+    int plusforced = 0;
 
     @NonNull
     @Override
@@ -128,7 +127,7 @@ public class CustomExerciseChoiceAdapter extends RecyclerView.Adapter<CustomExer
                     plusforced++;
                 }
             });
-          mis= itemView.findViewById(R.id.btn_minus);
+            mis= itemView.findViewById(R.id.btn_minus);
             mis.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -137,14 +136,9 @@ public class CustomExerciseChoiceAdapter extends RecyclerView.Adapter<CustomExer
                         if(listener1 != null){
                             listener1.onItemsClick(x, position);
                         }
-
                     }
-                }
-            });
-
-        }
-
-
+                });
+            }
 
         public void onBind(CustomExerciseChoice person) {
             list_name.setText(person.cgetName());
