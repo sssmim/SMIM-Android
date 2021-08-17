@@ -229,9 +229,8 @@ public class DashboardFragment extends Fragment {
                         map.put("pwd", list3.get(index).pwd);
                         map.put("personal_image", list3.get(index).personal_image);
                         map.put("interest", list3.get(index).interest);
-                        map.put("daily_record", list3.get(index).daily_record);
-                        map.put("daily_total", list3.get(index).daily_total);
                         map.put("group_num", Group_num.intValue());
+                        map.put("point",list3.get(index).point);
 
                         JSONObject params = new JSONObject(map);
 

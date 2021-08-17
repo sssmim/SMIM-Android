@@ -1,5 +1,6 @@
 package org.techtown.smim.ui.home;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
@@ -42,6 +44,7 @@ import org.techtown.smim.database.reservation;
 import org.techtown.smim.ui.dashboard.Exercise;
 import org.techtown.smim.ui.dashboard.ExercisePlan;
 import org.techtown.smim.ui.dashboard.FindGroup;
+import org.techtown.smim.ui.login.LoginActivity_checkPwd;
 import org.techtown.smim.ui.notifications.CustomExercise;
 import org.techtown.smim.ui.notifications.CustomExerciseAdapter;
 
@@ -69,6 +72,7 @@ public class HomeFragment extends Fragment {
     public List<Long> ge_numlist = new ArrayList<>();
     public List<gexercise> glist = new ArrayList<>();
 
+    Dialog dialog;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
@@ -78,6 +82,28 @@ public class HomeFragment extends Fragment {
         Bundle bundle = getArguments();
         mem_num = bundle.getLong("mem_num");
         Log.d("test_HomeFragment", String.valueOf(mem_num));
+
+       Integer sec = bundle.getInt("point");
+        if (sec!=0){
+
+            dialog = new Dialog(requireContext());       // Dialog 초기화
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // 타이틀 제거
+            dialog.setContentView(R.layout.dialog1);
+            TextView point = dialog.findViewById(R.id.point);
+            point.setText(sec.toString());
+            dialog.show();
+            Button cancel = dialog.findViewById(R.id.check);
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss(); // 다이얼로그 닫기
+                }
+            });
+
+
+
+}
+
 
         TextView textView01 = (TextView) root.findViewById(R.id.textView1);
 
