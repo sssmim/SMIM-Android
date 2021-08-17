@@ -12,7 +12,11 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet; 
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet; 
 import com.github.mikephil.charting.utils.ColorTemplate; 
-import com.github.mikephil.charting.charts.LineChart; 
+import com.github.mikephil.charting.charts.LineChart;
+
+import org.techtown.smim.R;
+
+import java.util.ArrayList;
 
 public class nav extends AppCompatActivity {
     LineChart mpLineChart;
@@ -22,7 +26,7 @@ public class nav extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nav_header);
 
-        mpLineChart = findViewById(R.id.LineChart);
+        mpLineChart = findViewById(R.id.lineChart);
         LineDataSet lineDataSet1 = new LineDataSet(dataValues1(), "Data Set 1");
 
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
@@ -33,14 +37,14 @@ public class nav extends AppCompatActivity {
         mpLineChart.invalidate();
     }
 
-    private ArrayList<Enrty> dataValues1(){
-        ArrayList<Enrty> dataVals = new ArrayList<Enrty>();
+    private ArrayList<Entry> dataValues1(){
+        ArrayList<Entry> dataVals = new ArrayList<Entry>();
 
-        dataVals.add(new Enrty(0, 20));
-        dataVals.add(new Enrty(1, 30));
-        dataVals.add(new Enrty(2, 40));
-        dataVals.add(new Enrty(3, 50));
-        dataVals.add(new Enrty(4, 30));
+        dataVals.add(new Entry(0, 20));
+        dataVals.add(new Entry(1, 30));
+        dataVals.add(new Entry(2, 40));
+        dataVals.add(new Entry(3, 50));
+        dataVals.add(new Entry(4, 30));
 
         return dataVals;
     }
