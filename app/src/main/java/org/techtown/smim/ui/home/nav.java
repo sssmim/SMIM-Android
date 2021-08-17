@@ -3,6 +3,16 @@ package org.techtown.smim.ui.home;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import com.github.mikephil.charting.charts.LineChart; 
+import com.github.mikephil.charting.components.Description; 
+import com.github.mikephil.charting.components.XAxis; 
+import com.github.mikephil.charting.components.YAxis; 
+import com.github.mikephil.charting.data.Entry; 
+import com.github.mikephil.charting.data.LineData; 
+import com.github.mikephil.charting.data.LineDataSet; 
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet; 
+import com.github.mikephil.charting.utils.ColorTemplate; 
+import com.github.mikephil.charting.charts.LineChart; 
 
 public class nav extends AppCompatActivity {
     LineChart mpLineChart;
