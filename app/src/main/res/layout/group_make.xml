@@ -8,106 +8,21 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"></LinearLayout>
-    <TextView
-        android:id="@+id/titleTextview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="25dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:gravity="center"
-        android:text="그룹생성" />
-
     <EditText
         android:id="@+id/name"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
         android:hint="그룹이름" />
-
     <EditText
         android:id="@+id/groupdesc"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
         android:hint="그룹설명" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_marginBottom="10dp">
-
-        <TextView
-            android:id="@+id/categoryTextview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="25dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:gravity="center"
-            android:text="카테고리 선택" />
-    </LinearLayout>
-
-    <LinearLayout
+    <Button
+        android:id="@+id/category"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_marginBottom="10dp">
-
-        <Button
-            android:id="@+id/category1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="카테고리1"
-            app:backgroundTint="#81C0F3"
-            android:layout_marginRight="20dp"/>
-
-        <Button
-            android:id="@+id/category2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:backgroundTint="#81C0F3"
-            android:text="카테고리2"
-            android:layout_marginRight="20dp"/>
-
-        <Button
-            android:id="@+id/category3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:backgroundTint="#81C0F3"
-            android:text="카테고리3" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_marginBottom="80dp">
-
-        <Button
-            android:id="@+id/category4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:backgroundTint="#81C0F3"
-            android:text="카테고리4"
-            android:layout_marginRight="20dp"/>
-
-        <Button
-            android:id="@+id/category5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:backgroundTint="#81C0F3"
-            android:text="카테고리5" />
-
-
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:text="카테고리 선택" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -117,7 +32,6 @@
         android:id="@+id/confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
         android:text="확인" />
     <Button
         android:id="@+id/cancel"

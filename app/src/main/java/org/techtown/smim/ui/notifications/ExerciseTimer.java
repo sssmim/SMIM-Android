@@ -69,15 +69,13 @@ public class ExerciseTimer extends AppCompatActivity {
 
     Long mem_num;
 
-    public int prevnext = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timer);
 
         Intent getIntent = getIntent();
-        if (getIntent != null) {
+        if(getIntent != null){
             mem_num = getIntent.getLongExtra("mem_num", 0L);
         }
 
@@ -134,16 +132,16 @@ public class ExerciseTimer extends AppCompatActivity {
 
                         for (int i = 0; i < list2.size(); i++) {
                             nameList.add(list2.get(i).name1);
-                            if (list2.get(i).name2 != null) {
+                            if(list2.get(i).name2 != null) {
                                 nameList.add(list2.get(i).name2);
                             }
-                            if (list2.get(i).name3 != null) {
+                            if(list2.get(i).name3 != null) {
                                 nameList.add(list2.get(i).name3);
                             }
-                            if (list2.get(i).name4 != null) {
+                            if(list2.get(i).name4 != null) {
                                 nameList.add(list2.get(i).name4);
                             }
-                            if (list2.get(i).name5 != null) {
+                            if(list2.get(i).name5 != null) {
                                 nameList.add(list2.get(i).name5);
                             }
                         }
@@ -156,16 +154,16 @@ public class ExerciseTimer extends AppCompatActivity {
 
                         for (int i = 0; i < list.size(); i++) {
                             countList.add(list2.get(i).count1);
-                            if (list2.get(i).count2 != null) {
+                            if(list2.get(i).count2 != null) {
                                 countList.add(list2.get(i).count2);
                             }
-                            if (list2.get(i).count3 != null) {
+                            if(list2.get(i).count3 != null) {
                                 countList.add(list2.get(i).count3);
                             }
-                            if (list2.get(i).count4 != null) {
+                            if(list2.get(i).count4 != null) {
                                 countList.add(list2.get(i).count4);
                             }
-                            if (list2.get(i).count5 != null) {
+                            if(list2.get(i).count5 != null) {
                                 countList.add(list2.get(i).count5);
                             }
                         }
@@ -174,9 +172,9 @@ public class ExerciseTimer extends AppCompatActivity {
                             countdownText.setText(Integer.toString(countList.get(0)));
                         }
 
-                        for (int i = 0; i < nameList.size(); i++) {
-                            for (int j = 0; j < ie_nameList.size(); j++) {
-                                if (nameList.get(i).compareTo(ie_nameList.get(j)) == 0) {
+                        for(int i=0; i<nameList.size(); i++) {
+                            for(int j=0; j<ie_nameList.size(); j++) {
+                                if(nameList.get(i).compareTo(ie_nameList.get(j)) == 0) {
                                     secList.add(ie_secList.get(j));
                                 }
                             }
@@ -215,6 +213,7 @@ public class ExerciseTimer extends AppCompatActivity {
         requestQueue2.start();
         */
 
+
         Button btnComplete = findViewById(R.id.btnComplete);
         btnComplete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,47 +228,32 @@ public class ExerciseTimer extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int siz = nameList.size();
-                if (prevnext < siz -1) {
-                    index++;
-                    //    Log.d("test_Max", String.valueOf(Max));
-                    //    Log.d("test_index+1", String.valueOf(index+1));
-                    //    Log.d("test_compare", String.valueOf(Max.compareTo(index+1)));
-                    if (Max.compareTo(index + 1) == 0) {
-                        //        Log.d("test_finish", "stop");
-                    }
-                    if (nameList.size() != 0) {
-                        exercise_name.setText(nameList.get(index));
-                    }
-                    if (countList.size() != 0) {
-                        countdownText.setText(Integer.toString(countList.get(index)));
-                    }
-                    if (secList.size() != 0) {
-                        secText.setText(secList.get(index));
-                    }
-                    prevnext++;
+                index++;
+                if (nameList.size() != 0) {
+                    exercise_name.setText(nameList.get(index));
+                }
+                if (countList.size() != 0) {
+                    countdownText.setText(Integer.toString(countList.get(index)));
+                }
+                if (secList.size() != 0) {
+                    secText.setText(secList.get(index));
                 }
             }
-
         });
 
         Button button2 = findViewById(R.id.goprev);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (prevnext > 0) {
-                    index--;
-
-                    if (nameList.size() != 0) {
-                        exercise_name.setText(nameList.get(index));
-                    }
-                    if (countList.size() != 0) {
-                        countdownText.setText(Integer.toString(countList.get(index)));
-                    }
-                    if (secList.size() != 0) {
-                        secText.setText(secList.get(index));
-                    }
-                    prevnext--;
+                index--;
+                if (nameList.size() != 0) {
+                    exercise_name.setText(nameList.get(index));
+                }
+                if (countList.size() != 0) {
+                    countdownText.setText(Integer.toString(countList.get(index)));
+                }
+                if (secList.size() != 0) {
+                    secText.setText(secList.get(index));
                 }
             }
         });
@@ -314,11 +298,12 @@ public class ExerciseTimer extends AppCompatActivity {
             }
 
 
+
             private void updateTimer() {
                 int seconds = (int) tempTime % 3600000 % 60000 / 1000;
 
                 if (seconds == 0) {
-                    Integer temp = countList.get(index) - 1;
+                    Integer temp = countList.get(index)- 1;
                     countList.set(index, temp);
                     Integer inte = countList.get(index);
                     countdownText.setText(Integer.toString(inte));
@@ -365,7 +350,7 @@ public class ExerciseTimer extends AppCompatActivity {
     }
 
 
-    void show() {
+    void show(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("마일리지 500점 획득!"); //나중에 DB연결 필요
 
@@ -373,19 +358,19 @@ public class ExerciseTimer extends AppCompatActivity {
         builder.setNegativeButton("확인",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        //   Intent intent = new Intent(getApplicationContext(), CustomExerciseMerge.class); //크롤링 초기화면으로 돌아가려하면 오류
-                        //  startActivity(intent);
+                     //   Intent intent = new Intent(getApplicationContext(), CustomExerciseMerge.class); //크롤링 초기화면으로 돌아가려하면 오류
+                      //  startActivity(intent);
 
-                        // FragmentTransaction transaction = this.getSupportFragmentManager().beginTransaction();
-                        //  CrawlingPage crawlfragment = new CrawlingPage();
-                        //   transaction.replace(R.id.container, crawlfragment);
-                        //  transaction.commit();
+                       // FragmentTransaction transaction = this.getSupportFragmentManager().beginTransaction();
+                      //  CrawlingPage crawlfragment = new CrawlingPage();
+                     //   transaction.replace(R.id.container, crawlfragment);
+                      //  transaction.commit();
 
                         Fragment fragment = new CrawlingPage();
-                        //  FragmentManager fm = ((MainActivity) mContext).getSupportFragmentManager();
-                        //           FragmentTransaction ft = fm.beginTransaction();
-                        //  ft.replace(R.id.container, fragment);
-                        //   ft.commit();
+                      //  FragmentManager fm = ((MainActivity) mContext).getSupportFragmentManager();
+             //           FragmentTransaction ft = fm.beginTransaction();
+                      //  ft.replace(R.id.container, fragment);
+                     //   ft.commit();
                     }
                 });
         builder.show();

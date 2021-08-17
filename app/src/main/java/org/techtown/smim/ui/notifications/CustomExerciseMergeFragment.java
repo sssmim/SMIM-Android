@@ -162,7 +162,6 @@ public class CustomExerciseMergeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String url = "http://52.78.235.23:8080/list";
-                cadapter.clearItem();
                 Map map = new HashMap();
                 for(int k=0; k<cadapter.getItemCount(); k++) {
                     map.put("name" + (k+1), cadapter.getItem(k).cgetName());
