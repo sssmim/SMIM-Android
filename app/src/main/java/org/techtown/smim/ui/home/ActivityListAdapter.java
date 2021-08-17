@@ -38,7 +38,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
     public void addItem(ActivityList item) {
         items.add(item);
     }
-
+public void clearItem(){items.clear();}
     public void setItems(ArrayList<ActivityList> items) {
         this.items = items;
     }
@@ -52,19 +52,23 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textView;
-        TextView textView2;
+        TextView hs;
+        TextView he;
+        TextView hd;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            textView = itemView.findViewById(R.id.detail_textView1);
-            textView2 = itemView.findViewById(R.id.detail_textView2);
+            hs= itemView.findViewById(R.id.hs);
+            he = itemView.findViewById(R.id.he);
+            hd = itemView.findViewById(R.id.hd);
+
         }
 
         public void setItem(ActivityList item) {
-            textView.setText(item.getName());
-            textView2.setText(item.getTime());
+           hd.setText(item.getName());
+            hs.setText(item.getStime());
+            he.setText(item.getEtime());
         }
     }
 

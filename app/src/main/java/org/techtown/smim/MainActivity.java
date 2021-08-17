@@ -94,11 +94,18 @@ public class MainActivity extends AppCompatActivity {
                 for(int i=0; i<list.size(); i++) {
                     if(id.compareTo(list.get(i).id) == 0) {
                         mem_num = list.get(i).mem_num;
+                        Log.d("test_MainActivity", String.valueOf(mem_num));
                         break;
                     }
                 }
 
                 bundle.putLong("mem_num", mem_num);
+
+                Log.d("test_mainActivity" , String.valueOf(mem_num));
+
+                homeFragment.setArguments(bundle);
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.container, homeFragment).commitAllowingStateLoss();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -107,13 +114,13 @@ public class MainActivity extends AppCompatActivity {
         });
         requestQueue.add(stringRequest);
 
-        homeFragment.setArguments(bundle);
+        //homeFragment.setArguments(bundle);
         findGroup_test.setArguments(bundle);
         crawlingPage.setArguments(bundle);
         dashboardFragment1.setArguments(bundle);
 
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.container, homeFragment).commitAllowingStateLoss();
+        //FragmentTransaction transaction = fragmentManager.beginTransaction();
+        //transaction.replace(R.id.container, homeFragment).commitAllowingStateLoss();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());

@@ -3,6 +3,8 @@ package org.techtown.smim.ui.login;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -31,6 +33,7 @@ import org.techtown.smim.database.personal;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class LoginActivity_checkPwd extends AppCompatActivity {
 
@@ -45,6 +48,18 @@ public class LoginActivity_checkPwd extends AppCompatActivity {
 
     String Id;
 
+    //영어만 입력받게 설정해줌.
+    public InputFilter filter= new InputFilter() {
+        public  CharSequence filter(CharSequence source, int start, int end,
+                                    Spanned dest, int dstart, int dend) {
+            Pattern ps = Pattern.compile("^[a-zA-Z0-9]+$");
+            if (!ps.matcher(source).matches()) {
+                return "";
+            }
+            return null;
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +69,9 @@ public class LoginActivity_checkPwd extends AppCompatActivity {
         String Id = intent1.getStringExtra("ID");
 
         getPwd = findViewById(R.id.getPwd);
+        getPwd.setFilters(new InputFilter[] {filter});
         checkPwd = findViewById(R.id.checkPwd);
+        checkPwd.setFilters(new InputFilter[] {filter});
 
         checkPwd.setOnClickListener(new View.OnClickListener() {
             @Override
