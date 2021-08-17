@@ -98,7 +98,6 @@ public class CustomExerciseChoiceAdapter extends RecyclerView.Adapter<CustomExer
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
-        int plusforced=0;
         TextView list_name,list_part,tv_count;
         ImageView list_image;
         Button add;
@@ -133,8 +132,6 @@ public class CustomExerciseChoiceAdapter extends RecyclerView.Adapter<CustomExer
             mis.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    if(plusforced>0) {
                         //Toast.makeText(itemView.getContext(), "value", Toast.LENGTH_LONG).show();
                         int position = getAdapterPosition();
                         if(listener1 != null){

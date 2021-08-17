@@ -85,6 +85,9 @@ public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAd
     }
 
     public CustomExercise getItem(int position) { return itemList.get(position); }
+    public void clearItem(){
+        itemList.clear();
+    }
 
     public void setItem(int position, CustomExercise item) {
         itemList.set(position, item);

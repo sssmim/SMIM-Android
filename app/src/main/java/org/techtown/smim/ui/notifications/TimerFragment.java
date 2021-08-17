@@ -182,7 +182,6 @@ public class TimerFragment extends Fragment {
 
         requestQueue.add(stringRequest);
 
-
         requestQueue.add(stringRequest1);
 
         Button btnComplete =  (Button) view.findViewById(R.id.btnComplete);
@@ -198,15 +197,19 @@ public class TimerFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                index++;
-                if (nameList.size() != 0) {
-                    exercise_name.setText(nameList.get(index));
-                }
-                if (countList.size() != 0) {
-                    countdownText.setText(Integer.toString(countList.get(index)));
-                }
-                if (secList.size() != 0) {
-                    secText.setText(secList.get(index));
+                int siz = nameList.size();
+                if (prevnext < siz-1) { //마지막 다음 버튼 눌렀을때 index가 size랑 같아지는 문제발생,,추후수정
+                    index++;
+                    if (nameList.size() != 0) {
+                        exercise_name.setText(nameList.get(index));
+                    }
+                    if (countList.size() != 0) {
+                        countdownText.setText(Integer.toString(countList.get(index)));
+                    }
+                    if (secList.size() != 0) {
+                        secText.setText(secList.get(index));
+                    }
+                    prevnext++;
                 }
             }
         });
@@ -215,15 +218,19 @@ public class TimerFragment extends Fragment {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                index--;
-                if (nameList.size() != 0) {
-                    exercise_name.setText(nameList.get(index));
-                }
-                if (countList.size() != 0) {
-                    countdownText.setText(Integer.toString(countList.get(index)));
-                }
-                if (secList.size() != 0) {
-                    secText.setText(secList.get(index));
+                if (prevnext > 0) {
+                    index--;
+
+                    if (nameList.size() != 0) {
+                        exercise_name.setText(nameList.get(index));
+                    }
+                    if (countList.size() != 0) {
+                        countdownText.setText(Integer.toString(countList.get(index)));
+                    }
+                    if (secList.size() != 0) {
+                        secText.setText(secList.get(index));
+                    }
+                    prevnext--;
                 }
             }
         });
