@@ -8,7 +8,6 @@ public class personal {
     public String pwd;
     public String personal_image;
     public String interest;
-    public String daily_record;
-    public String daily_total;
     public Long group_num;
+    public Integer point;
 }

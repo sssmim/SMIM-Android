@@ -1,5 +1,6 @@
 package org.techtown.smim.ui.dashboard;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -10,17 +11,20 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.Cache;
@@ -40,6 +44,7 @@ import com.google.gson.reflect.TypeToken;
 import com.pedro.library.AutoPermissions;
 import com.pedro.library.AutoPermissionsListener;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 import org.techtown.smim.R;
 import org.techtown.smim.database.personal;
@@ -57,34 +62,39 @@ import java.util.Map;
 
 import kr.co.prnd.YouTubePlayerView;
 
-public class GroupExercisePlay extends AppCompatActivity implements AutoPermissionsListener {
+public class GroupExercisePlay_Fragment extends Fragment implements AutoPermissionsListener {
     CameraSurfaceView cameraView;
     Date date1;
     Date date2;
+    Long mem_num;
+    String url;
     SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss", Locale.KOREA);
     public List<personal> list3 = new ArrayList<>();
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_group_exercise_play);
-        YouTubePlayerView youtubePV = findViewById(R.id.youtube_player_view);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
 
+        View root = (View)inflater.inflate(R.layout.activity_group_exercise_play, container, false);
 
+        YouTubePlayerView youtubePV = root.findViewById(R.id.youtube_player_view);
 
-        Intent intent = getIntent();
-
-        String url = intent.getExtras().getString("url");
-Long mem_num = intent.getExtras().getLong("mem");
+        Bundle bundle = getArguments();
+        mem_num = bundle.getLong("mem_num");
+        url = bundle.getString("url");
+        //Intent intent = getIntent();
+Log.e("D",mem_num.toString());
+        Log.e("D",url.toString());
+       // String url = intent.getExtras().getString("url");
+       // Long mem_num = intent.getExtras().getLong("mem");
         youtubePV.play(url,null);
 
-        FrameLayout previewFrame = findViewById(R.id.previewFrame);
-        cameraView = new CameraSurfaceView(this);
+        FrameLayout previewFrame = root.findViewById(R.id.previewFrame);
+        cameraView = new CameraSurfaceView(getContext());
         previewFrame.addView(cameraView);
 
-        AutoPermissions.Companion.loadAllPermissions(this, 101);
+        AutoPermissions.Companion.loadAllPermissions(getActivity(), 101);
 
-        Button gstart = findViewById(R.id.gstart);
-        Button gend = findViewById(R.id.gend);
+        Button gstart = root.findViewById(R.id.gstart);
+        Button gend = root.findViewById(R.id.gend);
         gstart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,10 +114,10 @@ Long mem_num = intent.getExtras().getLong("mem");
                 String diffTime = dateFormat.format(diff);
 
                 Long sec = diff / 1000;
-
+                int sec1 = sec.intValue();
 
                 RequestQueue requestQueue;
-                Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+                Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
                 Network network = new BasicNetwork(new HurlStack());
                 requestQueue = new RequestQueue(cache, network);
                 requestQueue.start();
@@ -143,7 +153,7 @@ Long mem_num = intent.getExtras().getLong("mem");
                         map.put("personal_image", list3.get(index).personal_image);
                         map.put("interest", list3.get(index).interest);
                         map.put("group_num",  list3.get(index).group_num);
-                        map.put("point",sec);
+                        map.put("point",sec1);
                         JSONObject params = new JSONObject(map);
 
                         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.PUT, url + "/" + list3.get(index).mem_num.toString(), params,
@@ -174,10 +184,10 @@ Long mem_num = intent.getExtras().getLong("mem");
                 requestQueue.add(stringRequest);
 
 
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 HomeFragment fragment1 = new HomeFragment();
                 Bundle bundles = new Bundle();
-                bundles.putLong("point", sec);
+                bundles.putInt("point", sec1);
                 fragment1.setArguments(bundles);
                 transaction.replace(R.id.container, fragment1);
                 transaction.commit();
@@ -188,6 +198,7 @@ Long mem_num = intent.getExtras().getLong("mem");
 
 
 
+        return root;
     }
 
     public void takePicture() {
@@ -196,7 +207,7 @@ Long mem_num = intent.getExtras().getLong("mem");
                 try {
                     Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
                     String outUriStr = MediaStore.Images.Media.insertImage(
-                            getContentResolver(),
+                            getActivity().getContentResolver(),
                             bitmap,
                             "Captured Image",
                             "Captured Image using Camera.");
@@ -206,7 +217,7 @@ Long mem_num = intent.getExtras().getLong("mem");
                         return;
                     } else {
                         Uri outUri = Uri.parse(outUriStr);
-                        sendBroadcast(new Intent(
+                        getActivity().sendBroadcast(new Intent(
                                 Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, outUri));
                     }
 
@@ -269,7 +280,7 @@ Long mem_num = intent.getExtras().getLong("mem");
             Camera.CameraInfo info = new Camera.CameraInfo();
             Camera.getCameraInfo(0, info);
 
-            WindowManager manager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+            WindowManager manager = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
             int rotation = manager.getDefaultDisplay().getRotation();
 
             int degrees = 0;
@@ -297,16 +308,16 @@ Long mem_num = intent.getExtras().getLong("mem");
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        AutoPermissions.Companion.parsePermissions(this, requestCode, permissions, this);
+        AutoPermissions.Companion.parsePermissions(getActivity(), requestCode, permissions, this);
     }
 
     @Override
     public void onDenied(int requestCode, String[] permissions) {
-        Toast.makeText(this, "permissions denied : " + permissions.length, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "permissions denied : " + permissions.length, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onGranted(int requestCode, String[] permissions) {
-        Toast.makeText(this, "permissions granted : " + permissions.length, Toast.LENGTH_LONG).show();
+       // Toast.makeText(this, "permissions granted : " + permissions.length, Toast.LENGTH_LONG).show();
     }
 }
