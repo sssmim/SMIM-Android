@@ -40,6 +40,7 @@ import org.techtown.smim.R;
 import org.techtown.smim.database.gexercise;
 import org.techtown.smim.database.group;
 import org.techtown.smim.database.personal;
+import org.techtown.smim.ui.home.HomeFragment;
 import org.techtown.smim.ui.notifications.CustomExerciseChoice;
 
 import java.io.UnsupportedEncodingException;
@@ -60,6 +61,8 @@ public class DashboardFragment1 extends Fragment {
     public List<personal> list3 = new ArrayList<>();
     public List<Long> ge_numlist = new ArrayList<>();
     public List<String> urlList = new ArrayList<>();
+    public List<String> idlist = new ArrayList<>();
+    public List<Integer> pointlist = new ArrayList<>();
     Long mem_num;
     Long group_num;
 
@@ -124,10 +127,75 @@ public class DashboardFragment1 extends Fragment {
                         Log.d("test_mem", String.valueOf(mem_num));
                         if (list3.get(i).mem_num.compareTo(mem_num) == 0) {
                             group_num = list3.get(i).group_num;
+
                             Log.d("test_gro", String.valueOf(group_num));
                         }
                     }
                 }
+
+                    Integer count=0;
+                    for(int i=0; i<list3.size(); i++) {
+                        if (list3.get(i).group_num.compareTo(group_num) == 0) {
+                          pointlist.add(list3.get(i).point);
+                          idlist.add(list3.get(i).id);
+                          count++;
+                        }
+                    }
+                    Integer[] pointarray = new Integer[count];
+                    for(int i=0;i<pointlist.size();i++){
+                    pointarray[i]=pointlist.get(i);}
+
+
+                    String[] idarray = new String[count];
+                    for(int i=0;i<idlist.size();i++){
+                    idarray[i]=idlist.get(i);}
+
+                    Integer temp;
+                    String tempString;
+                    for(int i=0;i<pointarray.length;i++){
+                        for(int j=i+1;j<pointarray.length;j++){
+                            if(pointarray[i]<pointarray[j]){
+
+                                temp = pointarray[i];
+                                pointarray[i]=pointarray[j];
+                                pointarray[j]=temp;
+
+                                tempString = idarray[i];
+                                idarray[i]=idarray[j];
+                                idarray[j]=tempString;
+
+
+
+                            }
+
+                        }
+                    }
+                ArrayList<Integer> realpoint = new ArrayList<>();
+                for(Integer item : pointarray){
+
+                    realpoint.add(item);
+
+                }
+
+
+                ArrayList<String> realid = new ArrayList<>();
+                    for(String item : idarray){
+
+                        realid.add(item);
+
+                                }
+
+          
+                    TextView v = root.findViewById(R.id.r1);
+                    v.setText(realid.get(0));
+                    TextView v1 = root.findViewById(R.id.r2);
+                    v1.setText(realid.get(1));
+                    TextView v2 = root.findViewById(R.id.r3);
+                    v2.setText(realid.get(2));
+
+
+
+
 
                 String url0 = "http://52.78.235.23:8080/organization";
 
@@ -251,9 +319,21 @@ public class DashboardFragment1 extends Fragment {
         adapter.setOnItemsClicklistener(new ExerciseAdapter.OnItemsClickListener(){
             @Override
             public void onItemsClick(int position) {
-                Intent intent = new Intent(getContext(), GroupExercisePlay.class);
+                /*Intent intent = new Intent(getContext(), GroupExercisePlay.class);
                 intent.putExtra("url",urlList.get(position));
-                startActivity(intent);
+                if(mem_num!=null){
+                intent.putExtra("mem",mem_num);}
+                startActivity(intent);*/
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                GroupExercisePlay_Fragment fragment1 = new GroupExercisePlay_Fragment();
+                Bundle bundles = new Bundle();
+                bundles.putString("url",urlList.get(position));
+                if(mem_num!=null){
+                bundles.putLong("mem", mem_num);}
+                fragment1.setArguments(bundles);
+                transaction.replace(R.id.container, fragment1);
+                transaction.commit();
+
             }});
 
 
