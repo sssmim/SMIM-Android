@@ -98,8 +98,6 @@ public class NotificationsFragment_test extends Fragment {
         final CustomExerciseAdapter adapter = new CustomExerciseAdapter();
         adapter.clearItem();
 
-        adapter.clearItem();
-
         String url = "http://52.78.235.23:8080/iexercise";
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
