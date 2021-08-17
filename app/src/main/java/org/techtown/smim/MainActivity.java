@@ -101,10 +101,11 @@ public class MainActivity extends AppCompatActivity {
 
                 bundle.putLong("mem_num", mem_num);
 
+                Log.d("test_mainActivity" , String.valueOf(mem_num));
+
                 homeFragment.setArguments(bundle);
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.container, homeFragment).commitAllowingStateLoss();
-
             }
         }, new Response.ErrorListener() {
             @Override

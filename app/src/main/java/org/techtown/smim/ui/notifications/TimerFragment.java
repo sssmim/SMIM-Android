@@ -80,8 +80,6 @@ public class TimerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //super.onCreate(savedInstanceState);
-       // setContentView(R.layout.timer);
         View view = inflater.inflate(R.layout.timer,container,false);
 
         Bundle bundle = getArguments();
@@ -89,8 +87,8 @@ public class TimerFragment extends Fragment {
             mem_num = bundle.getLong("mem_num");
         }
 
-        Long now = System.currentTimeMillis();
-        date1 = new Date(now);
+        //Long now = System.currentTimeMillis();
+        //date1 = new Date(now);
 
         RequestQueue requestQueue;
         Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
@@ -240,6 +238,10 @@ public class TimerFragment extends Fragment {
                     );
 
                     if (firstState) {
+                        Long now = System.currentTimeMillis();
+                        date1 = new Date(now);
+                        Log.d("test_diff" , String.valueOf(date1));
+
                         String second = secText.getText().toString();
                         time = (Long.parseLong(second) * 1000) + 1000;
                         secText.setText(Long.toString(time));
@@ -299,7 +301,6 @@ public class TimerFragment extends Fragment {
 
         return view;
     }
-
 
     void show(){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -363,6 +364,4 @@ public class TimerFragment extends Fragment {
                 });
         builder.show();
     }
-
-
 }

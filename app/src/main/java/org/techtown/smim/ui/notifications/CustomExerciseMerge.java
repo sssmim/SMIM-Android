@@ -34,6 +34,8 @@ import org.json.JSONObject;
 import org.techtown.smim.R;
 import org.techtown.smim.database.group;
 import org.techtown.smim.database.iexercise;
+import org.techtown.smim.ui.dashboard.ExerciseAdapter;
+import org.techtown.smim.ui.dashboard.GroupExercisePlay;
 import org.techtown.smim.ui.dashboard.GroupList;
 import org.techtown.smim.ui.dashboard.GroupListAdapter;
 
@@ -54,7 +56,7 @@ public class CustomExerciseMerge extends AppCompatActivity {
     public static int num4=0;
 
     RecyclerView rv;
-    static CustomExerciseChoiceAdapter cadapter;
+    CustomExerciseChoiceAdapter cadapter;
     ItemTouchHelper helper;
 
     public List<Long> getList = new ArrayList<>();
@@ -188,6 +190,73 @@ public class CustomExerciseMerge extends AppCompatActivity {
                // startActivityForResult(intent, number22);
             }
         });
+
+
+
+        cadapter.setOnItemClicklistener(new CustomExerciseChoiceAdapter.OnPersonItemClickListener(){
+            @Override
+            public void onItemClick(CustomExerciseChoice x, int position) {
+                if (position ==0){
+                    num0++;
+                    x.count = num0;
+                    cadapter.setItem(position,x);
+                    cadapter.notifyDataSetChanged();}
+                if (position ==1){
+                    num1++;
+                    x.count = num1;
+                    cadapter.setItem(position,x);
+                    cadapter.notifyDataSetChanged();}
+                if (position ==2){
+                    num2++;
+                    x.count = num2;
+                    cadapter.setItem(position,x);
+                    cadapter.notifyDataSetChanged();}
+                if (position ==3){
+                    num3++;
+                    x.count = num3;
+                    cadapter.setItem(position,x);
+                    cadapter.notifyDataSetChanged();}
+                if (position ==4){
+                    num4++;
+                    x.count = num4;
+                    cadapter.setItem(position,x);
+                    cadapter.notifyDataSetChanged();}
+            }});
+
+        cadapter.setOnItemsClicklistener(new CustomExerciseChoiceAdapter.OnItemsClickListener(){
+            @Override
+            public void onItemsClick(CustomExerciseChoice x, int position) {
+                if (position ==0){
+                    num0--;
+                    x.count = num0;
+                    cadapter.setItem(position,x);
+                    cadapter.notifyDataSetChanged();}
+                if (position ==1){
+                    num1--;
+                    x.count = num1;
+                    cadapter.setItem(position,x);
+                    cadapter.notifyDataSetChanged();}
+                if (position ==2){
+                    num2--;
+                    x.count = num2;
+                    cadapter.setItem(position,x);
+                    cadapter.notifyDataSetChanged();}
+                if (position ==3){
+                    num3--;
+                    x.count = num3;
+                    cadapter.setItem(position,x);
+                    cadapter.notifyDataSetChanged();}
+                if (position ==4) {
+                    num4--;
+                    x.count = num4;
+                    cadapter.setItem(position, x);
+                    cadapter.notifyDataSetChanged();
+                }
+
+            }});
+
+
+
     }
 /*
     public static void addmethod(CustomExerciseChoice x,  int position){
