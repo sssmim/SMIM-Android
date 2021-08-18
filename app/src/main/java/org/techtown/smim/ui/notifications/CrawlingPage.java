@@ -1,6 +1,7 @@
 package org.techtown.smim.ui.notifications;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,11 +18,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.techtown.smim.R;
 import org.techtown.smim.ui.dashboard.DashboardFragment;
 import org.techtown.smim.ui.dashboard.DashboardTrial;
 import org.techtown.smim.ui.dashboard.DashboardViewModel;
 import org.techtown.smim.ui.dashboard.MakeGroup;
+
+import java.util.ArrayList;
 
 public class CrawlingPage extends Fragment {
 
@@ -36,6 +42,8 @@ public class CrawlingPage extends Fragment {
         NotificationsViewModel =
                 new ViewModelProvider(this).get(NotificationsViewModel.class);
         View root = (View)inflater.inflate(R.layout.individual_page, container, false);
+        regionData task = new regionData();
+        task.execute();
 
         Bundle bundle = getArguments();
         mem_num = bundle.getLong("mem_num");
@@ -48,8 +56,8 @@ public class CrawlingPage extends Fragment {
 
         org.techtown.smim.ui.notifications.PageIndividualListAdapter adapter = new org.techtown.smim.ui.notifications.PageIndividualListAdapter();
 
-        adapter.addItem(new org.techtown.smim.ui.notifications.PageIndividualList("아침 물마시기의 중요성", "물마시기는 ...더보기"));
-        adapter.addItem(new org.techtown.smim.ui.notifications.PageIndividualList("미라클 모닝의 효능", "미라클모닝은 ...더보기"));
+        //adapter.addItem(new org.techtown.smim.ui.notifications.PageIndividualList("아침 물마시기의 중요성", "물마시기는 ...더보기"));
+        //adapter.addItem(new org.techtown.smim.ui.notifications.PageIndividualList("미라클 모닝의 효능", "미라클모닝은 ...더보기"));
 
         recyclerView.setAdapter(adapter);
 
@@ -70,4 +78,54 @@ public class CrawlingPage extends Fragment {
 
         return root;
     }
+    private class regionData extends AsyncTask<Void, Void, ArrayList<ListData>> {
+
+        @Override
+        protected ArrayList<ListData> doInBackground(Void... voids) {
+
+            ArrayList<ListData> arrayList = new ArrayList<ListData>();
+
+            try {
+                /* Jsoup을 이용해 데이터 가져오기 */
+                Document document = Jsoup.connect("http://ncov.mohw.go.kr/").get();
+                Elements doc = document.select("div.rpsa_detail > div > div");
+
+                int region_num = 0;
+                String region = null;
+                String region_cases = null;
+                String region_cases_p = null;
+                String region_deaths = null;
+                String region_recovered = null;
+
+                for(int i=1; i<doc.size(); i++) {
+
+                    region = doc.get(i).select("h4").text();
+                    region_cases = doc.get(i).select("li").get(0).select("div").get(1).select("span").text();
+                    region_cases_p = doc.get(i).select("li").get(1).select("div").get(1).select("span").text();
+                    region_deaths = doc.get(i).select("li").get(2).select("div").get(1).select("span").text();
+                    region_recovered = doc.get(i).select("li").get(3).select("div").get(1).select("span").text();
+
+                    if(region_cases_p.equals("(0)")){
+                        region_cases_p = "";
+                    }
+
+                    arrayList.add(new ListData(region, region_cases, region_cases_p, region_deaths, region_recovered));
+
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return arrayList;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<ListData> arrayList) {
+            String str1 = arrayList.get(0).toString();
+            String str2 = arrayList.get(1).toString();
+            org.techtown.smim.ui.notifications.PageIndividualListAdapter adapter = new org.techtown.smim.ui.notifications.PageIndividualListAdapter();
+            adapter.addItem(new org.techtown.smim.ui.notifications.PageIndividualList(str1, str2));
+        }
+    }
+
 }

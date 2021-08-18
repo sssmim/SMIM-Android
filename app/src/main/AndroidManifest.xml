@@ -24,7 +24,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Smim"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config">
+
         <activity android:name=".ui.home.test"></activity>
         <activity android:name=".ui.dashboard.YoutubePlan" />
         <activity android:name=".ui.dashboard.ExercisePlan" />

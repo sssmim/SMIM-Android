@@ -60,5 +60,7 @@ dependencies {
     implementation 'com.github.pedroSG94:AutoPermissions:1.0.3'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 
+    implementation 'org.jsoup:jsoup:1.14.2'
+
 
 }
