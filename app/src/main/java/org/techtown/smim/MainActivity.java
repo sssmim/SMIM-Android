@@ -1,9 +1,14 @@
 package org.techtown.smim;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.android.volley.Cache;
 import com.android.volley.Network;
@@ -15,6 +20,11 @@ import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.StringRequest;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -26,6 +36,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import org.techtown.smim.database.personal;
+import org.techtown.smim.ui.StatisticPage;
 import org.techtown.smim.ui.dashboard.DashboardFragment1;
 import org.techtown.smim.ui.dashboard.FindGroup_test;
 import org.techtown.smim.ui.home.HomeFragment;
@@ -44,12 +55,17 @@ public class MainActivity extends AppCompatActivity {
     private FindGroup_test findGroup_test = new FindGroup_test();
     private DashboardFragment1 dashboardFragment1 = new DashboardFragment1();
     private CrawlingPage crawlingPage = new CrawlingPage();
-
+private StatisticPage statisticPage =new StatisticPage();
     public Long mem_num;
     public Long group_num;
     public List<personal> list = new ArrayList<>();
     public String id;
+    View header;
 
+    //ArrayList<Entry> dataVals = new ArrayList<Entry>();
+    //ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+    //LineDataSet lineDataSet1;
+    //LineData data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+
 
         RequestQueue requestQueue;
         Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
@@ -124,6 +142,8 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
+
+
     }
 
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -186,9 +206,27 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_notifications:
                     transaction.replace(R.id.container,crawlingPage).commitAllowingStateLoss();
                     break;
+                case R.id.statistics:
+                    transaction.replace(R.id.container, statisticPage).commitAllowingStateLoss();
+                    break;
+
             }
             return true;
         }
 
     }
+
+    private ArrayList<Entry> dataValues1(){
+        ArrayList<Entry> dataVals = new ArrayList<Entry>();
+
+        dataVals.add(new Entry(0, 20));
+        dataVals.add(new Entry(1, 30));
+        dataVals.add(new Entry(2, 40));
+        dataVals.add(new Entry(3, 50));
+        dataVals.add(new Entry(4, 30));
+
+        return dataVals;
+    }
+
+
 }

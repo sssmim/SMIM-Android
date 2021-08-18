@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 public class CustomExerciseChoiceAdapter extends RecyclerView.Adapter<CustomExerciseChoiceAdapter.ItemViewHolder> implements ItemTouchHelperListener {
     ArrayList<CustomExerciseChoice> items = new ArrayList<>();
-
     public CustomExerciseChoiceAdapter(){
     }
 
@@ -32,9 +31,12 @@ public class CustomExerciseChoiceAdapter extends RecyclerView.Adapter<CustomExer
 
     public void setOnItemClicklistener(CustomExerciseChoiceAdapter.OnPersonItemClickListener listener){ this.listener = listener; }
 
+
     public void onItemClick(CustomExerciseChoice cec, int position) {
         if(listener != null){
             listener.onItemClick(cec,position); } }
+
+
 
     static CustomExerciseChoiceAdapter.OnItemsClickListener listener1;
 
@@ -43,11 +45,13 @@ public class CustomExerciseChoiceAdapter extends RecyclerView.Adapter<CustomExer
 
     public void setOnItemsClicklistener(CustomExerciseChoiceAdapter.OnItemsClickListener listener1){ this.listener1 = listener1; }
 
+
     public void onItemsClick(CustomExerciseChoice cec, int position) {
         if(listener1 != null){
             listener1.onItemsClick(cec,position); } }
 
-    int plusforced = 0;
+
+
 
     @NonNull
     @Override
@@ -115,10 +119,10 @@ public class CustomExerciseChoiceAdapter extends RecyclerView.Adapter<CustomExer
                 @Override
                 public void onClick(View v) {
                     //Integer a = person.cgetCount();
-                   // tv_count.setText(a.toString());
+                    // tv_count.setText(a.toString());
                     //int position = getAdapterPosition();
-                  // CustomExerciseMerge.addmethod(x, position);
-                   // plusforced++;
+                    // CustomExerciseMerge.addmethod(x, position);
+                    // plusforced++;
 
                     int position = getAdapterPosition();
                     if(listener != null){
@@ -139,9 +143,14 @@ public class CustomExerciseChoiceAdapter extends RecyclerView.Adapter<CustomExer
                         if(listener1 != null){
                             listener1.onItemsClick(x, position);
                         }
+
                     }
-                });
-            }
+                }
+            });
+
+        }
+
+
 
         public void onBind(CustomExerciseChoice person) {
             list_name.setText(person.cgetName());

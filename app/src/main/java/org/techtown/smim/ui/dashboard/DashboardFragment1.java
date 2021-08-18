@@ -133,43 +133,48 @@ public class DashboardFragment1 extends Fragment {
                     }
                 }
 
-                    Integer count=0;
-                    for(int i=0; i<list3.size(); i++) {
-                        if (list3.get(i).group_num.compareTo(group_num) == 0) {
-                          pointlist.add(list3.get(i).point);
-                          idlist.add(list3.get(i).id);
-                          count++;
-                        }
+                Integer count=0;
+                for(int i=0; i<list3.size(); i++) {
+                    if (list3.get(i).group_num!=null){
+                    if (list3.get(i).group_num.compareTo(group_num) == 0) {
+                        if (list3.get(i).point==null){
+                            pointlist.add(0);
+                        } else{
+                        pointlist.add(list3.get(i).point);}
+                        idlist.add(list3.get(i).id);
+                        count++;
                     }
-                    Integer[] pointarray = new Integer[count];
-                    for(int i=0;i<pointlist.size();i++){
+                }}
+
+                Integer[] pointarray = new Integer[count];
+                for(int i=0;i<pointlist.size();i++){
                     pointarray[i]=pointlist.get(i);}
 
 
-                    String[] idarray = new String[count];
-                    for(int i=0;i<idlist.size();i++){
+                String[] idarray = new String[count];
+                for(int i=0;i<idlist.size();i++){
                     idarray[i]=idlist.get(i);}
 
-                    Integer temp;
-                    String tempString;
-                    for(int i=0;i<pointarray.length;i++){
-                        for(int j=i+1;j<pointarray.length;j++){
-                            if(pointarray[i]<pointarray[j]){
+                Integer temp;
+                String tempString;
+                for(int i=0;i<pointarray.length;i++){
+                    for(int j=i+1;j<pointarray.length;j++){
+                        if(pointarray[i]<pointarray[j]){
 
-                                temp = pointarray[i];
-                                pointarray[i]=pointarray[j];
-                                pointarray[j]=temp;
+                            temp = pointarray[i];
+                            pointarray[i]=pointarray[j];
+                            pointarray[j]=temp;
 
-                                tempString = idarray[i];
-                                idarray[i]=idarray[j];
-                                idarray[j]=tempString;
+                            tempString = idarray[i];
+                            idarray[i]=idarray[j];
+                            idarray[j]=tempString;
 
 
-
-                            }
 
                         }
+
                     }
+                }
                 ArrayList<Integer> realpoint = new ArrayList<>();
                 for(Integer item : pointarray){
 
@@ -179,19 +184,19 @@ public class DashboardFragment1 extends Fragment {
 
 
                 ArrayList<String> realid = new ArrayList<>();
-                    for(String item : idarray){
+                for(String item : idarray){
 
-                        realid.add(item);
+                    realid.add(item);
 
-                                }
+                }
 
-          
-                    TextView v = root.findViewById(R.id.r1);
-                    v.setText(realid.get(0));
-                    TextView v1 = root.findViewById(R.id.r2);
-                    v1.setText(realid.get(1));
-                    TextView v2 = root.findViewById(R.id.r3);
-                    v2.setText(realid.get(2));
+
+                TextView v = root.findViewById(R.id.r1);
+                v.setText(realid.get(0));
+                TextView v1 = root.findViewById(R.id.r2);
+                v1.setText(realid.get(1));
+                TextView v2 = root.findViewById(R.id.r3);
+                v2.setText(realid.get(2));
 
 
 
@@ -295,15 +300,6 @@ public class DashboardFragment1 extends Fragment {
                 transaction.commit();
             }
         });
-/*
-        Button button1 = root.findViewById(R.id.groupplay);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { Intent intent = new Intent(requireContext(), GroupExercisePlay.class);
-                startActivityForResult(intent, REQUEST_CODE_MENU);
-            }
-        });
-*/
 
         adapter.setOnItemClicklistener(new ExerciseAdapter.OnPersonItemClickListener(){
             @Override
@@ -319,17 +315,13 @@ public class DashboardFragment1 extends Fragment {
         adapter.setOnItemsClicklistener(new ExerciseAdapter.OnItemsClickListener(){
             @Override
             public void onItemsClick(int position) {
-                /*Intent intent = new Intent(getContext(), GroupExercisePlay.class);
-                intent.putExtra("url",urlList.get(position));
-                if(mem_num!=null){
-                intent.putExtra("mem",mem_num);}
-                startActivity(intent);*/
+
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 GroupExercisePlay_Fragment fragment1 = new GroupExercisePlay_Fragment();
                 Bundle bundles = new Bundle();
                 bundles.putString("url",urlList.get(position));
                 if(mem_num!=null){
-                bundles.putLong("mem", mem_num);}
+                    bundles.putLong("mem", mem_num);}
                 fragment1.setArguments(bundles);
                 transaction.replace(R.id.container, fragment1);
                 transaction.commit();
@@ -340,10 +332,5 @@ public class DashboardFragment1 extends Fragment {
         return root;
     }
 
-/*
-    public  void geturl(int position) {
-        Intent intent = new Intent(getContext(), GroupExercisePlay.class);
-        intent.putExtra("url",urlList.get(position));
-        startActivity(intent);
-    };*/
+
 }
