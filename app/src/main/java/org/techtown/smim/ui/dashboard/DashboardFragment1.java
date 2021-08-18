@@ -177,9 +177,7 @@ public class DashboardFragment1 extends Fragment {
                 }
                 ArrayList<Integer> realpoint = new ArrayList<>();
                 for(Integer item : pointarray){
-
                     realpoint.add(item);
-
                 }
 
 

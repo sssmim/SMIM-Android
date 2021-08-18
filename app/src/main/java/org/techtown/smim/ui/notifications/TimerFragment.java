@@ -64,6 +64,8 @@ public class TimerFragment extends Fragment {
 
     private Integer index = 0;
 
+    private Integer total = 0;
+
     private boolean firstState = true;
 
     public List<ielist> list = new ArrayList<>();
@@ -90,15 +92,23 @@ public class TimerFragment extends Fragment {
         //Long now = System.currentTimeMillis();
         //date1 = new Date(now);
 
+        try {
+            Thread.sleep(25); //0.025초 대기
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         RequestQueue requestQueue;
         Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
         Network network = new BasicNetwork(new HurlStack());
         requestQueue = new RequestQueue(cache, network);
         requestQueue.start();
 
-        String url2 = "http://52.78.235.23:8080/iexercise";
-
+        exercise_name =  (TextView)view.findViewById(R.id.exercisename);
+        countdownText =  (TextView)view.findViewById(R.id.countTextView);
         secText =  (TextView)view.findViewById(R.id.secTextView);
+
+        String url2 = "http://52.78.235.23:8080/iexercise";
 
         StringRequest stringRequest1 = new StringRequest(Request.Method.GET, url2, new Response.Listener<String>() {
             @Override
@@ -115,78 +125,89 @@ public class TimerFragment extends Fragment {
                 }.getType();
                 list2 = gson.fromJson(changeString, listType);
 
-                for (int i = 0; i < list2.size(); i++) {
-                    secList.add(list2.get(i).ie_sec);
-                }
+                String url = "http://52.78.235.23:8080/list";
 
-                if (secList.size() != 0) {
-                    secText.setText(secList.get(0));
-                }
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // 한글깨짐 해결 코드
+                        String changeString = new String();
+                        try {
+                            changeString = new String(response.getBytes("8859_1"), "utf-8");
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                        Type listType = new TypeToken<ArrayList<ielist>>() {
+                        }.getType();
+                        list = gson.fromJson(changeString, listType);
+
+                        nameList.add(list.get(list.size()-1).name1);
+                        total++;
+                        if(list.get(list.size()-1).name2 != null) {
+                            nameList.add(list.get(list.size()-1).name2);
+                            total++;
+                        } if(list.get(list.size()-1).name3 != null) {
+                            nameList.add(list.get(list.size()-1).name3);
+                            total++;
+                        } if(list.get(list.size()-1).name4 != null) {
+                            nameList.add(list.get(list.size()-1).name4);
+                            total++;
+                        } if(list.get(list.size()-1).name5 != null) {
+                            nameList.add(list.get(list.size()-1).name5);
+                            total++;
+                        }
+
+                        Log.d("test_nameListSize", String.valueOf(nameList.size()));
+
+                        if (nameList.size() != 0) {
+                            exercise_name.setText(nameList.get(0));
+                        }
+
+                        countList.add(list.get(list.size()-1).count1);
+                        if(list.get(list.size()-1).count2 != null) {
+                            countList.add(list.get(list.size()-1).count2);
+                        } if(list.get(list.size()-1).name3 != null) {
+                            countList.add(list.get(list.size()-1).count3);
+                        } if(list.get(list.size()-1).name4 != null) {
+                            countList.add(list.get(list.size()-1).count4);
+                        } if(list.get(list.size()-1).name5 != null) {
+                            countList.add(list.get(list.size()-1).count5);
+                        }
+
+                        if (countList.size() != 0) {
+                            countdownText.setText(Integer.toString(countList.get(0)));
+                        }
+
+                        for(int i=0; i<total; i++) {
+                            for(int j=0; j<list2.size(); j++) {
+                                if(list2.get(j).ie_name.compareTo(nameList.get(i)) == 0) {
+                                    secList.add(list2.get(j).ie_sec);
+                                }
+                            }
+                        }
+
+                        if (secList.size() != 0) {
+                            secText.setText(secList.get(0));
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                });
+
+                requestQueue.add(stringRequest);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
             }
         });
-
-        String url = "http://52.78.235.23:8080/list";
-
-
-        exercise_name =  (TextView)view.findViewById(R.id.exercisename);
-        countdownText =  (TextView)view.findViewById(R.id.countTextView);
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                // 한글깨짐 해결 코드
-                String changeString = new String();
-                try {
-                    changeString = new String(response.getBytes("8859_1"), "utf-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                Type listType = new TypeToken<ArrayList<ielist>>() {
-                }.getType();
-                list = gson.fromJson(changeString, listType);
-
-                for (int i = 0; i < list.size(); i++) {
-                    nameList.add(list.get(i).name1);
-                    nameList.add(list.get(i).name2);
-                    nameList.add(list.get(i).name3);
-                    nameList.add(list.get(i).name4);
-                    nameList.add(list.get(i).name5);
-                }
-
-                if (nameList.size() != 0) {
-                    exercise_name.setText(nameList.get(0));
-                }
-
-                for (int i = 0; i < list.size(); i++) {
-                    countList.add(list.get(i).count1);
-                    countList.add(list.get(i).count2);
-                    countList.add(list.get(i).count3);
-                    countList.add(list.get(i).count4);
-                    countList.add(list.get(i).count5);
-                }
-
-                if (countList.size() != 0) {
-                    countdownText.setText(Integer.toString(countList.get(0)));
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        });
-
-        requestQueue.add(stringRequest);
-
 
         requestQueue.add(stringRequest1);
 
         Button btnComplete =  (Button) view.findViewById(R.id.btnComplete);
-
         btnComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -194,18 +215,19 @@ public class TimerFragment extends Fragment {
             }
         });
 
+
         Button button =  (Button) view.findViewById(R.id.gonext);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                index++;
-                if (nameList.size() != 0) {
+                if (nameList.size() > index + 1) {
+                    index++;
                     exercise_name.setText(nameList.get(index));
                 }
-                if (countList.size() != 0) {
+                if (countList.size() > index) {
                     countdownText.setText(Integer.toString(countList.get(index)));
                 }
-                if (secList.size() != 0) {
+                if (secList.size() > index) {
                     secText.setText(secList.get(index));
                 }
             }
@@ -215,7 +237,9 @@ public class TimerFragment extends Fragment {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                index--;
+                if(index-1 >= 0) {
+                    index--;
+                }
                 if (nameList.size() != 0) {
                     exercise_name.setText(nameList.get(index));
                 }
@@ -228,74 +252,63 @@ public class TimerFragment extends Fragment {
             }
         });
 
-        start_stop =  (ToggleButton) view.findViewById(R.id.start_stop);
-        start_stop.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    // The toggle is enabled -> start
-                    start_stop.setBackgroundDrawable(
-                            getResources().getDrawable(R.drawable.red)
-                    );
+        Button button3 =  (Button) view.findViewById(R.id.start);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               if(firstState) {
+                   Long now = System.currentTimeMillis();
+                   date1 = new Date(now);
+                   Log.d("test_diff" , String.valueOf(date1));
+                   firstState = false;
+               }
 
-                    if (firstState) {
-                        Long now = System.currentTimeMillis();
-                        date1 = new Date(now);
-                        Log.d("test_diff" , String.valueOf(date1));
+                String second = secText.getText().toString();
+                time = (Long.parseLong(second) * 1000) + 1000;
+                secText.setText(Long.toString(time));
 
-                        String second = secText.getText().toString();
-                        time = (Long.parseLong(second) * 1000) + 1000;
-                        secText.setText(Long.toString(time));
-                    } else {
-                        time = tempTime;
+                countDownTimer = new CountDownTimer(time, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        tempTime = millisUntilFinished;
+                        updateTimer();
                     }
-                        countDownTimer = new CountDownTimer(time, 1000) {
-                            @Override
-                        public void onTick(long millisUntilFinished) {
-                            tempTime = millisUntilFinished;
-                            updateTimer();
-                        }
 
-                        @Override
-                        public void onFinish() {
-                        }
-                    }.start();
-                    firstState = false;
-                } else {
-                    // The toggle is disabled -> pause
-                    start_stop.setBackgroundDrawable(
-                            getResources().getDrawable(R.drawable.yellow)
-                    );
-                    countDownTimer.cancel();
-                }
+                    @Override
+                    public void onFinish() {
+                        Log.d("test_onFinish", "Finish");
+                    }
+                }.start();
             }
-
-
-            private void updateTimer() {
+            void updateTimer() {
                 int seconds = (int) tempTime % 3600000 % 60000 / 1000;
-
-
                 if (seconds == 0) {
-                    Integer temp = countList.get(index)- 1;
-                    countList.set(index, temp);
-                    Integer inte = countList.get(index);
-                    countdownText.setText(Integer.toString(inte));
-                    seconds = Integer.parseInt(secList.get(index));
-                    countDownTimer.start();
-                }
-                if (countList.get(index) < 0) {
-                    index++;
-                    if (nameList.size() != 0) {
+                    String temp = countdownText.getText().toString();
+                    if(Integer.parseInt(temp) > 1) {
+                        seconds = Integer.parseInt(secList.get(index));
+                        countdownText.setText(String.valueOf(Integer.parseInt(temp) - 1));
+                        countDownTimer.start();
+                    } else if(Integer.parseInt(temp) == 1 && index + 1 < total) {
+                        Log.d("test_her", "here");
+                        index++;
                         exercise_name.setText(nameList.get(index));
-                    }
-                    if (countList.size() != 0) {
                         countdownText.setText(Integer.toString(countList.get(index)));
-                    }
-                    if (secList.size() != 0) {
-                        secText.setText(secList.get(index));
+                        tempTime = Long.parseLong(secList.get(index));
+                        Log.d("test_tempTime", String.valueOf(tempTime));
+                        seconds = Integer.parseInt(secList.get(index));
+                        time = tempTime;
+                        secText.setText(Integer.toString(seconds));
                     }
                 }
-
                 secText.setText(Integer.toString(seconds));
+            }
+        });
+
+        Button button4 =  (Button) view.findViewById(R.id.pause);
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                countDownTimer.cancel();
             }
         });
 
@@ -304,7 +317,7 @@ public class TimerFragment extends Fragment {
 
     void show(){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("마일리지 500점 획득!"); //나중에 DB연결 필요
+        builder.setTitle("개인 운동 시간 측정이 완료되었습니다!");
 
         builder.setNegativeButton("확인",
                 new DialogInterface.OnClickListener() {
