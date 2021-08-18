@@ -53,11 +53,11 @@ import java.util.Map;
 public class CustomExerciseMergeFragment extends Fragment {
 
     public static final int number22 = 13246;
-    public static int num0=0;
-    public static int num1=0;
-    public static int num2=0;
-    public static int num3=0;
-    public static int num4=0;
+    public static int num0=1;
+    public static int num1=1;
+    public static int num2=1;
+    public static int num3=1;
+    public static int num4=1;
 
     RecyclerView rv;
     CustomExerciseChoiceAdapter cadapter;
@@ -129,7 +129,7 @@ public class CustomExerciseMergeFragment extends Fragment {
                     for(int j=0; j<value.size(); j++) {
                         if(list.get(i).ie_num == getList.get(j)) {
                             int image = getResources().getIdentifier(list.get(i).ie_image , "drawable", getActivity().getPackageName());
-                            cadapter.addItem(new CustomExerciseChoice(image, list.get(i).ie_name, list.get(i).ie_part, 0));
+                            cadapter.addItem(new CustomExerciseChoice(image, list.get(i).ie_name, list.get(i).ie_part, 1));
                         }
                     }
                 }
@@ -240,30 +240,40 @@ public class CustomExerciseMergeFragment extends Fragment {
             @Override
             public void onItemsClick(CustomExerciseChoice x, int position) {
                 if (position ==0){
-                    num0--;
-                    x.count = num0;
-                    cadapter.setItem(position,x);
-                    cadapter.notifyDataSetChanged();}
+                    if(num0>1) {
+                        num0--;
+                        x.count = num0;
+                        cadapter.setItem(position,x);
+                        cadapter.notifyDataSetChanged(); }
+                }
                 if (position ==1){
-                    num1--;
-                    x.count = num1;
-                    cadapter.setItem(position,x);
-                    cadapter.notifyDataSetChanged();}
+                    if(num1>1) {
+                        num1--;
+                        x.count = num1;
+                        cadapter.setItem(position,x);
+                        cadapter.notifyDataSetChanged();}
+                }
                 if (position ==2){
-                    num2--;
-                    x.count = num2;
-                    cadapter.setItem(position,x);
-                    cadapter.notifyDataSetChanged();}
+                    if(num2>1) {
+                        num2--;
+                        x.count = num2;
+                        cadapter.setItem(position,x);
+                        cadapter.notifyDataSetChanged();}
+                }
                 if (position ==3){
-                    num3--;
-                    x.count = num3;
-                    cadapter.setItem(position,x);
-                    cadapter.notifyDataSetChanged();}
+                    if(num3>1) {
+                        num3--;
+                        x.count = num3;
+                        cadapter.setItem(position,x);
+                        cadapter.notifyDataSetChanged(); }
+                }
                 if (position ==4){
-                    num4--;
-                    x.count = num4;
-                    cadapter.setItem(position,x);
-                    cadapter.notifyDataSetChanged();}
+                    if(num4>1) {
+                        num4--;
+                        x.count = num4;
+                        cadapter.setItem(position,x);
+                        cadapter.notifyDataSetChanged();}
+                }
             }
         });
         return view;

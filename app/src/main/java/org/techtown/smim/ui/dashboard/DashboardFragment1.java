@@ -133,69 +133,56 @@ public class DashboardFragment1 extends Fragment {
                     }
                 }
 
-                    Integer count=0;
-                    for(int i=0; i<list3.size(); i++) {
-                        if (list3.get(i).group_num.compareTo(group_num) == 0) {
-                          pointlist.add(list3.get(i).point);
-                          idlist.add(list3.get(i).id);
-                          count++;
+                Integer count=0;
+                for(int i=0; i<list3.size(); i++) {
+                    if (group_num.compareTo(list3.get(i).group_num) == 0) {
+                        pointlist.add(list3.get(i).point);
+                        idlist.add(list3.get(i).id);
+                        count++;
+                    }
+                }
+
+                Integer[] pointarray = new Integer[count];
+                for(int i=0;i<pointlist.size();i++){
+                pointarray[i]=pointlist.get(i);}
+
+                String[] idarray = new String[count];
+                for(int i=0;i<idlist.size();i++){
+                idarray[i]=idlist.get(i);}
+
+                Integer temp;
+                String tempString;
+                for(int i=0;i<pointarray.length;i++){
+                    for(int j=i+1;j<pointarray.length;j++){
+                        if(pointarray[i]<pointarray[j]){
+                            temp = pointarray[i];
+                            pointarray[i]=pointarray[j];
+                            pointarray[j]=temp;
+                            tempString = idarray[i];
+                            idarray[i]=idarray[j];
+                            idarray[j]=tempString;
                         }
                     }
-                    Integer[] pointarray = new Integer[count];
-                    for(int i=0;i<pointlist.size();i++){
-                    pointarray[i]=pointlist.get(i);}
+                }
 
-
-                    String[] idarray = new String[count];
-                    for(int i=0;i<idlist.size();i++){
-                    idarray[i]=idlist.get(i);}
-
-                    Integer temp;
-                    String tempString;
-                    for(int i=0;i<pointarray.length;i++){
-                        for(int j=i+1;j<pointarray.length;j++){
-                            if(pointarray[i]<pointarray[j]){
-
-                                temp = pointarray[i];
-                                pointarray[i]=pointarray[j];
-                                pointarray[j]=temp;
-
-                                tempString = idarray[i];
-                                idarray[i]=idarray[j];
-                                idarray[j]=tempString;
-
-
-
-                            }
-
-                        }
-                    }
                 ArrayList<Integer> realpoint = new ArrayList<>();
                 for(Integer item : pointarray){
-
                     realpoint.add(item);
-
                 }
 
 
                 ArrayList<String> realid = new ArrayList<>();
-                    for(String item : idarray){
-
-                        realid.add(item);
-
-                                }
+                for(String item : idarray){
+                    realid.add(item);
+                }
 
           
-                    TextView v = root.findViewById(R.id.r1);
-                    v.setText(realid.get(0));
-                    TextView v1 = root.findViewById(R.id.r2);
-                    v1.setText(realid.get(1));
-                    TextView v2 = root.findViewById(R.id.r3);
-                    v2.setText(realid.get(2));
-
-
-
-
+                TextView v = root.findViewById(R.id.r1);
+                v.setText(realid.get(0));
+                TextView v1 = root.findViewById(R.id.r2);
+                v1.setText(realid.get(1));
+                TextView v2 = root.findViewById(R.id.r3);
+                v2.setText(realid.get(2));
 
                 String url0 = "http://52.78.235.23:8080/organization";
 
