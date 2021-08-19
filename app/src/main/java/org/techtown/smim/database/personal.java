@@ -6,7 +6,7 @@ public class personal {
     public Long mem_num;
     public String id;
     public String pwd;
-    public String personal_image;
+    public String name;
     public String interest;
     public Long group_num;
     public Integer point;

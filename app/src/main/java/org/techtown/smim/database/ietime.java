@@ -8,5 +8,4 @@ public class ietime {
     public Integer p_num;
     public Date daily_record;
     public String daily_total;
-
 }
