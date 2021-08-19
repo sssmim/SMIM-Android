@@ -256,12 +256,12 @@ public class TimerFragment extends Fragment {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               if(firstState) {
-                   Long now = System.currentTimeMillis();
-                   date1 = new Date(now);
-                   Log.d("test_diff" , String.valueOf(date1));
-                   firstState = false;
-               }
+                if(firstState) {
+                    Long now = System.currentTimeMillis();
+                    date1 = new Date(now);
+                    Log.d("test_diff" , String.valueOf(date1));
+                    firstState = false;
+                }
 
                 String second = secText.getText().toString();
                 time = (Long.parseLong(second) * 1000) + 1000;

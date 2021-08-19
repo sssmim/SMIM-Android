@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -43,6 +44,22 @@ public class makegroup1 extends Fragment {
         groupname = root.findViewById(R.id.groupname2);
         groupdesc = root.findViewById(R.id.groupdesc);
         //private Button button;
+
+        CheckBox c1 = root.findViewById(R.id.ch);
+        CheckBox c2 = root.findViewById(R.id.cp);
+        CheckBox c3 = root.findViewById(R.id.cy);
+
+        if(c1.isSelected()){
+            Log.e("check","c1");
+        }else{
+            Log.e("check","c2");
+        }
+
+
+
+
+
+
         Button button =root.findViewById(R.id.confirm);
 
         button.setOnClickListener(new View.OnClickListener() {
