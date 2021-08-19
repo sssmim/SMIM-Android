@@ -186,6 +186,7 @@ statisticPage.setArguments(bundle);
                                     group_num = list.get(i).group_num;
                                 }
                             }
+                            Log.d("test_MainActivity" , String.valueOf(group_num));
 
                             if(group_num == null || group_num.compareTo(0L) == 0) {
                                 transaction.replace(R.id.container, findGroup_test).commitAllowingStateLoss();
