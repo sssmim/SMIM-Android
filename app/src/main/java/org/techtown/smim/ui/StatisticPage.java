@@ -51,7 +51,7 @@ public class StatisticPage extends Fragment {
     LineChart mpLineChart;
     int po=0;
     public List<ietime> list = new ArrayList<>();
-    Integer mypoint;
+    Integer mypoint=0;
     public List<personal> list3 = new ArrayList<>();
     ArrayList<Entry> dataVals = new ArrayList<Entry>();
     LineDataSet lineDataSet1;
@@ -60,7 +60,7 @@ public class StatisticPage extends Fragment {
     public List<String> idlist = new ArrayList<>();
     public List<Integer> pointlist = new ArrayList<>();
     LineData data;
-    int rank;
+    int rank=0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -232,7 +232,10 @@ public class StatisticPage extends Fragment {
 
                 for (int i = 0; i < list3.size(); i++) {
                     if (list3.get(i).mem_num.compareTo(mem_num) == 0) {
-                        group_num1 = list3.get(i).group_num;
+                        if(list3.get(i).group_num == null) {
+                            group_num1 = 0L;
+                        }else{
+                        group_num1 = list3.get(i).group_num;}
                         mypoint=list3.get(i).point;
                         Log.d("test_gro", String.valueOf(group_num1));
                     }
@@ -313,7 +316,7 @@ public class StatisticPage extends Fragment {
                 TextView v1 = root.findViewById(R.id.starank);
                 v1.setText(String.valueOf(rank));
                 TextView v2 = root.findViewById(R.id.stapoint);
-                v2.setText(mypoint.toString());
+                v2.setText(String.valueOf(mypoint));
 
 
 

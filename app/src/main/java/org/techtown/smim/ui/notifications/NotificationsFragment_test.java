@@ -155,6 +155,7 @@ public class NotificationsFragment_test extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putLong("mem_num",mem_num);
                 bundle.putIntegerArrayList("key", m);
+                Log.e("Te",String.valueOf(m.size()));
                 MergeFragment.setArguments(bundle);
                 fragmentTransaction.replace(R.id.container, MergeFragment);
                 fragmentTransaction.commit();

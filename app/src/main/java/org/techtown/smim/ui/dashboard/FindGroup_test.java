@@ -2,15 +2,19 @@ package org.techtown.smim.ui.dashboard;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -31,6 +35,9 @@ import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.StringRequest;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -40,10 +47,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.techtown.smim.R;
 import org.techtown.smim.database.group;
+import org.techtown.smim.database.ietime;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,43 +91,181 @@ public class FindGroup_test extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         GroupListAdapter adapter = new GroupListAdapter();
-
-        RequestQueue requestQueue;
-        Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
-        Network network = new BasicNetwork(new HurlStack());
-        requestQueue = new RequestQueue(cache, network);
-        requestQueue.start();
-
-        String url = "http://52.78.235.23:8080/organization";
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        Spinner s = root.findViewById(R.id.spinner2);
+        s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onResponse(String response) {
-                // 한글깨짐 해결 코드
-                String changeString = new String();
-                try {
-                    changeString = new String(response.getBytes("8859_1"),"utf-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                Type listType = new TypeToken<ArrayList<group>>(){}.getType();
-                list = gson.fromJson(changeString, listType);
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+               if(position==0){
+                   adapter.clearItem();
+                   RequestQueue requestQueue;
+                   Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
+                   Network network = new BasicNetwork(new HurlStack());
+                   requestQueue = new RequestQueue(cache, network);
+                   requestQueue.start();
 
-                for(int i = 0; i< list.size(); i++) {
-                    list2.add(list.get(i).group_num);
-                    adapter.addItem(new GroupList(list.get(i).group_name, list.get(i).group_desc));
-                }
+                   String url = "http://52.78.235.23:8080/organization";
 
-                recyclerView.setAdapter(adapter);
+                   StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                       @Override
+                       public void onResponse(String response) {
+                           // 한글깨짐 해결 코드
+                           String changeString = new String();
+                           try {
+                               changeString = new String(response.getBytes("8859_1"),"utf-8");
+                           } catch (UnsupportedEncodingException e) {
+                               e.printStackTrace();
+                           }
+                           Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                           Type listType = new TypeToken<ArrayList<group>>(){}.getType();
+                           list = gson.fromJson(changeString, listType);
+
+                           for(int i = 0; i< list.size(); i++) {
+                               list2.add(list.get(i).group_num);
+
+                                   adapter.addItem(new GroupList(list.get(i).group_name, list.get(i).group_desc));}
+
+
+                           recyclerView.setAdapter(adapter);
+                       }
+                   }, new Response.ErrorListener() {
+                       @Override
+                       public void onErrorResponse(VolleyError error) {
+                       }
+                   });
+
+                   requestQueue.add(stringRequest);
+               }
+               if(position==1){
+                   adapter.clearItem();
+                   RequestQueue requestQueue;
+                   Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
+                   Network network = new BasicNetwork(new HurlStack());
+                   requestQueue = new RequestQueue(cache, network);
+                   requestQueue.start();
+
+                   String url = "http://52.78.235.23:8080/organization";
+
+                   StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                       @Override
+                       public void onResponse(String response) {
+                           // 한글깨짐 해결 코드
+                           String changeString = new String();
+                           try {
+                               changeString = new String(response.getBytes("8859_1"),"utf-8");
+                           } catch (UnsupportedEncodingException e) {
+                               e.printStackTrace();
+                           }
+                           Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                           Type listType = new TypeToken<ArrayList<group>>(){}.getType();
+                           list = gson.fromJson(changeString, listType);
+
+                           for(int i = 0; i< list.size(); i++) {
+                               list2.add(list.get(i).group_num);
+                               if(list.get(i).group_category.compareTo("헬스") == 0){
+                                   adapter.addItem(new GroupList(list.get(i).group_name, list.get(i).group_desc));}
+                           }
+
+                           recyclerView.setAdapter(adapter);
+                       }
+                   }, new Response.ErrorListener() {
+                       @Override
+                       public void onErrorResponse(VolleyError error) {
+                       }
+                   });
+
+                   requestQueue.add(stringRequest);
+               }
+               if(position==2){
+                   adapter.clearItem();
+                   RequestQueue requestQueue;
+                   Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
+                   Network network = new BasicNetwork(new HurlStack());
+                   requestQueue = new RequestQueue(cache, network);
+                   requestQueue.start();
+
+                   String url = "http://52.78.235.23:8080/organization";
+
+                   StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                       @Override
+                       public void onResponse(String response) {
+                           // 한글깨짐 해결 코드
+                           String changeString = new String();
+                           try {
+                               changeString = new String(response.getBytes("8859_1"),"utf-8");
+                           } catch (UnsupportedEncodingException e) {
+                               e.printStackTrace();
+                           }
+                           Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                           Type listType = new TypeToken<ArrayList<group>>(){}.getType();
+                           list = gson.fromJson(changeString, listType);
+
+                           for(int i = 0; i< list.size(); i++) {
+                               list2.add(list.get(i).group_num);
+                               if(list.get(i).group_category.compareTo("필라테스") == 0){
+                                   adapter.addItem(new GroupList(list.get(i).group_name, list.get(i).group_desc));}
+                           }
+
+                           recyclerView.setAdapter(adapter);
+                       }
+                   }, new Response.ErrorListener() {
+                       @Override
+                       public void onErrorResponse(VolleyError error) {
+                       }
+                   });
+
+                   requestQueue.add(stringRequest);
+               }
+                if(position==3){
+                   adapter.clearItem();
+                   RequestQueue requestQueue;
+                   Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
+                   Network network = new BasicNetwork(new HurlStack());
+                   requestQueue = new RequestQueue(cache, network);
+                   requestQueue.start();
+
+                   String url = "http://52.78.235.23:8080/organization";
+
+                   StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                       @Override
+                       public void onResponse(String response) {
+                           // 한글깨짐 해결 코드
+                           String changeString = new String();
+                           try {
+                               changeString = new String(response.getBytes("8859_1"),"utf-8");
+                           } catch (UnsupportedEncodingException e) {
+                               e.printStackTrace();
+                           }
+                           Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                           Type listType = new TypeToken<ArrayList<group>>(){}.getType();
+                           list = gson.fromJson(changeString, listType);
+
+                           for(int i = 0; i< list.size(); i++) {
+                               list2.add(list.get(i).group_num);
+                               if(list.get(i).group_category.compareTo("요가") == 0){
+                                   adapter.addItem(new GroupList(list.get(i).group_name, list.get(i).group_desc));}
+                           }
+
+                           recyclerView.setAdapter(adapter);
+                       }
+                   }, new Response.ErrorListener() {
+                       @Override
+                       public void onErrorResponse(VolleyError error) {
+                       }
+                   });
+
+                   requestQueue.add(stringRequest);
+
+               }
+
+
             }
-        }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        requestQueue.add(stringRequest);
+
+
 
         FloatingActionButton button =(FloatingActionButton)root.findViewById(R.id.floatingActionButton);
         button.setOnClickListener(new View.OnClickListener() {
