@@ -168,9 +168,6 @@ public class DashboardFragment1 extends Fragment {
                             tempString = idarray[i];
                             idarray[i]=idarray[j];
                             idarray[j]=tempString;
-
-
-
                         }
 
                     }

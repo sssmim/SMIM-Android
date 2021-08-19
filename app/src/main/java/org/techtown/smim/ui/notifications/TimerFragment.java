@@ -35,13 +35,17 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.techtown.smim.R;
 import org.techtown.smim.database.ielist;
+import org.techtown.smim.database.ietime;
 import org.techtown.smim.database.iexercise;
+import org.techtown.smim.database.personal;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -63,7 +67,6 @@ public class TimerFragment extends Fragment {
     private long tempTime = 0;
 
     private Integer index = 0;
-
     private Integer total = 0;
 
     private boolean firstState = true;
@@ -73,6 +76,10 @@ public class TimerFragment extends Fragment {
     public List<String> nameList = new ArrayList<>();
     public List<Integer> countList = new ArrayList<>();
     public List<String> secList = new ArrayList<>();
+    public List<ietime> ietList = new ArrayList<>();
+
+    public Integer num = 0;
+    public String getTotal;
 
     Long mem_num;
 
@@ -88,9 +95,6 @@ public class TimerFragment extends Fragment {
         if(bundle != null) {
             mem_num = bundle.getLong("mem_num");
         }
-
-        //Long now = System.currentTimeMillis();
-        //date1 = new Date(now);
 
         try {
             Thread.sleep(25); //0.025초 대기
@@ -256,12 +260,12 @@ public class TimerFragment extends Fragment {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(firstState) {
-                    Long now = System.currentTimeMillis();
-                    date1 = new Date(now);
-                    Log.d("test_diff" , String.valueOf(date1));
-                    firstState = false;
-                }
+               if(firstState) {
+                   Long now = System.currentTimeMillis();
+                   date1 = new Date(now);
+                   Log.d("test_startTime" , String.valueOf(date1));
+                   firstState = false;
+               }
 
                 String second = secText.getText().toString();
                 time = (Long.parseLong(second) * 1000) + 1000;
@@ -324,6 +328,7 @@ public class TimerFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         Long now = System.currentTimeMillis();
                         date2 = new Date(now);
+                        Log.d("test_endTime" , String.valueOf(date2));
 
                         SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
                         String getDay = dateFormat1.format(date1);
@@ -340,30 +345,118 @@ public class TimerFragment extends Fragment {
 
                         String url = "http://52.78.235.23:8080/ietime";
 
-                        Map map = new HashMap();
-                        map.put("p_num", mem_num);
-                        map.put("daily_record", getDay);
-                        map.put("daily_total", diffTime);
-                        JSONObject params = new JSONObject(map);
-
-                        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, params,
-                                new Response.Listener<JSONObject>() {
-                                    @Override
-                                    public void onResponse(JSONObject obj) {
-                                    }
-                                },
-                                new Response.ErrorListener() {
-                                    @Override
-                                    public void onErrorResponse(VolleyError error) {
-                                    }
-                                }) {
-
+                        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                             @Override
-                            public String getBodyContentType() {
-                                return "application/json; charset=UTF-8";
+                            public void onResponse(String response) {
+                                // 한글깨짐 해결 코드
+                                String changeString = new String();
+                                try {
+                                    changeString = new String(response.getBytes("8859_1"), "utf-8");
+                                } catch (UnsupportedEncodingException e) {
+                                    e.printStackTrace();
+                                }
+                                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                                Type listType = new TypeToken<ArrayList<ietime>>() {
+                                }.getType();
+                                ietList = gson.fromJson(changeString, listType);
+
+                                for(int i=0; i<ietList.size(); i++) {
+                                    if (mem_num.compareTo(Long.valueOf(ietList.get(i).p_num)) == 0) {
+                                        String getDayTemp = dateFormat1.format(ietList.get(i).daily_record);
+                                        if (getDay.compareTo(getDayTemp) == 0) {
+                                            num = ietList.get(i).iet_num;
+                                            getTotal = ietList.get(i).daily_total;
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                if(num == 0) {
+                                    final JSONObject jsonObject = new JSONObject();
+                                    try {
+                                        jsonObject.put("p_num", mem_num);
+                                        jsonObject.put("daily_record", getDay);
+                                        jsonObject.put("daily_total", diffTime);
+                                    } catch (JSONException e) {
+                                        // handle exception
+                                    }
+                                    JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject,
+                                            new Response.Listener<JSONObject>()
+                                            {
+                                                @Override
+                                                public void onResponse(JSONObject response) {
+                                                    // response
+                                                    Log.d("Response", response.toString());
+                                                }
+                                            },
+                                            new Response.ErrorListener()
+                                            {
+                                                @Override
+                                                public void onErrorResponse(VolleyError error) {
+                                                    // error
+                                                    Log.d("Error.Response", error.toString());
+                                                }
+                                            }) {
+
+                                        @Override
+                                        public String getBodyContentType() {
+                                            return "application/json; charset=UTF-8";
+                                        }
+                                    };
+                                    requestQueue.add(putRequest);
+                                } else {
+                                    String addTimeString = "";
+                                    final JSONObject jsonObject = new JSONObject();
+                                    try {
+                                        Date time1 = dateFormat.parse(getTotal);
+                                        Date time2 = dateFormat.parse(diffTime);
+                                        Date kor = dateFormat.parse("09:00:00");
+                                        long addTime = time1.getTime() + time2.getTime() - kor.getTime();
+                                        addTimeString = dateFormat.format(addTime);
+                                        Log.d("test_Time" , addTimeString);
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+                                    try {
+                                        jsonObject.put("p_num", mem_num);
+                                        jsonObject.put("daily_record", getDay);
+                                        jsonObject.put("daily_total", addTimeString);
+                                    } catch (JSONException e) {
+                                    }
+                                    Log.d("test_checkNum", String.valueOf(num));
+                                    JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, url + "/" + num, jsonObject,
+                                            new Response.Listener<JSONObject>()
+                                            {
+                                                @Override
+                                                public void onResponse(JSONObject response) {
+                                                    // response
+                                                    Log.d("Response", response.toString());
+                                                }
+                                            },
+                                            new Response.ErrorListener()
+                                            {
+                                                @Override
+                                                public void onErrorResponse(VolleyError error) {
+                                                    // error
+                                                    Log.d("Error.Response", error.toString());
+                                                }
+                                            }) {
+
+                                        @Override
+                                        public String getBodyContentType() {
+                                            return "application/json; charset=UTF-8";
+                                        }
+                                    };
+                                    requestQueue.add(putRequest);
+
+                                }
                             }
-                        };
-                        requestQueue.add(objectRequest);
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                            }
+                        });
+                        requestQueue.add(stringRequest);
 
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
