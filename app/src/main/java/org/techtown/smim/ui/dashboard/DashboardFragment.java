@@ -185,10 +185,6 @@ public class DashboardFragment extends Fragment {
             } });
 
 
-
-
-
-
         Button refresh_button = root.findViewById(R.id.join);
         refresh_button.setOnClickListener(new View.OnClickListener() {
             @Override

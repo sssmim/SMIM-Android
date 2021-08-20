@@ -86,13 +86,7 @@ public class DashboardFragment1 extends Fragment {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Button button1 = root.findViewById(R.id.groupplay);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { Intent intent = new Intent(requireContext(), GroupExercisePlay.class);
-                startActivityForResult(intent, REQUEST_CODE_MENU);
-            }
-        });
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(layoutManager);
