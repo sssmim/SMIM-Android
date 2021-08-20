@@ -251,7 +251,7 @@ public class StatisticPage extends Fragment {
                             } else {
                                 pointlist.add(list3.get(i).point);
                             }
-                            idlist.add(list3.get(i).id);
+                            idlist.add(list3.get(i).name);
                             count++;
                         }
                     }

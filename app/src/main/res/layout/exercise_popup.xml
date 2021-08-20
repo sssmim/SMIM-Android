@@ -5,6 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -23,11 +32,10 @@
 
         <ImageButton
             android:id="@+id/exit"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentRight="true"
-
-            tools:src="@android:drawable/ic_menu_close_clear_cancel" />
+            android:src="@drawable/ic_baseline_close_24"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -56,4 +64,6 @@
             android:text="TextView"
             android:layout_gravity="center_horizontal"/>
     </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
