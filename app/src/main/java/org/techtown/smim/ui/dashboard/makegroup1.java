@@ -40,7 +40,7 @@ public class makegroup1 extends Fragment {
 
         Bundle bundle = getArguments();
         mem_num = bundle.getLong("mem_num");
-Log.e("mem_num",String.valueOf(mem_num));
+        Log.e("mem_num",String.valueOf(mem_num));
         groupname = root.findViewById(R.id.groupname2);
         groupdesc = root.findViewById(R.id.groupdesc);
         //private Button button;
@@ -77,8 +77,6 @@ Log.e("mem_num",String.valueOf(mem_num));
                 map.put("group_name", groupname.getText().toString());
                 map.put("group_desc", groupdesc.getText().toString());
                 map.put("group_category",cate);
-                map.put("view_count", 0);
-                map.put("authority", mem_num);
                 JSONObject params = new JSONObject(map);
 
                 JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, params,
