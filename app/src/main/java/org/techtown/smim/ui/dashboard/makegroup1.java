@@ -53,8 +53,6 @@ public class makegroup1 extends Fragment {
                 map.put("group_name", groupname.getText().toString());
                 map.put("group_desc", groupdesc.getText().toString());
                 map.put("group_category", "category");
-                map.put("view_count", 0);
-                map.put("authority", mem_num);
                 JSONObject params = new JSONObject(map);
 
                 JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, params,

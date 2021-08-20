@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,8 +29,7 @@ import java.util.regex.Pattern;
 
 public class LoginActivity_getExtra extends AppCompatActivity {
 
-    private EditText getInterest;
-    private EditText getImage;
+    private EditText getName;
     private Button finish;
 
     Dialog dialog;
@@ -59,22 +58,37 @@ public class LoginActivity_getExtra extends AppCompatActivity {
         Id = intent1.getStringExtra("ID");
         pwd = intent1.getStringExtra("PWD");
 
-        getInterest = findViewById(R.id.getINTEREST);
-        getInterest.setFilters(new InputFilter[] {filterKor});
-        getImage = findViewById(R.id.getIMAGE);
+        CheckBox interest1 = findViewById(R.id.interest1);
+        CheckBox interest2 = findViewById(R.id.interest2);
+        CheckBox interest3 = findViewById(R.id.interest3);
+
+        getName = findViewById(R.id.getNAME);
+        //getName.setFilters(new InputFilter[] {filterKor});
         finish = findViewById(R.id.finish);
 
         finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String interest = getInterest.getText().toString();
+                String interest = "";
+
+                if(interest1.isChecked()) {
+                    interest += (interest1.getText().toString() + ",");
+                }
+                if(interest2.isChecked()) {
+                    interest += (interest2.getText().toString() + ",");
+                }
+                if(interest3.isChecked()) {
+                    interest += (interest3.getText().toString() + ",");
+                }
+
+                String name = getName.getText().toString();
 
                 String url = "http://52.78.235.23:8080/personal";
                 Map map = new HashMap();
                 map.put("id", Id);
                 map.put("pwd", pwd);
+                map.put("name", name);
                 map.put("interest", interest);
-                //map.put("personal_image", );
                 JSONObject params = new JSONObject(map);
 
                 JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, params,

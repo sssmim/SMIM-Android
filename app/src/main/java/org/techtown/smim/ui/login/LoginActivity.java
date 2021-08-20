@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_main);
 
-        getId = findViewById(R.id.getINTEREST);
+        getId = findViewById(R.id.getID);
         getId.setFilters(new InputFilter[] {filter});
 
         checkId = findViewById(R.id.finish);

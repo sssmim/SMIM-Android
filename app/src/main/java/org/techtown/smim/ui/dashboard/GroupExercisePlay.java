@@ -140,7 +140,7 @@ Long mem_num = intent.getExtras().getLong("mem");
                         Map map = new HashMap();
                         map.put("id", list3.get(index).id);
                         map.put("pwd", list3.get(index).pwd);
-                        map.put("personal_image", list3.get(index).personal_image);
+                        map.put("name", list3.get(index).name);
                         map.put("interest", list3.get(index).interest);
                         map.put("group_num",  list3.get(index).group_num);
                         map.put("point",sec);
