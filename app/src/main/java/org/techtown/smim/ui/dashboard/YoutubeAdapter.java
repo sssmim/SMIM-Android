@@ -52,7 +52,7 @@ public class YoutubeAdapter extends RecyclerView.Adapter<YoutubeAdapter.ViewHold
     public void addItem(Youtube item) {
         items.add(item);
     }
-
+public void clearItem() { items.clear();}
     public void setItems(ArrayList<Youtube> items) {
         this.items = items;
     }
