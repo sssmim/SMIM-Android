@@ -241,7 +241,8 @@ public class StatisticPage extends Fragment {
                     }
                 }
 
-
+                pointlist.clear();
+                idlist.clear();
                 Integer count = 0;
                 for (int i = 0; i < list3.size(); i++) {
                     if (list3.get(i).group_num != null) {
