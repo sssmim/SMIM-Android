@@ -87,12 +87,14 @@
             android:text="1등: "
             android:textColor="#0F0F10"
             android:textSize="15sp"/>
+
             <TextView
+                android:id="@+id/r1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="이나연"
                 android:textColor="#171718"
-                android:textSize="15sp"/>
+                android:textSize="15sp" />
 
     </LinearLayout>
     <LinearLayout
@@ -106,12 +108,14 @@
             android:text="2등: "
             android:textColor="#0F0F10"
             android:textSize="15sp"/>
+
         <TextView
+            android:id="@+id/r2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="임찬혁"
             android:textColor="#171718"
-            android:textSize="15sp"/>
+            android:textSize="15sp" />
 
     </LinearLayout>
     <LinearLayout
@@ -125,26 +129,15 @@
             android:text="3등: "
             android:textColor="#0F0F10"
             android:textSize="15sp"/>
+
         <TextView
+            android:id="@+id/r3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="박지효"
             android:textColor="#171718"
-            android:textSize="15sp"/>
+            android:textSize="15sp" />
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-
-        <Button
-            android:id="@+id/groupplan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=" 운동추가 " />
     </LinearLayout>
 
             <TextView
