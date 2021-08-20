@@ -86,13 +86,7 @@ public class DashboardFragment1 extends Fragment {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Button button1 = root.findViewById(R.id.groupplay);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { Intent intent = new Intent(requireContext(), GroupExercisePlay.class);
-                startActivityForResult(intent, REQUEST_CODE_MENU);
-            }
-        });
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(layoutManager);
@@ -132,7 +126,8 @@ public class DashboardFragment1 extends Fragment {
                         }
                     }
                 }
-
+                pointlist.clear();
+                idlist.clear();
                 Integer count=0;
                 for(int i=0; i<list3.size(); i++) {
                     if (list3.get(i).group_num!=null){
@@ -146,12 +141,12 @@ public class DashboardFragment1 extends Fragment {
                     }
                 }}
 
-                Integer[] pointarray = new Integer[count];
+                Integer[] pointarray = new Integer[pointlist.size()];
                 for(int i=0;i<pointlist.size();i++){
                     pointarray[i]=pointlist.get(i);}
 
 
-                String[] idarray = new String[count];
+                String[] idarray = new String[pointlist.size()];
                 for(int i=0;i<idlist.size();i++){
                     idarray[i]=idlist.get(i);}
 

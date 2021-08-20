@@ -150,11 +150,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
-                <Button
-                    android:id="@+id/groupplay"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=" 운동하기 " />
 
                 <Button
                     android:id="@+id/groupplan"

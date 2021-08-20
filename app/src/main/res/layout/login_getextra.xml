@@ -100,13 +100,14 @@
         android:id="@+id/interest2"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:layout_marginBottom="223dp"
         android:text="관심사2"
         app:layout_constraintBottom_toTopOf="@+id/finish"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.089" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <CheckBox
         android:id="@+id/interest3"
