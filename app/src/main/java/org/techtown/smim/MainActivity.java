@@ -136,14 +136,12 @@ private StatisticPage statisticPage =new StatisticPage();
         findGroup_test.setArguments(bundle);
         crawlingPage.setArguments(bundle);
         dashboardFragment1.setArguments(bundle);
-statisticPage.setArguments(bundle);
+        statisticPage.setArguments(bundle);
         //FragmentTransaction transaction = fragmentManager.beginTransaction();
         //transaction.replace(R.id.container, homeFragment).commitAllowingStateLoss();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
-
-
     }
 
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{

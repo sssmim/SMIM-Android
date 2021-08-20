@@ -265,8 +265,6 @@ public class FindGroup_test extends Fragment {
         });
 
 
-
-
         FloatingActionButton button =(FloatingActionButton)root.findViewById(R.id.floatingActionButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -276,7 +274,7 @@ public class FindGroup_test extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putLong("mem_num", mem_num);
                 fragment2.setArguments(bundle);
-                transaction.replace(R.id.container, fragment2);
+                transaction.replace(R.id.container, fragment2).addToBackStack(null);
                 transaction.commit();
             }
         });
@@ -291,7 +289,7 @@ public class FindGroup_test extends Fragment {
             bundle.putLong("Group_num", list.get(position).group_num);
             bundle.putLong("mem_num", mem_num);
             f.setArguments(bundle);
-            transaction.replace(R.id.container,f);
+            transaction.replace(R.id.container,f).addToBackStack(null);
             transaction.commit();
         } });
         return root;
