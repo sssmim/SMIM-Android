@@ -58,7 +58,7 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.View
     public void addItem(GroupList item) {
         items.add(item);
     }
-
+public void clearItem() {items.clear();}
     public void setItems(ArrayList<GroupList> items) {
         this.items = items;
     }

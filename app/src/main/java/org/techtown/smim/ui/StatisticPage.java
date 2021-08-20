@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.android.volley.Cache;
 import com.android.volley.Network;
@@ -34,6 +35,7 @@ import com.google.gson.reflect.TypeToken;
 
 import org.techtown.smim.R;
 import org.techtown.smim.database.ietime;
+import org.techtown.smim.database.personal;
 import org.techtown.smim.database.reservation;
 
 import java.io.UnsupportedEncodingException;
@@ -49,14 +51,16 @@ public class StatisticPage extends Fragment {
     LineChart mpLineChart;
     int po=0;
     public List<ietime> list = new ArrayList<>();
-
-
+    Integer mypoint=0;
+    public List<personal> list3 = new ArrayList<>();
     ArrayList<Entry> dataVals = new ArrayList<Entry>();
     LineDataSet lineDataSet1;
-
+    Long group_num1;
     ArrayList<ILineDataSet> dataSets;
-
+    public List<String> idlist = new ArrayList<>();
+    public List<Integer> pointlist = new ArrayList<>();
     LineData data;
+    int rank=0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -197,6 +201,122 @@ public class StatisticPage extends Fragment {
 
 
 
+///////////////////////////////////////////////////////////////////
+        Bundle bundle = getArguments();
+        Long mem_num = bundle.getLong("mem_num");
+
+
+        RequestQueue requestQueue1;
+        Cache cache1 = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
+        Network network1 = new BasicNetwork(new HurlStack());
+        requestQueue1 = new RequestQueue(cache1, network1);
+        requestQueue1.start();
+
+        String url = "http://52.78.235.23:8080/personal";
+
+        StringRequest stringRequest1 = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // 한글깨짐 해결 코드
+                String changeString = new String();
+                try {
+                    changeString = new String(response.getBytes("8859_1"), "utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                Type listType = new TypeToken<ArrayList<personal>>() {
+                }.getType();
+                list3 = gson.fromJson(changeString, listType);
+
+
+                for (int i = 0; i < list3.size(); i++) {
+                    if (list3.get(i).mem_num.compareTo(mem_num) == 0) {
+                        if(list3.get(i).group_num == null) {
+                            group_num1 = 0L;
+                        }else{
+                        group_num1 = list3.get(i).group_num;}
+                        mypoint=list3.get(i).point;
+                        Log.d("test_gro", String.valueOf(group_num1));
+                    }
+                }
+
+
+                Integer count = 0;
+                for (int i = 0; i < list3.size(); i++) {
+                    if (list3.get(i).group_num != null) {
+                        if (list3.get(i).group_num.compareTo(group_num1) == 0) {
+                            if (list3.get(i).point == null) {
+                                pointlist.add(0);
+                            } else {
+                                pointlist.add(list3.get(i).point);
+                            }
+                            idlist.add(list3.get(i).name);
+                            count++;
+                        }
+                    }
+                }
+
+                Integer[] pointarray = new Integer[pointlist.size()];
+                for (int i = 0; i < pointlist.size(); i++) {
+                    pointarray[i] = pointlist.get(i);
+                }
+
+
+                String[] idarray = new String[pointlist.size()];
+                for (int i = 0; i < idlist.size(); i++) {
+                    idarray[i] = idlist.get(i);
+                }
+
+                Integer temp;
+                String tempString;
+                for (int i = 0; i < pointarray.length; i++) {
+                    for (int j = i + 1; j < pointarray.length; j++) {
+                        if (pointarray[i] < pointarray[j]) {
+
+                            temp = pointarray[i];
+                            pointarray[i] = pointarray[j];
+                            pointarray[j] = temp;
+
+                            tempString = idarray[i];
+                            idarray[i] = idarray[j];
+                            idarray[j] = tempString;
+
+
+                        }
+
+                    }
+                }
+
+                for (int i = 0; i < pointarray.length; i++) {
+
+                    if(mypoint.equals(pointarray[i])){
+                        rank=i+1;
+                    }
+
+
+                }
+                ArrayList<Integer> realpoint = new ArrayList<>();
+                for (Integer item : pointarray) {
+
+                    realpoint.add(item);
+
+                }
+
+
+                ArrayList<String> realid = new ArrayList<>();
+                for (String item : idarray) {
+
+                    realid.add(item);
+
+                }
+
+
+
+                TextView v1 = root.findViewById(R.id.starank);
+                v1.setText(String.valueOf(rank));
+                TextView v2 = root.findViewById(R.id.stapoint);
+                v2.setText(String.valueOf(mypoint));
 
 
 
@@ -207,9 +327,31 @@ public class StatisticPage extends Fragment {
 
 
 
+            } }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                }
+            });
+        requestQueue1.add(stringRequest1);
 
 
-        return root;
+
+
+
+
+
+
+
+                return root;
     }
+
+
+
+
+
+
+
+
+
 
 }

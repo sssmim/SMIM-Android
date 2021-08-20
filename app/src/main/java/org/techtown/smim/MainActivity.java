@@ -136,7 +136,7 @@ private StatisticPage statisticPage =new StatisticPage();
         findGroup_test.setArguments(bundle);
         crawlingPage.setArguments(bundle);
         dashboardFragment1.setArguments(bundle);
-
+statisticPage.setArguments(bundle);
         //FragmentTransaction transaction = fragmentManager.beginTransaction();
         //transaction.replace(R.id.container, homeFragment).commitAllowingStateLoss();
 
@@ -215,18 +215,6 @@ private StatisticPage statisticPage =new StatisticPage();
             return true;
         }
 
-    }
-
-    private ArrayList<Entry> dataValues1(){
-        ArrayList<Entry> dataVals = new ArrayList<Entry>();
-
-        dataVals.add(new Entry(0, 20));
-        dataVals.add(new Entry(1, 30));
-        dataVals.add(new Entry(2, 40));
-        dataVals.add(new Entry(3, 50));
-        dataVals.add(new Entry(4, 30));
-
-        return dataVals;
     }
 
 
