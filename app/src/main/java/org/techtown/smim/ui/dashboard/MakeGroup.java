@@ -40,8 +40,6 @@ public class MakeGroup extends AppCompatActivity {
             map.put("group_name", groupname.getText().toString());
             map.put("group_desc", groupdesc.getText().toString());
             map.put("group_category", "and test33");
-            map.put("view_count", 22);
-            map.put("authority", 1);
             JSONObject params = new JSONObject(map);
 
             JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, params,

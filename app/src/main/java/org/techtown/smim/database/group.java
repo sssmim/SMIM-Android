@@ -7,6 +7,4 @@ public class group {
     public String group_name;
     public String group_desc;
     public String group_category;
-    public int view_count;
-    public int authority;
 }
