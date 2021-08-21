@@ -17,8 +17,9 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
                 app:srcCompat="@android:drawable/presence_online" />
 
             <LinearLayout
