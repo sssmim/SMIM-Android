@@ -182,14 +182,23 @@ public class DashboardFragment1 extends Fragment {
 
 
                 TextView v = root.findViewById(R.id.r1);
-                v.setText(realid.get(0));
+                if(realid.size() > 0 && realid.get(0) != null) {
+                    v.setText(realid.get(0));
+                } else {
+                    v.setText("");
+                }
                 TextView v1 = root.findViewById(R.id.r2);
-                v1.setText(realid.get(1));
+                if(realid.size() > 1 && realid.get(1) != null) {
+                    v1.setText(realid.get(1));
+                } else {
+                    v1.setText("");
+                }
                 TextView v2 = root.findViewById(R.id.r3);
-                v2.setText(realid.get(2));
-
-
-
+                if(realid.size() > 2 && realid.get(2) != null) {
+                    v2.setText(realid.get(1));
+                } else {
+                    v2.setText("");
+                }
 
 
                 String url0 = "http://52.78.235.23:8080/organization";

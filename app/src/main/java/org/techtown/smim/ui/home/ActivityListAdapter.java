@@ -1,8 +1,10 @@
 package org.techtown.smim.ui.home;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -38,7 +40,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
     public void addItem(ActivityList item) {
         items.add(item);
     }
-public void clearItem(){items.clear();}
+    public void clearItem(){items.clear();}
     public void setItems(ArrayList<ActivityList> items) {
         this.items = items;
     }
@@ -52,6 +54,7 @@ public void clearItem(){items.clear();}
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView iv;
         TextView hs;
         TextView he;
         TextView hd;
@@ -59,14 +62,18 @@ public void clearItem(){items.clear();}
         public ViewHolder(View itemView) {
             super(itemView);
 
+            iv = itemView.findViewById(R.id.imageView);
             hs= itemView.findViewById(R.id.hs);
             he = itemView.findViewById(R.id.he);
             hd = itemView.findViewById(R.id.hd);
-
         }
 
         public void setItem(ActivityList item) {
-           hd.setText(item.getName());
+            int red = (int)(Math.random()*255);
+            int green = (int)(Math.random()*255);
+            int blue = (int)(Math.random()*255);
+            iv.setColorFilter(Color.rgb(red, green, blue));
+            hd.setText(item.getName());
             hs.setText(item.getStime());
             he.setText(item.getEtime());
         }

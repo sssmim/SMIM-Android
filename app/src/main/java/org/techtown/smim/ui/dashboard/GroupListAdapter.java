@@ -1,9 +1,11 @@
 package org.techtown.smim.ui.dashboard;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -72,6 +74,7 @@ public void clearItem() {items.clear();}
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView iv;
         TextView textView;
         TextView textView2;
 
@@ -79,7 +82,7 @@ public void clearItem() {items.clear();}
         public ViewHolder(View itemView) {
             super(itemView);
 
-
+            iv = itemView.findViewById(R.id.imageView1);
             textView = itemView.findViewById(R.id.grouptitle);
             textView2 = itemView.findViewById(R.id.groupdesc);
 
@@ -94,6 +97,10 @@ public void clearItem() {items.clear();}
         }
 
         public void setItem(GroupList item) {
+            int red = (int)(Math.random()*255);
+            int green = (int)(Math.random()*255);
+            int blue = (int)(Math.random()*255);
+            iv.setColorFilter(Color.rgb(red, green, blue));
             textView.setText(item.getGroupTitle());
             textView2.setText(item.getGroupDesc());
         }
