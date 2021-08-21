@@ -2,10 +2,13 @@ package org.techtown.smim.ui.dashboard;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -48,7 +51,7 @@ public class YoutubePlanFragment extends Fragment {
     public List<String> url2 = new ArrayList<>();
     public List<String> title2 = new ArrayList<>();
     public String realurl;
-
+    String name;
     public Long mem_num;
     public Long group_num;
 
@@ -96,6 +99,7 @@ public class YoutubePlanFragment extends Fragment {
                 list = gson.fromJson(changeString, listType);
 
                 for (int i = 0; i < list.size(); i++) {
+
                     int image = getResources().getIdentifier(list.get(i).video_image, "drawable", getActivity().getPackageName());
                     adapter.addItem(new Youtube(list.get(i).video_name, image));
                     url2.add(list.get(i).video_url);
@@ -111,12 +115,160 @@ public class YoutubePlanFragment extends Fragment {
         });
 
         requestQueue.add(stringRequest);
+        EditText texty = root.findViewById(R.id.searchy);
 
-        //adapter.addItem(new Youtube("상체"));
-        //adapter.addItem(new Youtube("하체"));
-        //adapter.addItem(new Youtube("복부"));
-        //adapter.addItem(new Youtube("스쿼트"));
-        //recyclerView.setAdapter(adapter);
+        texty.addTextChangedListener(new TextWatcher() {
+
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(texty.isFocusable() && s.toString().equals("")){
+
+
+                    adapter.clearItem();
+                    String url = "http://52.78.235.23:8080/video";
+
+                    StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // 한글깨짐 해결 코드
+                            String changeString = new String();
+                            try {
+                                changeString = new String(response.getBytes("8859_1"), "utf-8");
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            }
+                            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                            Type listType = new TypeToken<ArrayList<video>>() {
+                            }.getType();
+                            list = gson.fromJson(changeString, listType);
+
+                            for (int i = 0; i < list.size(); i++) {
+
+                                int image = getResources().getIdentifier(list.get(i).video_image, "drawable", getActivity().getPackageName());
+                                adapter.addItem(new Youtube(list.get(i).video_name, image));
+                                url2.add(list.get(i).video_url);
+                                title2.add(list.get(i).video_name);
+                            }
+
+                            recyclerView.setAdapter(adapter);
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                        }
+                    });
+
+                    requestQueue.add(stringRequest);
+
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                }
+            });
+
+
+
+        Button searchb = root.findViewById(R.id.searchb);
+        searchb.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                name=texty.getText().toString();
+        if(name!=null){
+            adapter.clearItem();
+            String url = "http://52.78.235.23:8080/video";
+
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    // 한글깨짐 해결 코드
+                    String changeString = new String();
+                    try {
+                        changeString = new String(response.getBytes("8859_1"), "utf-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                    Type listType = new TypeToken<ArrayList<video>>() {
+                    }.getType();
+                    list = gson.fromJson(changeString, listType);
+
+                    for (int i = 0; i < list.size(); i++) {
+                        if(list.get(i).video_name.contains(name)) {
+                            int image = getResources().getIdentifier(list.get(i).video_image, "drawable", getActivity().getPackageName());
+                            adapter.addItem(new Youtube(list.get(i).video_name, image));
+                            url2.add(list.get(i).video_url);
+                            title2.add(list.get(i).video_name);}
+                    }
+
+                    recyclerView.setAdapter(adapter);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                }
+            });
+
+            requestQueue.add(stringRequest);
+        }
+        else{
+            adapter.clearItem();
+            String url = "http://52.78.235.23:8080/video";
+
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    // 한글깨짐 해결 코드
+                    String changeString = new String();
+                    try {
+                        changeString = new String(response.getBytes("8859_1"), "utf-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                    Type listType = new TypeToken<ArrayList<video>>() {
+                    }.getType();
+                    list = gson.fromJson(changeString, listType);
+
+                    for (int i = 0; i < list.size(); i++) {
+
+                            int image = getResources().getIdentifier(list.get(i).video_image, "drawable", getActivity().getPackageName());
+                            adapter.addItem(new Youtube(list.get(i).video_name, image));
+                            url2.add(list.get(i).video_url);
+                            title2.add(list.get(i).video_name);
+                    }
+
+                    recyclerView.setAdapter(adapter);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                }
+            });
+
+            requestQueue.add(stringRequest);
+        }
+
+
+
+
+            }
+        });
+
+
+
+
         adapter.setOnItemClicklistener(new YoutubeAdapter.OnYoutubeItemClickListener() {
             @Override
             public void onItemClick(YoutubeAdapter.ViewHolder holder, View view, int position) {
