@@ -17,7 +17,7 @@
             android:layout_height="0dp"
             android:textColor="#000"
             android:layout_margin="5dp"
-            android:text="내용을 입력해 주세요."
+            android:text="예약과 삭제중에 선택하세요."
             android:layout_weight="0.6"/>
 
         <LinearLayout
