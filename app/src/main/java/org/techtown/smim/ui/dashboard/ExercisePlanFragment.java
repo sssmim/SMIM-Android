@@ -254,10 +254,17 @@ public class ExercisePlanFragment extends Fragment {
                    } catch (Exception e) {
 
                    }
-                   if((Integer.parseInt(cchour)<0||Integer.parseInt(cchour)>24)||(Integer.parseInt(ccehour)<0||Integer.parseInt(ccehour)>24)||(Integer.parseInt(rstartmin)<0||Integer.parseInt(rstartmin)>60)||(Integer.parseInt(rendmin)<0||Integer.parseInt(rendmin)>60)) {
-                       Toast.makeText(requireContext(),"시는 0~24시,분은 0~60분안으로 설정해주세요", Toast.LENGTH_LONG).show();
 
-                   }else{
+                   if(cchour==""||rstartmin==""||ccehour==""||rendmin==""||planMemo.getText().toString()==""){
+                       Toast.makeText(requireContext(),"빈칸이 입력되었습니다.", Toast.LENGTH_LONG).show();
+                   }
+                   else if((Integer.parseInt(cchour)<0||Integer.parseInt(cchour)>24)||(Integer.parseInt(ccehour)<0||Integer.parseInt(ccehour)>24)||(Integer.parseInt(rstartmin)<0||Integer.parseInt(rstartmin)>60)||(Integer.parseInt(rendmin)<0||Integer.parseInt(rendmin)>60)) {
+                       Toast.makeText(requireContext(),"시는 0~24시,분은 0~60분안으로 설정해주세요", Toast.LENGTH_LONG).show();
+                   }
+                  else if(realurl==""||realurl==null){
+                       Toast.makeText(requireContext(),"유튜브동영상을 선택해주세요", Toast.LENGTH_LONG).show();
+                   }
+                   else{
 
                        String url = "http://52.78.235.23:8080/gexercise";
                        Map map = new HashMap();
