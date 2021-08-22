@@ -290,13 +290,11 @@ public class StatisticPage extends Fragment {
                 }
 
                 for (int i = 0; i < pointarray.length; i++) {
-
                     if(mypoint.equals(pointarray[i])){
                         rank=i+1;
                     }
-
-
                 }
+
                 ArrayList<Integer> realpoint = new ArrayList<>();
                 for (Integer item : pointarray) {
 
