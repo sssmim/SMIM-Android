@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -275,7 +276,11 @@ public class YoutubePlanFragment extends Fragment {
                 Youtube item = adapter.getItem(position);
 
                 realurl = url2.get(position);
-                Toast.makeText(requireContext(), title2.get(position) + "동영상이 선택되었습니다", Toast.LENGTH_LONG).show();
+
+                Toast toast=Toast.makeText(requireContext(), title2.get(position) + "동영상이 선택되었습니다", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER,50,50);
+                toast.show();
+
             }
         });
 
