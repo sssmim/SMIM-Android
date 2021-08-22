@@ -54,6 +54,7 @@ public class DashboardFragment1 extends Fragment {
     public static final int REQUEST_CODE_MENU = 101;
 
     public TextView name;
+    public TextView group_count;
     public TextView info;
     public ArrayList<Exercise> list222 = new ArrayList<>();
     public List<group> list = new ArrayList<>();
@@ -65,6 +66,7 @@ public class DashboardFragment1 extends Fragment {
     public List<Integer> pointlist = new ArrayList<>();
     Long mem_num;
     Long group_num;
+    Integer group_mem_count;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -72,6 +74,7 @@ public class DashboardFragment1 extends Fragment {
         //   new ViewModelProvider(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard_1, container, false);
         name = root.findViewById(R.id.name);
+        group_count = root.findViewById(R.id.groupcount);
         info = root.findViewById(R.id.info);
 
         Bundle bundle = getArguments();
@@ -126,8 +129,22 @@ public class DashboardFragment1 extends Fragment {
                         }
                     }
                 }
+
+                group_mem_count = 0;
+
+                for(int i=0; i<list3.size(); i++) {
+                    if(list3.get(i).group_num != null) {
+                        if (list3.get(i).group_num.compareTo(group_num) == 0) {
+                            group_mem_count++;
+                        }
+                    }
+                }
+
+                group_count.setText(String.valueOf(group_mem_count));
+
                 pointlist.clear();
                 idlist.clear();
+
                 Integer count=0;
                 for(int i=0; i<list3.size(); i++) {
                     if (list3.get(i).group_num!=null){

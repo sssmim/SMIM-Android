@@ -59,7 +59,6 @@ public class TimerFragment extends Fragment {
     private TextView exercise_name;
     private TextView countdownText;
     private TextView secText;
-    private ToggleButton start_stop;
 
     private CountDownTimer countDownTimer;
 
@@ -218,7 +217,6 @@ public class TimerFragment extends Fragment {
                 show();
             }
         });
-
 
         Button button =  (Button) view.findViewById(R.id.gonext);
         button.setOnClickListener(new View.OnClickListener() {

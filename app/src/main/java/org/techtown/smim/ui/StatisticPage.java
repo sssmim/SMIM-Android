@@ -304,9 +304,8 @@ public class StatisticPage extends Fragment {
                             rank=i+1;
                         }
                     }
-
-
                 }
+
                 ArrayList<Integer> realpoint = new ArrayList<>();
                 for (Integer item : pointarray) {
 
