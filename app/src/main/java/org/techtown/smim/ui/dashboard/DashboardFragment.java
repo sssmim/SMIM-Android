@@ -157,7 +157,9 @@ public class DashboardFragment extends Fragment {
                             idlist.add(list3.get(i).name);
                             count++;
                         }
-                    }}
+                    }
+
+                }
 
                 Integer[] pointarray = new Integer[pointlist.size()];
                 for(int i=0;i<pointlist.size();i++) {
@@ -197,20 +199,21 @@ public class DashboardFragment extends Fragment {
                 }
 
                 TextView v = root.findViewById(R.id.r1);
-                if(realid.size() > 0 && realid.get(0) != null) {
+                if(realid.size() > 0 && realpoint.get(0) != 0) {
                     v.setText(realid.get(0));
-                } else {
+                }
+                else{
                     v.setText("");
                 }
                 TextView v1 = root.findViewById(R.id.r2);
-                if(realid.size() > 1 && realid.get(1) != null) {
+                if(realid.size() > 1 && realpoint.get(1) != 0) {
                     v1.setText(realid.get(1));
                 } else {
                     v1.setText("");
                 }
                 TextView v2 = root.findViewById(R.id.r3);
-                if(realid.size() > 2 && realid.get(2) != null) {
-                    v2.setText(realid.get(1));
+                if(realid.size() > 2 && realpoint.get(2) != 0) {
+                    v2.setText(realid.get(2));
                 } else {
                     v2.setText("");
                 }

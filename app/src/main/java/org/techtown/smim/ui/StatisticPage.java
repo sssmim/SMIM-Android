@@ -236,7 +236,11 @@ public class StatisticPage extends Fragment {
                             group_num1 = 0L;
                         }else{
                         group_num1 = list3.get(i).group_num;}
-                        mypoint=list3.get(i).point;
+                        if(list3.get(i).point == null) {
+                            mypoint =0;
+                        }else{
+                            mypoint=list3.get(i).point;}
+
                         Log.d("test_gro", String.valueOf(group_num1));
                     }
                 }
@@ -290,8 +294,15 @@ public class StatisticPage extends Fragment {
                 }
 
                 for (int i = 0; i < pointarray.length; i++) {
-                    if(mypoint.equals(pointarray[i])){
-                        rank=i+1;
+
+
+                    if(mypoint.equals(0)){
+                        rank=0;
+                    }
+                    else{
+                        if(mypoint.equals(pointarray[i])){
+                            rank=i+1;
+                        }
                     }
                 }
 
