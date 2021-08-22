@@ -18,6 +18,11 @@
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="180dp"
+                android:background="@layout/dialog_background_round"
+                android:orientation="vertical">
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,7 +35,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/name"
         android:text="그룹명"
-        android:textColor="#FF0000FF"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         android:textSize="20sp"/>
 
         <Button
@@ -41,12 +47,15 @@
             android:layout_alignParentRight="true"
             android:text="가입" />
     </RelativeLayout>
+
  <LinearLayout
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
+     android:layout_marginTop="20dp"
+     android:layout_gravity="center_horizontal"
      android:orientation="horizontal">
         <TextView
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/groupcount"
@@ -54,7 +63,7 @@
             android:textSize="15sp"
             android:text="5"/>
      <TextView
-         android:layout_marginTop="5dp"
+         android:layout_marginTop="20dp"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:textColor="@color/black"
@@ -62,6 +71,7 @@
          android:text="명"/>
  </LinearLayout>
         <TextView
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -69,12 +79,15 @@
             android:textColor="@color/black"
             android:text="그룹설명"/>
 
+
+        </LinearLayout>
+
             <TextView
             android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="그룹원 랭킹"
-            android:textColor="#FF0000FF"
+            android:textColor="#03A9F4"
             android:textSize="15sp"/>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -139,13 +152,17 @@
             android:textSize="15sp" />
 
     </LinearLayout>
-
+            <View
+                android:layout_marginTop="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#E1DCDC"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:text=" 운동계획 "
-                android:textColor="#FF0000FF"
+                android:textColor="#03A9F4"
                 android:textSize="15sp" />
 
             <androidx.recyclerview.widget.RecyclerView

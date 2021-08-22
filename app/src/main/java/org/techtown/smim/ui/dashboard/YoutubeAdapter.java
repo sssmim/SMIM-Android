@@ -79,7 +79,7 @@ public void clearItem() { items.clear();}
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-                    v.setBackgroundColor(Color.BLUE);
+
 
                     if(listener1 != null){
                         listener1.onItemClick(ViewHolder.this, v, position);

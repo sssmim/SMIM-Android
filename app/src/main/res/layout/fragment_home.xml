@@ -23,20 +23,13 @@
         android:orientation="horizontal">
 
         <TextView
+            android:textColor="#2196F3"
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="YYYY.MM"
             android:textSize="25dp" />
 
-<Button
-    android:id="@+id/test"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="test"
-    android:textSize="25dp" >
-
-</Button>
     </LinearLayout>
 
     <CalendarView
@@ -51,15 +44,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_marginTop="15dp"
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="50sp"
-            android:textColor="@color/black"
-            android:text="운동 리스트"
-            android:textSize="25dp" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecyclerView"

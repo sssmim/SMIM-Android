@@ -6,24 +6,33 @@
     android:orientation="vertical">
 
     <Button
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
         android:id="@+id/go_exer"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="운동가기"
-        android:textSize="30sp"
+        android:text="개인운동시작"
+        android:textSize="10dp"
         tools:layout_editor_absoluteX="134dp"
         tools:layout_editor_absoluteY="65dp" />
-
-    <TextView
+    <View
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#E1DCDC"/>
+    <TextView
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="운동정보 Timeline"
-        android:textSize="50sp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="134dp" />
+        android:layout_marginTop="20dp"
+        android:text="관심 기사"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="20dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RecyclerView"
+        android:layout_marginTop="15dp"
         android:layout_width="409dp"
         android:layout_height="528dp"
         tools:layout_editor_absoluteX="1dp"
