@@ -87,40 +87,35 @@
 
         <Button
             android:id="@+id/goprev"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
             app:icon="@android:drawable/ic_media_previous" />
 
         <Button
             android:id="@+id/start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
-            android:text="시작" />
-
-        <ToggleButton
-            android:id="@+id/start_stop"
-            android:layout_width="20dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/yellow"
-            android:textOff=" "
-            android:textOn=" " />
+            android:layout_marginLeft="10dp"
+            android:text="START"
+            android:textSize="13dp"/>
 
         <Button
             android:id="@+id/pause"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
-            android:text="일시정지" />
+            android:layout_marginLeft="10dp"
+            android:text="PAUSE"
+            android:textSize="13dp"/>
 
         <Button
             android:id="@+id/gonext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
-
+            android:layout_marginLeft="10dp"
             app:icon="@android:drawable/ic_media_next" />
     </LinearLayout>
 
