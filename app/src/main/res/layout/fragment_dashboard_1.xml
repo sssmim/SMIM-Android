@@ -38,8 +38,14 @@
                     android:textStyle="bold"
                     android:text="그룹명"
                     android:textColor="@color/black"
-                    android:textSize="25dp" />
-
+                    android:textSize="20dp" />
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="그룹게시판"
+    android:layout_alignParentRight="true"
+    android:layout_marginRight="20dp"
+    android:id="@+id/groupboard"/>
             </RelativeLayout>
 
             <LinearLayout
