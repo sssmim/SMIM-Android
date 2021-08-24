@@ -302,6 +302,21 @@ public class DashboardFragment1 extends Fragment {
             }
         });
 
+        Button buttons = root.findViewById(R.id.groupboard);
+        buttons.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                GroupBoardFragment fragment2 = new GroupBoardFragment();
+                Bundle bundle = new Bundle();
+                bundle.putLong("mem_num", mem_num);
+                bundle.putLong("group_num", group_num);
+                fragment2.setArguments(bundle);
+                transaction.replace(R.id.container, fragment2);
+                transaction.commit();
+            }
+        });
         adapter.setOnItemClicklistener(new ExerciseAdapter.OnPersonItemClickListener(){
             @Override
             public void onItemClick(ExerciseAdapter.ViewHolder holder, View view, ArrayList<Exercise> items,int position)
