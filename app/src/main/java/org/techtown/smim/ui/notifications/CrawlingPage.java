@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -43,7 +44,7 @@ public class CrawlingPage extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         NotificationsViewModel =
                 new ViewModelProvider(this).get(NotificationsViewModel.class);
-        View root = (View)inflater.inflate(R.layout.individual_page, container, false);
+        View root = (View) inflater.inflate(R.layout.individual_page, container, false);
         regionData task = new regionData();
         task.execute();
 
@@ -64,7 +65,7 @@ public class CrawlingPage extends Fragment {
         //recyclerView.setAdapter(adapter);
 
         //private button button;
-        Button button =(Button)root.findViewById(R.id.go_exer);
+        Button button = (Button) root.findViewById(R.id.go_exer);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +81,7 @@ public class CrawlingPage extends Fragment {
 
         return root;
     }
+
     private class regionData extends AsyncTask<Void, Void, ArrayList<ListData>> {
 
         @Override
@@ -88,9 +90,9 @@ public class CrawlingPage extends Fragment {
             ArrayList<ListData> arrayList = new ArrayList<ListData>();
 
             try {
-               // String str = "필라테스";
-               // String utf8= URLEncoder.encode(str,"UTF-8");//쿼리문에들어갈 한글인코딩
-               // String url = "https://brunch.co.kr/search?q="+utf8;
+                // String str = "필라테스";
+                // String utf8= URLEncoder.encode(str,"UTF-8");//쿼리문에들어갈 한글인코딩
+                // String url = "https://brunch.co.kr/search?q="+utf8;
 
                 /* Jsoup을 이용해 데이터 가져오기 */
                 Document document = Jsoup.connect("https://www.hidoc.co.kr/healthstory/news?organ=0&mIdx=1020&gender=0&season=0&page=3&life=0&sIdx=1120&care=0").get();
@@ -106,14 +108,18 @@ public class CrawlingPage extends Fragment {
                 String tag = null;
                 String writer = null;
 
-                for(int i=0; i<doc.size(); i++) {
-                    //Log.d("link","okay");
+                for (int i = 0; i < doc.size(); i++) {
                     title_raw = doc.get(i).select("div.news_info a[title]").get(0).text(); //제목
-                    //Log.d("title","okay");
+
                     String[] array = title_raw.split("]");
                     title = array[1];
-                    image = doc.get(i).select("div.news_info img[src]").text(); //상세설명
-                    tothelink = doc.get(i).select("div.news_info a[href]").text();
+
+                    //image = doc.get(i).select("a img[src]").text();
+                    image = doc.get(i).getElementsByAttribute("src").attr("src");
+
+                    //tothelink = doc.get(i).select(" a[href]").text();
+                    tothelink = doc.get(i).getElementsByAttribute("href").attr("href");
+
                     tag = doc.get(i).select("li.meta_item").text();
                     writer = doc.get(i).select("li.txt_expert").text();
                     //Log.d("받아와지는지 확인",title);
@@ -121,11 +127,8 @@ public class CrawlingPage extends Fragment {
 
 
                     arrayList.add(new ListData(title, image, tothelink, tag, writer));
-                    Log.d("리스트저장되어지는지 확인",arrayList.get(i).toString());
+                    //Log.d("리스트저장되어지는지 확인",arrayList.get(i).getTv_cases());
                 }
-
-
-
 
 
             } catch (Exception e) {
@@ -139,14 +142,25 @@ public class CrawlingPage extends Fragment {
             RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.RecyclerView);
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
             recyclerView.setLayoutManager(layoutManager);
-            String str1 = arrayList.get(1).getTv_name();
-            String str2 = arrayList.get(1).getTv_recovered();
             org.techtown.smim.ui.notifications.PageIndividualListAdapter adapter = new org.techtown.smim.ui.notifications.PageIndividualListAdapter();
-            adapter.addItem(new org.techtown.smim.ui.notifications.PageIndividualList(str1, str2));
-            recyclerView.setAdapter(adapter);
-        }
-    }
 
+            for (int i = 0; i < 3; i++) {
+                String title = arrayList.get(i).getTv_name();
+                String writer = arrayList.get(i).getTv_recovered();
+                String img = arrayList.get(i).getTv_cases();
+                String link = arrayList.get(i).getTv_cases_p();
+                //Log.d("이미지 좀 확인 할게요",img);
+
+
+                adapter.addItem(new org.techtown.smim.ui.notifications.PageIndividualList(img, title, writer, link));
+
+            }
+            recyclerView.setAdapter(adapter);
+
+
+        }
+
+    }
 }
 
 /*링크 추출문
