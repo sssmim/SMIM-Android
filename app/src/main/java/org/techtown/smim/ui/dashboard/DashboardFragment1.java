@@ -45,10 +45,17 @@ import org.techtown.smim.ui.notifications.CustomExerciseChoice;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import devs.mulham.horizontalcalendar.HorizontalCalendar;
+import devs.mulham.horizontalcalendar.HorizontalCalendarListener;
 
 public class DashboardFragment1 extends Fragment {
     public static final int REQUEST_CODE_MENU = 101;
@@ -67,6 +74,8 @@ public class DashboardFragment1 extends Fragment {
     Long mem_num;
     Long group_num;
     Integer group_mem_count;
+
+    private HorizontalCalendar horizontalCalendar;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -96,7 +105,6 @@ public class DashboardFragment1 extends Fragment {
         ExerciseAdapter adapter = new ExerciseAdapter();
         adapter.clearItem();
 
-        adapter.clearItem();
         RequestQueue requestQueue;
         Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
         Network network = new BasicNetwork(new HurlStack());
@@ -253,6 +261,37 @@ public class DashboardFragment1 extends Fragment {
                 requestQueue.add(stringRequest0);
 
 
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+        requestQueue.add(stringRequest);
+
+        Calendar endDate = Calendar.getInstance();
+        endDate.add(Calendar.MONTH, 1);
+        Calendar startDate = Calendar.getInstance();
+        startDate.add(Calendar.MONTH, -1);
+
+        horizontalCalendar = new HorizontalCalendar.Builder(root, R.id.calendarView)
+                .startDate(startDate.getTime())
+                .endDate(endDate.getTime())
+                .datesNumberOnScreen(5)
+                .dayNameFormat("EEE")
+                .dayNumberFormat("dd")
+                .monthFormat("MMM")
+                .textSize(14f, 24f, 14f)
+                .showDayName(true)
+                .showMonthName(true)
+
+                .build();
+
+        horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
+            @Override
+            public void onDateSelected(Date date, int position) {
+                adapter.clearItem();
+                 //Toast.makeText(getContext(), DateFormat.getDateInstance().format(date) + " is selected!", Toast.LENGTH_SHORT).show();
                 String url2 = "http://52.78.235.23:8080/gexercise";
 
                 StringRequest stringRequest2 = new StringRequest(Request.Method.GET, url2, new Response.Listener<String>() {
@@ -270,18 +309,18 @@ public class DashboardFragment1 extends Fragment {
                         Type listType = new TypeToken<ArrayList<gexercise>>(){}.getType();
                         list2 = gson.fromJson(changeString2, listType);
 
-                        int many = 0;
-
                         for(int i = 0; i< list2.size(); i++) {
                             if(list2.get(i).group_num.compareTo(group_num) == 0) {
-                                urlList.add(list2.get(i).video_url);
-                                adapter.addItem(new Exercise(list2.get(i).ge_start_time, list2.get(i).ge_end_time, list2.get(i).ge_desc));
-                                many++;
-                                ge_numlist.add(list2.get(i).ge_num);
+                                SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+                                String Date1 = transFormat.format(date);
+                                String Date2 = transFormat.format(list2.get(i).ge_date);
+                                if(Date2.compareTo(Date1) == 0) {
+                                    urlList.add(list2.get(i).video_url);
+                                    adapter.addItem(new Exercise(list2.get(i).ge_date, list2.get(i).ge_start_time, list2.get(i).ge_end_time, list2.get(i).ge_desc));
+                                    ge_numlist.add(list2.get(i).ge_num);
+                                }
                             }
                         }
-
-                        Log.d("test_many" , String.valueOf(many));
 
                         recyclerView.setAdapter(adapter);
                     }
@@ -293,12 +332,8 @@ public class DashboardFragment1 extends Fragment {
 
                 requestQueue.add(stringRequest2);
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
+
         });
-        requestQueue.add(stringRequest);
 
         Button button = root.findViewById(R.id.groupplan);
         button.setOnClickListener(new View.OnClickListener() {
@@ -364,6 +399,4 @@ public class DashboardFragment1 extends Fragment {
 
         return root;
     }
-
-
 }

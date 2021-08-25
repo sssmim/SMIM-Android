@@ -63,6 +63,6 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.13.1'
     implementation 'com.github.pedroSG94:AutoPermissions:1.0.3'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
-
+    implementation group: 'devs.mulham.horizontalcalendar', name: 'horizontalcalendar', version: '1.1.7'
 
 }

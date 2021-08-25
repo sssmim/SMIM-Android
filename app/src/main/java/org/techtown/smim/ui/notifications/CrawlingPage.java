@@ -151,9 +151,7 @@ public class CrawlingPage extends Fragment {
                 String link = arrayList.get(i).getTv_cases_p();
                 //Log.d("이미지 좀 확인 할게요",img);
 
-
                 adapter.addItem(new org.techtown.smim.ui.notifications.PageIndividualList(img, title, writer, link));
-
             }
             recyclerView.setAdapter(adapter);
 
