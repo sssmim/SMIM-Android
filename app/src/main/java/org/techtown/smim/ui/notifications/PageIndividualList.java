@@ -1,16 +1,24 @@
 package org.techtown.smim.ui.notifications;
 
 public class PageIndividualList {
-
+    String image_view;
     String info_title;
     String info_desc;
-    String image_view;
+    String link;
 
-    public PageIndividualList(String info_title, String info_desc){
+
+    public PageIndividualList(String image_view, String info_title, String info_desc,String link){
+        this.image_view = image_view;
         this.info_title = info_title;
         this.info_desc = info_desc;
-        this.image_view = image_view;
+        this.link = link;
     }
+
+    public String getImageView() {
+        return image_view;
+    }
+
+    public void setImageView(String info_desc) { this.image_view = image_view; }
 
     public String getInfoTitle() {
         return info_title;
@@ -28,9 +36,11 @@ public class PageIndividualList {
         this.info_desc = info_desc;
     }
 
-    public String getImageView() {
-        return image_view;
+    public String getLink() {
+        return link;
     }
 
-    public void setImageView(String info_desc) { this.image_view = image_view; }
+    public void setLink(String link) { this.link = link; }
+
+
 }
