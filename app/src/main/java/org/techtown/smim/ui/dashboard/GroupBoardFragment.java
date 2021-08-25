@@ -21,6 +21,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Cache;
 import com.android.volley.Network;
@@ -40,6 +41,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
+import org.techtown.smim.CustomDialog;
 import org.techtown.smim.R;
 import org.techtown.smim.database.board;
 import org.techtown.smim.database.gexercise;
@@ -58,7 +60,7 @@ public class GroupBoardFragment extends Fragment {
     Long group_num;
     Integer count=0;
     List<board> list2 = new ArrayList<>();
-
+    public List<Long> boardid = new ArrayList<>();
 
 
     @Override
@@ -116,7 +118,7 @@ public class GroupBoardFragment extends Fragment {
                     if(list2.get(i).group_num.compareTo(group_num) == 0) {
 
                         adapter.addItem(new Board(list2.get(i).title, list2.get(i).main));
-
+                        boardid.add(list2.get(i).board_id);
                     }
                 }
 
@@ -149,6 +151,24 @@ public class GroupBoardFragment extends Fragment {
 
             }
         });
+
+        adapter.setOnItemClicklistener(new BoardAdapter.OnPersonItemClickListener() {
+            @Override
+            public void onItemClick(BoardAdapter.ViewHolder holder, View view, ArrayList<Board> items, int position) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                CommentmakeFragment f = new CommentmakeFragment();
+                Bundle bundle = new Bundle();
+                bundle.putLong("group_num", group_num);
+                bundle.putLong("mem_num", mem_num);
+                bundle.putLong("boardid",boardid.get(position));
+                f.setArguments(bundle);
+                transaction.replace(R.id.container,f).addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
+
+
         return root;
     }
 
