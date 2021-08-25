@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -53,6 +54,8 @@ public class CommentmakeFragment extends Fragment {
     Long position;
     String postcomment;
     List<comment> list2 = new ArrayList<>();
+    private ListView listView;
+    private ListViewAdapter adapter;
     List<board> list = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,10 +71,10 @@ public class CommentmakeFragment extends Fragment {
             Log.d("test_dashboradFragment1", String.valueOf(mem_num));
         }
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
-        RecyclerView recyclerView = root.findViewById(R.id.commentre);
-        recyclerView.setLayoutManager(layoutManager);
-        CommentAdapter adapter = new CommentAdapter();
+        listView = (ListView) root.findViewById(R.id.listView1);
+
+        adapter = new ListViewAdapter(getContext());
+
         adapter.clearItem();
         RequestQueue requestQueue;
         Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
@@ -149,7 +152,7 @@ public class CommentmakeFragment extends Fragment {
                 }
 
 
-                recyclerView.setAdapter(adapter);
+                listView.setAdapter(adapter);
             }
         }, new Response.ErrorListener() {
             @Override
