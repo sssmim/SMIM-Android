@@ -37,7 +37,6 @@ public class PageIndividualListAdapter extends RecyclerView.Adapter<PageIndividu
 
     public void setOnItemClicklistener(PageIndividualListAdapter.OnNewsItemClickListener listener){ this.listener = listener; }
 
-
     public void onItemClick(PageIndividualListAdapter.ViewHolder holder, View view, int position) {
         if(listener != null){
             listener.onItemClick(holder,view,position); } }
@@ -60,22 +59,6 @@ public class PageIndividualListAdapter extends RecyclerView.Adapter<PageIndividu
         viewHolder.textView.setText(items.get(position).info_title);
         viewHolder.textView2.setText(items.get(position).info_desc);
        // viewHolder.imageView.setImageResource(items.get(position).image_view);
-        viewHolder.textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // click 시 필요한 동작 정의
-                //FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                //Fragment fragment1 = new CrawlingPage();
-                //fragment1.setArguments(bundle);
-                //transaction.replace(R.id.navigation_notifications, fragment1);
-                //transaction.addToBackStack(null);
-                //transaction.commit();
-                Toast.makeText(view.getContext(), "좋아", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-
     }
 
     @Override

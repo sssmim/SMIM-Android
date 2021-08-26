@@ -86,7 +86,7 @@ public class GroupBoardFragment extends Fragment {
         RecyclerView recyclerView = root.findViewById(R.id.boardre);
         DividerItemDecoration dividerItemDecoration =
                 new DividerItemDecoration(getActivity().getApplicationContext(),new LinearLayoutManager(getContext()).getOrientation());
-       recyclerView.addItemDecoration(dividerItemDecoration);
+        recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setLayoutManager(layoutManager);
         BoardAdapter adapter = new BoardAdapter();
 
