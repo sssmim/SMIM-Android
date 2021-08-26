@@ -1,6 +1,7 @@
 package org.techtown.smim.ui.notifications;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,6 +41,8 @@ public class CrawlingPage extends Fragment {
 
     Long mem_num;
 
+    org.techtown.smim.ui.notifications.PageIndividualListAdapter adapter = new org.techtown.smim.ui.notifications.PageIndividualListAdapter();
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         NotificationsViewModel =
@@ -48,23 +51,20 @@ public class CrawlingPage extends Fragment {
         regionData task = new regionData();
         task.execute();
 
+        adapter.setOnItemClicklistener(new PageIndividualListAdapter.OnNewsItemClickListener() {
+            @Override
+            public void onItemClick(PageIndividualListAdapter.ViewHolder holder, View view, int position) {
+                Toast.makeText(getContext(),"아이템 선택 "+position, Toast.LENGTH_LONG).show();
+                Log.d("test_link", adapter.getItem(position).link);
+                Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.hidoc.co.kr" + adapter.getItem(position).link));
+                startActivity(myIntent);
+            }
+        });
+
         Bundle bundle = getArguments();
         mem_num = bundle.getLong("mem_num");
         Log.d("test_CrawlingPage", String.valueOf(mem_num));
 
-        //  RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.RecyclerView);
-
-        // LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        //recyclerView.setLayoutManager(layoutManager);
-
-        //org.techtown.smim.ui.notifications.PageIndividualListAdapter adapter = new org.techtown.smim.ui.notifications.PageIndividualListAdapter();
-
-        //adapter.addItem(new org.techtown.smim.ui.notifications.PageIndividualList("아침 물마시기의 중요성", "물마시기는 ...더보기"));
-        //adapter.addItem(new org.techtown.smim.ui.notifications.PageIndividualList("미라클 모닝의 효능", "미라클모닝은 ...더보기"));
-
-        //recyclerView.setAdapter(adapter);
-
-        //private button button;
         Button button = (Button) root.findViewById(R.id.go_exer);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,7 +142,7 @@ public class CrawlingPage extends Fragment {
             RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.RecyclerView);
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
             recyclerView.setLayoutManager(layoutManager);
-            org.techtown.smim.ui.notifications.PageIndividualListAdapter adapter = new org.techtown.smim.ui.notifications.PageIndividualListAdapter();
+
 
             for (int i = 0; i < 3; i++) {
                 String title = arrayList.get(i).getTv_name();
@@ -154,8 +154,6 @@ public class CrawlingPage extends Fragment {
                 adapter.addItem(new org.techtown.smim.ui.notifications.PageIndividualList(img, title, writer, link));
             }
             recyclerView.setAdapter(adapter);
-
-
         }
 
     }
