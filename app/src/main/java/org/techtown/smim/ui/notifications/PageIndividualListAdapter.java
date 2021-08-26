@@ -7,11 +7,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import org.techtown.smim.R;
+import org.techtown.smim.ui.dashboard.GroupListAdapter;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,6 +28,20 @@ import java.util.ArrayList;
 
 public class PageIndividualListAdapter extends RecyclerView.Adapter<PageIndividualListAdapter.ViewHolder> {
     ArrayList<PageIndividualList> items = new ArrayList<PageIndividualList>();
+
+    static PageIndividualListAdapter.OnNewsItemClickListener listener;
+
+
+    public interface OnNewsItemClickListener {
+        public void onItemClick(PageIndividualListAdapter.ViewHolder holder, View view, int position); }
+
+    public void setOnItemClicklistener(PageIndividualListAdapter.OnNewsItemClickListener listener){ this.listener = listener; }
+
+
+    public void onItemClick(PageIndividualListAdapter.ViewHolder holder, View view, int position) {
+        if(listener != null){
+            listener.onItemClick(holder,view,position); } }
+
 
     @NonNull
     @Override
@@ -36,6 +56,26 @@ public class PageIndividualListAdapter extends RecyclerView.Adapter<PageIndividu
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         PageIndividualList item = items.get(position);
         viewHolder.setItem(item);
+
+        viewHolder.textView.setText(items.get(position).info_title);
+        viewHolder.textView2.setText(items.get(position).info_desc);
+       // viewHolder.imageView.setImageResource(items.get(position).image_view);
+        viewHolder.textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // click 시 필요한 동작 정의
+                //FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                //Fragment fragment1 = new CrawlingPage();
+                //fragment1.setArguments(bundle);
+                //transaction.replace(R.id.navigation_notifications, fragment1);
+                //transaction.addToBackStack(null);
+                //transaction.commit();
+                Toast.makeText(view.getContext(), "좋아", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
     }
 
     @Override
@@ -46,6 +86,8 @@ public class PageIndividualListAdapter extends RecyclerView.Adapter<PageIndividu
     public void addItem(PageIndividualList item) {
         items.add(item);
     }
+
+    public void clearItem() {items.clear();}
 
     public void setItems(ArrayList<PageIndividualList> items) {
         this.items = items;
@@ -63,7 +105,7 @@ public class PageIndividualListAdapter extends RecyclerView.Adapter<PageIndividu
         TextView textView;
         TextView textView2;
         ImageView imageView;
-        Bitmap bitmap;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -71,28 +113,22 @@ public class PageIndividualListAdapter extends RecyclerView.Adapter<PageIndividu
             textView = itemView.findViewById(R.id.info_title);
             textView2 = itemView.findViewById(R.id.info_desc);
             imageView = itemView.findViewById(R.id.imageView);
-            Thread mThread = new Thread(){
-              @Override
-              public void run(){
-                  try{
-                      URL url = new URL("");
-                      HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-                      conn.setDoInput(true);
-                      conn.connect();
 
-                      InputStream is = conn.getInputStream();
-                      bitmap = BitmapFactory.decodeStream(is);
-
-                  }catch (MalformedURLException e){e.printStackTrace();}
-                  catch (IOException e){e.printStackTrace();;}
-              }
-            };
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if(listener != null){
+                        listener.onItemClick(PageIndividualListAdapter.ViewHolder.this, v, position);
+                    } } });
         }
 
         public void setItem(PageIndividualList item) {
             textView.setText(item.getInfoTitle());
             textView2.setText(item.getInfoDesc());
-            imageView.setImageBitmap(bitmap);
+
+           // Glide.with(itemView.getContext()).load(item.getImageView()).thumbnail(0.1f).into(imageView);
+            Glide.with(itemView.getContext()).load(item.getImageView()).thumbnail(0.6f).into(imageView);
+
         }
     }
 
