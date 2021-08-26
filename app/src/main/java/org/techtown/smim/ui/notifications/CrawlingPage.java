@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -54,7 +55,7 @@ public class CrawlingPage extends Fragment {
         adapter.setOnItemClicklistener(new PageIndividualListAdapter.OnNewsItemClickListener() {
             @Override
             public void onItemClick(PageIndividualListAdapter.ViewHolder holder, View view, int position) {
-                Toast.makeText(getContext(),"아이템 선택 "+position, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(),"아이템 선택 "+position, Toast.LENGTH_LONG).show();
                 Log.d("test_link", adapter.getItem(position).link);
                 Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.hidoc.co.kr" + adapter.getItem(position).link));
                 startActivity(myIntent);
@@ -141,8 +142,12 @@ public class CrawlingPage extends Fragment {
         protected void onPostExecute(ArrayList<ListData> arrayList) {
             RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.RecyclerView);
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+            DividerItemDecoration dividerItemDecoration =
+                    new DividerItemDecoration(getActivity().getApplicationContext(),new LinearLayoutManager(getContext()).getOrientation());
+            recyclerView.addItemDecoration(dividerItemDecoration);
             recyclerView.setLayoutManager(layoutManager);
 
+            adapter.clearItem();
 
             for (int i = 0; i < 3; i++) {
                 String title = arrayList.get(i).getTv_name();
