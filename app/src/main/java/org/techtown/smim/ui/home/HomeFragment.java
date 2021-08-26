@@ -83,7 +83,14 @@ public class HomeFragment extends Fragment {
         mem_num = bundle.getLong("mem_num");
         Log.d("test_HomeFragment", String.valueOf(mem_num));
 
-       Integer sec = bundle.getInt("point");
+        try {
+            Thread.sleep(25); //0.025초 대기
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+        Integer sec = bundle.getInt("point");
         if (sec!=0){
 
             dialog = new Dialog(requireContext());       // Dialog 초기화
@@ -99,9 +106,6 @@ public class HomeFragment extends Fragment {
                     dialog.dismiss(); // 다이얼로그 닫기
                 }
             });
-
-
-
 }
 
 
@@ -117,7 +121,7 @@ public class HomeFragment extends Fragment {
 
         textView01.setText(getYear);
 
-          String str = getToday;
+        String str = getToday;
         SimpleDateFormat simpleYear2 = new SimpleDateFormat("yyyy-MM-dd");
 
         try{

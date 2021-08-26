@@ -15,19 +15,19 @@ import java.util.ArrayList;
 
 public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> {
     static ArrayList<Board> items = new ArrayList<Board>();
-    /*static BoardAdapter.OnPersonItemClickListener listener;
+    static BoardAdapter.OnPersonItemClickListener listener;
 
     public interface OnPersonItemClickListener {
-        public void onItemClick(BoardAdapter.ViewHolder holder, View view, ArrayList<Exercise> items, int position); }
+        public void onItemClick(BoardAdapter.ViewHolder holder, View view, ArrayList<Board> items, int position); }
 
     public void setOnItemClicklistener(BoardAdapter.OnPersonItemClickListener listener){ this.listener = listener; }
 
 
-    public void onItemClick(BoardAdapter.ViewHolder holder, View view, ArrayList<Exercise> items, int position) {
+    public void onItemClick(BoardAdapter.ViewHolder holder, View view, ArrayList<Board> items, int position) {
         if(listener != null){
             listener.onItemClick(holder,view,items,position); } }
 
-
+/*
     static BoardAdapter.OnItemsClickListener listener3;
 
     public interface OnItemsClickListener {
@@ -94,13 +94,13 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
             textView2 = itemView.findViewById(R.id.boardtitle);
             textView1 = itemView.findViewById(R.id.boardcomment);
 
-/*
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     int position = getAdapterPosition();
                     if(listener != null){
                         listener.onItemClick(BoardAdapter.ViewHolder.this, v, items, position);
-                    } } });*/
+                    } } });
         }
 
         public void setItem(Board item) {

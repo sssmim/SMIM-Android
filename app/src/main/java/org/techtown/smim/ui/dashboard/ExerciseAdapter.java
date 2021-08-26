@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.techtown.smim.R;
 import org.techtown.smim.ui.notifications.CustomExerciseMerge;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHolder> {
     static ArrayList<Exercise> items = new ArrayList<Exercise>();
@@ -42,9 +44,6 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
     public void onItemsClick(int position) {
         if(listener3 != null){
             listener3.onItemsClick(position); } }
-
-
-
 
 
     @NonNull
@@ -91,6 +90,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
         TextView textView;
         TextView textView1;
         TextView textView2;
+        TextView textView3;
         Button grouplay;
         public ViewHolder(View itemView) {
             super(itemView);
@@ -98,6 +98,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
             textView = itemView.findViewById(R.id.textView);
             textView1 = itemView.findViewById(R.id.textView1);
             textView2 = itemView.findViewById(R.id.textView2);
+            textView3 = itemView.findViewById(R.id.textView3);
             grouplay =itemView.findViewById(R.id.groupplay);
 
            grouplay.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +122,10 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
             textView.setText(item.getGe_start_time().toString());
             textView1.setText(item.getGe_end_time().toString());
             textView2.setText(item.getGe_desc());
+            Date temp = item.getGe_date();
+            SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String to = transFormat.format(temp);
+            textView3.setText(to);
         }
 
     }

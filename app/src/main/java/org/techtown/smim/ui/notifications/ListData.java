@@ -1,13 +1,13 @@
 package org.techtown.smim.ui.notifications;
 
-public class ListData{
-    private String tv_name;
-    private String tv_cases;
-    private String tv_cases_p;
-    private String tv_deaths;
-    private String tv_recovered;
+public class ListData {
+    private String tv_name;     //title
+    private String tv_cases;    //img
+    private String tv_cases_p;  //link
+    private String tv_deaths;   //tag
+    private String tv_recovered;//writer
 
-    public ListData(String tv_name, String tv_cases, String tv_cases_p, String tv_deaths, String tv_recovered){
+    public ListData(String tv_name, String tv_cases, String tv_cases_p, String tv_deaths, String tv_recovered) {
         this.tv_name = tv_name;
         this.tv_cases = tv_cases;
         this.tv_cases_p = tv_cases_p;

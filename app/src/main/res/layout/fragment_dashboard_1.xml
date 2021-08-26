@@ -210,6 +210,18 @@
                     android:text=" 운동추가 " />
             </RelativeLayout>
 
+            <devs.mulham.horizontalcalendar.HorizontalCalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FAFAFA"
+                app:selectedDateBackground="#00ffffff"
+                app:selectorColor="@color/purple_700"
+                app:textColorNormal="#bababa"
+                app:textColorSelected="@color/black"
+                app:textSizeDayName="20sp"
+                app:textSizeDayNumber="20sp" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
