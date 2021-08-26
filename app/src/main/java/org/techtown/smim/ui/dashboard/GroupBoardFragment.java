@@ -84,11 +84,12 @@ public class GroupBoardFragment extends Fragment {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
         RecyclerView recyclerView = root.findViewById(R.id.boardre);
-        //DividerItemDecoration dividerItemDecoration =
-           //     new DividerItemDecoration(getActivity().getApplicationContext(),new LinearLayoutManager(getContext()).getOrientation());
-       // recyclerView.addItemDecoration(dividerItemDecoration);
+        DividerItemDecoration dividerItemDecoration =
+                new DividerItemDecoration(getActivity().getApplicationContext(),new LinearLayoutManager(getContext()).getOrientation());
+       recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setLayoutManager(layoutManager);
         BoardAdapter adapter = new BoardAdapter();
+
         adapter.clearItem();
         RequestQueue requestQueue;
         Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
