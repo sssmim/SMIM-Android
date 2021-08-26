@@ -75,7 +75,7 @@ public class FindGroup_test extends Fragment {
         dashboardViewModel =
                 new ViewModelProvider(this).get(DashboardViewModel.class);
         View root = (View)inflater.inflate(R.layout.group_find, container, false);
-        Button post = (Button)root.findViewById(R.id.post);
+       // Button post = (Button)root.findViewById(R.id.post);
 
         Bundle bundle = getArguments();
         mem_num = bundle.getLong("mem_num");
