@@ -19,24 +19,45 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Cache;
+import com.android.volley.Network;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.jsoup.nodes.Element;
 import org.techtown.smim.R;
+import org.techtown.smim.database.personal;
 import org.techtown.smim.ui.dashboard.DashboardFragment;
 import org.techtown.smim.ui.dashboard.DashboardTrial;
 import org.techtown.smim.ui.dashboard.DashboardViewModel;
+import org.techtown.smim.ui.dashboard.ExerciseAdapter;
 import org.techtown.smim.ui.dashboard.MakeGroup;
 
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CrawlingPage extends Fragment {
 
     public static final int num3 = 1326;
+    public static int equalic = 0;
+    public static String s2= null;
+
+    public List<personal> list3 = new ArrayList<>();
 
     private NotificationsViewModel NotificationsViewModel;
 
@@ -83,12 +104,16 @@ public class CrawlingPage extends Fragment {
         return root;
     }
 
+
+
     private class regionData extends AsyncTask<Void, Void, ArrayList<ListData>> {
 
         @Override
         protected ArrayList<ListData> doInBackground(Void... voids) {
 
             ArrayList<ListData> arrayList = new ArrayList<ListData>();
+
+
 
             try {
                 // String str = "필라테스";
@@ -106,6 +131,7 @@ public class CrawlingPage extends Fragment {
                 String title = null;
                 String image = null;
                 String tothelink = null;
+                String tag_raw = null;
                 String tag = null;
                 String writer = null;
 
@@ -121,14 +147,29 @@ public class CrawlingPage extends Fragment {
                     //tothelink = doc.get(i).select(" a[href]").text();
                     tothelink = doc.get(i).getElementsByAttribute("href").attr("href");
 
-                    tag = doc.get(i).select("li.meta_item").text();
+                    tag_raw = doc.get(i).select("li.meta_item").text();
+                    String[] array2 = tag_raw.split(",");
+
+
                     writer = doc.get(i).select("li.txt_expert").text();
                     //Log.d("받아와지는지 확인",title);
                     //System.out.println("/d");
 
 
-                    arrayList.add(new ListData(title, image, tothelink, tag, writer));
-                    //Log.d("리스트저장되어지는지 확인",arrayList.get(i).getTv_cases());
+
+
+
+                            //String s2 = new String("수면장애");
+
+                    for (int j = 0; j < array2.length; j++) {
+                        Log.d("어레이 태그 테스트", array2[j]);
+                        if (s2.equals(array2[j]) == true) {
+                            arrayList.add(new ListData(title, image, tothelink, tag, writer));
+                            //Log.d("리스트저장되어지는지 확인",arrayList.get(i).getTv_cases());
+                        }
+                    }
+
+
                 }
 
 
@@ -143,20 +184,21 @@ public class CrawlingPage extends Fragment {
             RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.RecyclerView);
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
             DividerItemDecoration dividerItemDecoration =
-                    new DividerItemDecoration(getActivity().getApplicationContext(),new LinearLayoutManager(getContext()).getOrientation());
+                    new DividerItemDecoration(getActivity().getApplicationContext(), new LinearLayoutManager(getContext()).getOrientation());
             recyclerView.addItemDecoration(dividerItemDecoration);
             recyclerView.setLayoutManager(layoutManager);
 
             adapter.clearItem();
 
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i <arrayList.size(); i++) {
                 String title = arrayList.get(i).getTv_name();
                 String writer = arrayList.get(i).getTv_recovered();
                 String img = arrayList.get(i).getTv_cases();
                 String link = arrayList.get(i).getTv_cases_p();
                 //Log.d("이미지 좀 확인 할게요",img);
 
-                adapter.addItem(new org.techtown.smim.ui.notifications.PageIndividualList(img, title, writer, link));
+                    adapter.addItem(new org.techtown.smim.ui.notifications.PageIndividualList(img, title, writer, link));
+
             }
             recyclerView.setAdapter(adapter);
         }
