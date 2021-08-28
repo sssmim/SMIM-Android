@@ -120,7 +120,7 @@ public class CrawlingPage extends Fragment {
                         break;
                     }
                 }
-                if (interest == null) interest = "근육";
+
                 Log.d("test_interest" , String.valueOf(interest));
             }
         }, new Response.ErrorListener() {
@@ -158,75 +158,75 @@ public class CrawlingPage extends Fragment {
             ArrayList<ListData> arrayList = new ArrayList<ListData>();
 
 
+
             try {
                 // String str = "필라테스";
                 // String utf8= URLEncoder.encode(str,"UTF-8");//쿼리문에들어갈 한글인코딩
-                //String url = "https://brunch.co.kr/search?q="+utf8;
-                int page_num = 1;
-                for (page_num = 1; page_num < 15; page_num++) {
-                    String target_url = "https://www.hidoc.co.kr/healthstory/news?organ=0&mIdx=1020&gender=0&season=0&page=" + page_num + "&life=0&sIdx=1120&care=0";
+                // String url = "https://brunch.co.kr/search?q="+utf8;
+                int page = 1;
 
-                    /* Jsoup을 이용해 데이터 가져오기 */
-                    // Document document = Jsoup.connect("https://www.hidoc.co.kr/healthstory/news?organ=0&mIdx=1020&gender=0&season=0&page=3&life=0&sIdx=1120&care=0").get();
-                    Document document = Jsoup.connect(target_url).get();
-                    Elements doc = document.select("#hidocBody > div.cont_news > ul > li");
-                    String strdoc = doc.text();
-                    //System.out.print(document); //url은 받아와짐!
-                    //System.out.print(strdoc); //doc도 받아와짐
-                    int region_num = 0;
-                    String title_raw = null;
-                    String title = null;
-                    String image = null;
-                    String tothelink = null;
-                    String tag_raw = null;
-                    String tag = null;
-                    String writer = null;
+                for(page=1;page<15;page++){
+                String target_url = "https://www.hidoc.co.kr/healthstory/news?organ=0&mIdx=1020&gender=0&season=0&page=" + page + "&life=0&sIdx=1120&care=0";
+                /* Jsoup을 이용해 데이터 가져오기 */
+                // Document document = Jsoup.connect("https://www.hidoc.co.kr/healthstory/news?organ=0&mIdx=1020&gender=0&season=0&page=3&life=0&sIdx=1120&care=0").get();
+                Document document = Jsoup.connect(target_url).get();
+                Elements doc = document.select("#hidocBody > div.cont_news > ul > li");
+                String strdoc = doc.text();
+                //System.out.print(document); //url은 받아와짐!
+                //System.out.print(strdoc); //doc도 받아와짐
+                int region_num = 0;
+                String title_raw = null;
+                String title = null;
+                String image = null;
+                String tothelink = null;
+                String tag_raw = null;
+                String tag = null;
+                String writer = null;
 
-                    for (int i = 0; i < doc.size(); i++) {
-                        title_raw = doc.get(i).select("div.news_info a[title]").get(0).text(); //제목
+                for (int i = 0; i < doc.size(); i++) {
+                    title_raw = doc.get(i).select("div.news_info a[title]").get(0).text(); //제목
 
-                        String[] array = title_raw.split("]");
-                        title = array[1];
+                    String[] array = title_raw.split("]");
+                    title = array[1];
 
-                        //image = doc.get(i).select("a img[src]").text();
-                        image = doc.get(i).getElementsByAttribute("src").attr("src");
+                    //image = doc.get(i).select("a img[src]").text();
+                    image = doc.get(i).getElementsByAttribute("src").attr("src");
 
-                        //tothelink = doc.get(i).select(" a[href]").text();
-                        tothelink = doc.get(i).getElementsByAttribute("href").attr("href");
+                    //tothelink = doc.get(i).select(" a[href]").text();
+                    tothelink = doc.get(i).getElementsByAttribute("href").attr("href");
 
-                        tag_raw = doc.get(i).select("li.meta_item").text();
-                        String[] array2 = tag_raw.split(",");
-
-
-                        writer = doc.get(i).select("li.txt_expert").text();
-                        //Log.d("받아와지는지 확인",title);
-                        //System.out.println("/d");
+                    tag_raw = doc.get(i).select("li.meta_item").text();
+                    String[] array2 = tag_raw.split(",");
 
 
-                        Log.d("관심사 출력", interest);
-                       // String[] splits = interest.split(",");
-                       // interest = splits[0];
-                        //String s2 = new String("수면장애");
+                    writer = doc.get(i).select("li.txt_expert").text();
+                    //Log.d("받아와지는지 확인",title);
+                    //System.out.println("/d");
 
-                        for (int j = 0; j < array2.length; j++) {
-                            Log.d("어레이 태그 테스트", array2[j]);
-                            if (interest.equals(array2[j]) == true) {
-                                arrayList.add(new ListData(title, image, tothelink, tag, writer));
-                                //Log.d("리스트저장되어지는지 확인",arrayList.get(i).getTv_cases());
 
-                            }
+                    Log.d("관심사 출력", interest);
+                    String[] splits = interest.split(",");
+                    interest = splits[0];
+                    //String s2 = new String("수면장애");
+
+                    for (int j = 0; j < array2.length; j++) {
+                        Log.d("어레이 태그 테스트", array2[j]);
+                        if (interest.equals(array2[j]) == true) {
+                            arrayList.add(new ListData(title, image, tothelink, tag, writer));
+                            //Log.d("리스트저장되어지는지 확인",arrayList.get(i).getTv_cases());
+
                         }
-
-                    }
                     }
 
 
-                } catch(Exception e){
-                    e.printStackTrace();
                 }
-
-                return arrayList;
             }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return arrayList;
+        }
 
         @Override
         protected void onPostExecute(ArrayList<ListData> arrayList) {
