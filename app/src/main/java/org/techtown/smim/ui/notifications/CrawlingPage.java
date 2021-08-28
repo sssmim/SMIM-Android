@@ -163,9 +163,13 @@ public class CrawlingPage extends Fragment {
                 // String str = "필라테스";
                 // String utf8= URLEncoder.encode(str,"UTF-8");//쿼리문에들어갈 한글인코딩
                 // String url = "https://brunch.co.kr/search?q="+utf8;
+                int page = 1;
 
+                for(page=1;page<15;page++){
+                String target_url = "https://www.hidoc.co.kr/healthstory/news?organ=0&mIdx=1020&gender=0&season=0&page=" + page + "&life=0&sIdx=1120&care=0";
                 /* Jsoup을 이용해 데이터 가져오기 */
-                Document document = Jsoup.connect("https://www.hidoc.co.kr/healthstory/news?organ=0&mIdx=1020&gender=0&season=0&page=3&life=0&sIdx=1120&care=0").get();
+                // Document document = Jsoup.connect("https://www.hidoc.co.kr/healthstory/news?organ=0&mIdx=1020&gender=0&season=0&page=3&life=0&sIdx=1120&care=0").get();
+                Document document = Jsoup.connect(target_url).get();
                 Elements doc = document.select("#hidocBody > div.cont_news > ul > li");
                 String strdoc = doc.text();
                 //System.out.print(document); //url은 받아와짐!
@@ -200,12 +204,10 @@ public class CrawlingPage extends Fragment {
                     //System.out.println("/d");
 
 
-
-
-                    Log.d("관심사 출력",interest);
+                    Log.d("관심사 출력", interest);
                     String[] splits = interest.split(",");
                     interest = splits[0];
-                            //String s2 = new String("수면장애");
+                    //String s2 = new String("수면장애");
 
                     for (int j = 0; j < array2.length; j++) {
                         Log.d("어레이 태그 테스트", array2[j]);
@@ -218,7 +220,7 @@ public class CrawlingPage extends Fragment {
 
 
                 }
-
+            }
 
             } catch (Exception e) {
                 e.printStackTrace();
