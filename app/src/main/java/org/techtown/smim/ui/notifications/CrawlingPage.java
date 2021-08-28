@@ -120,7 +120,7 @@ public class CrawlingPage extends Fragment {
                         break;
                     }
                 }
-
+                if (interest == null) interest = "근육";
                 Log.d("test_interest" , String.valueOf(interest));
             }
         }, new Response.ErrorListener() {
@@ -204,8 +204,8 @@ public class CrawlingPage extends Fragment {
 
 
                         Log.d("관심사 출력", interest);
-                        String[] splits = interest.split(",");
-                        interest = splits[0];
+                       // String[] splits = interest.split(",");
+                       // interest = splits[0];
                         //String s2 = new String("수면장애");
 
                         for (int j = 0; j < array2.length; j++) {
