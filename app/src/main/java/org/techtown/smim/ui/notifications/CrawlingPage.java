@@ -165,7 +165,7 @@ public class CrawlingPage extends Fragment {
                 // String url = "https://brunch.co.kr/search?q="+utf8;
                 int page = 1;
 
-                for(page=1;page<15;page++){
+                for(page=1;page<14;page++){
                 String target_url = "https://www.hidoc.co.kr/healthstory/news?organ=0&mIdx=1020&gender=0&season=0&page=" + page + "&life=0&sIdx=1120&care=0";
                 /* Jsoup을 이용해 데이터 가져오기 */
                 // Document document = Jsoup.connect("https://www.hidoc.co.kr/healthstory/news?organ=0&mIdx=1020&gender=0&season=0&page=3&life=0&sIdx=1120&care=0").get();
@@ -179,7 +179,7 @@ public class CrawlingPage extends Fragment {
                 String title = null;
                 String image = null;
                 String tothelink = null;
-                String tag_raw = null;
+                Elements tag_raw = null;
                 String tag = null;
                 String writer = null;
 
@@ -195,28 +195,28 @@ public class CrawlingPage extends Fragment {
                     //tothelink = doc.get(i).select(" a[href]").text();
                     tothelink = doc.get(i).getElementsByAttribute("href").attr("href");
 
-                    tag_raw = doc.get(i).select("li.meta_item").text();
-                    String[] array2 = tag_raw.split(",");
 
-
+                    //String[] array2 = tag_raw.split(",");
+                   // if(array2.length==0)array2[0] = "x";
                     writer = doc.get(i).select("li.txt_expert").text();
                     //Log.d("받아와지는지 확인",title);
                     //System.out.println("/d");
 
-
-                    Log.d("관심사 출력", interest);
                     String[] splits = interest.split(",");
                     interest = splits[0];
-                    //String s2 = new String("수면장애");
+                    Log.d("관심사 출력", interest);
 
-                    for (int j = 0; j < array2.length; j++) {
-                        Log.d("어레이 태그 테스트", array2[j]);
-                        if (interest.equals(array2[j]) == true) {
+                    tag_raw = doc.get(i).select("ul.meta_list");
+                    for(Element e : tag_raw.select("li.meta_item")) {
+                        Log.d("태그 되냐",e.text());
+                        if (interest.equals(e.text()) == true) {
                             arrayList.add(new ListData(title, image, tothelink, tag, writer));
                             //Log.d("리스트저장되어지는지 확인",arrayList.get(i).getTv_cases());
 
                         }
                     }
+
+
 
 
                 }
