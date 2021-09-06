@@ -130,7 +130,6 @@ public class CrawlingPage extends Fragment {
         });
         requestQueue.add(stringRequest);
 
-
         Button button = (Button) root.findViewById(R.id.go_exer);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
