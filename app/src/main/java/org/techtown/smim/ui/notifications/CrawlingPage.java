@@ -19,20 +19,37 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Cache;
+import com.android.volley.Network;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.jsoup.nodes.Element;
 import org.techtown.smim.R;
+import org.techtown.smim.database.personal;
 import org.techtown.smim.ui.dashboard.DashboardFragment;
 import org.techtown.smim.ui.dashboard.DashboardTrial;
 import org.techtown.smim.ui.dashboard.DashboardViewModel;
 import org.techtown.smim.ui.dashboard.MakeGroup;
 
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CrawlingPage extends Fragment {
 
@@ -43,6 +60,10 @@ public class CrawlingPage extends Fragment {
     Long mem_num;
 
     org.techtown.smim.ui.notifications.PageIndividualListAdapter adapter = new org.techtown.smim.ui.notifications.PageIndividualListAdapter();
+
+    public List<personal> list = new ArrayList<>();
+
+    String interest;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -65,6 +86,45 @@ public class CrawlingPage extends Fragment {
         Bundle bundle = getArguments();
         mem_num = bundle.getLong("mem_num");
         Log.d("test_CrawlingPage", String.valueOf(mem_num));
+
+        RequestQueue requestQueue;
+        Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
+        Network network = new BasicNetwork(new HurlStack());
+        requestQueue = new RequestQueue(cache, network);
+        requestQueue.start();
+
+        String url = "http://52.78.235.23:8080/personal";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // 한글깨짐 해결 코드
+                String changeString = new String();
+                try {
+                    changeString = new String(response.getBytes("8859_1"), "utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                Type listType = new TypeToken<ArrayList<personal>>() {
+                }.getType();
+                list = gson.fromJson(changeString, listType);
+
+                for(int i=0; i<list.size(); i++) {
+                    if (mem_num.compareTo(list.get(i).mem_num) == 0) {
+                        interest = list.get(i).interest;
+                        break;
+                    }
+                }
+
+                Log.d("test_interest" , String.valueOf(interest));
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+        requestQueue.add(stringRequest);
 
         Button button = (Button) root.findViewById(R.id.go_exer);
         button.setOnClickListener(new View.OnClickListener() {

@@ -4,6 +4,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -77,13 +78,9 @@ public class StatisticPage extends Fragment {
 
                 dataVals.clear();
                 RequestQueue requestQueue;
-                // Instantiate the cache
-                Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
-                // Set up the network to use HttpURLConnection as the HTTP client.
+                Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024);
                 Network network = new BasicNetwork(new HurlStack());
-                // Instantiate the RequestQueue with the cache and network.
                 requestQueue = new RequestQueue(cache, network);
-                // Start the queue
                 requestQueue.start();
 
 
@@ -148,7 +145,6 @@ public class StatisticPage extends Fragment {
                                 }
                                 Log.e("d", d.toString());
 
-
                                 String time = list.get(i).daily_total;
                                 Log.e("time1", time);
                                 String str = time;
@@ -164,13 +160,12 @@ public class StatisticPage extends Fragment {
                                 Long a = ddd.getTime();
                                 Long minutes = a / 1000 / 60;
                                 Log.e("time3", minutes.toString());
-                                //if(count==0){
-                                // dataVals.remove(0);
-                                //mpLineChart.invalidate();}
 
                                 dataVals.add(new Entry(d, minutes));
                                 Log.e("size", String.valueOf(dataVals.size()));
                                 lineDataSet1 = new LineDataSet(dataVals, "월별개인기록");
+                                lineDataSet1.setColor(ContextCompat.getColor(getContext(), R.color.purple_700));
+                                lineDataSet1.setCircleColor(ContextCompat.getColor(getContext(), R.color.purple_700));
 
                                 dataSets = new ArrayList<>();
                                 dataSets.add(lineDataSet1);
@@ -179,10 +174,7 @@ public class StatisticPage extends Fragment {
                                 mpLineChart.setData(data);
                                 mpLineChart.invalidate();
                             }
-
-
                         }
-
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -190,21 +182,14 @@ public class StatisticPage extends Fragment {
                         Log.e("Dd","feee");
                     }
                 });
-
-                // Add the request to the RequestQueue.
                 requestQueue.add(stringRequest);
-
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-
-
-///////////////////////////////////////////////////////////////////
         Bundle bundle = getArguments();
         Long mem_num = bundle.getLong("mem_num");
-
 
         RequestQueue requestQueue1;
         Cache cache1 = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
@@ -278,7 +263,6 @@ public class StatisticPage extends Fragment {
                 for (int i = 0; i < pointarray.length; i++) {
                     for (int j = i + 1; j < pointarray.length; j++) {
                         if (pointarray[i] < pointarray[j]) {
-
                             temp = pointarray[i];
                             pointarray[i] = pointarray[j];
                             pointarray[j] = temp;
@@ -286,16 +270,11 @@ public class StatisticPage extends Fragment {
                             tempString = idarray[i];
                             idarray[i] = idarray[j];
                             idarray[j] = tempString;
-
-
                         }
-
                     }
                 }
 
                 for (int i = 0; i < pointarray.length; i++) {
-
-
                     if(mypoint.equals(0)){
                         rank=0;
                     }
@@ -308,35 +287,19 @@ public class StatisticPage extends Fragment {
 
                 ArrayList<Integer> realpoint = new ArrayList<>();
                 for (Integer item : pointarray) {
-
                     realpoint.add(item);
-
                 }
 
 
                 ArrayList<String> realid = new ArrayList<>();
                 for (String item : idarray) {
-
                     realid.add(item);
-
                 }
-
-
 
                 TextView v1 = root.findViewById(R.id.starank);
                 v1.setText(String.valueOf(rank));
                 TextView v2 = root.findViewById(R.id.stapoint);
                 v2.setText(String.valueOf(mypoint));
-
-
-
-
-
-
-
-
-
-
             } }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
@@ -344,15 +307,7 @@ public class StatisticPage extends Fragment {
             });
         requestQueue1.add(stringRequest1);
 
-
-
-
-
-
-
-
-
-                return root;
+        return root;
     }
 
 

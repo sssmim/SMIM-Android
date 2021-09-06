@@ -446,7 +446,6 @@ public class TimerFragment extends Fragment {
                                         }
                                     };
                                     requestQueue.add(putRequest);
-
                                 }
                             }
                         }, new Response.ErrorListener() {
