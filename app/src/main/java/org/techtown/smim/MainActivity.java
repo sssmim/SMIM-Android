@@ -212,8 +212,5 @@ private StatisticPage statisticPage =new StatisticPage();
             }
             return true;
         }
-
     }
-
-
 }

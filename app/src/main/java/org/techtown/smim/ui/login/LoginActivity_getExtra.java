@@ -36,6 +36,8 @@ public class LoginActivity_getExtra extends AppCompatActivity {
 
     String Id;
     String pwd;
+    String question;
+    String answer;
 
     //한글만 입력받게 설정
     public InputFilter filterKor = new InputFilter() {
@@ -57,6 +59,8 @@ public class LoginActivity_getExtra extends AppCompatActivity {
         Intent intent1 = getIntent();
         Id = intent1.getStringExtra("ID");
         pwd = intent1.getStringExtra("PWD");
+        question = intent1.getStringExtra("QUESTION");
+        answer = intent1.getStringExtra("ANSWER");
 
         CheckBox interest1 = findViewById(R.id.interest1);
         CheckBox interest2 = findViewById(R.id.interest2);
@@ -89,6 +93,8 @@ public class LoginActivity_getExtra extends AppCompatActivity {
                 map.put("pwd", pwd);
                 map.put("name", name);
                 map.put("interest", interest);
+                map.put("question", question);
+                map.put("answer", answer);
                 JSONObject params = new JSONObject(map);
 
                 JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, params,
