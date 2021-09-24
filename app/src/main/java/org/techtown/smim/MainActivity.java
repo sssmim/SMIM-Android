@@ -36,6 +36,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import org.techtown.smim.database.personal;
+import org.techtown.smim.ui.MyPage;
 import org.techtown.smim.ui.StatisticPage;
 import org.techtown.smim.ui.dashboard.DashboardFragment1;
 import org.techtown.smim.ui.dashboard.FindGroup_test;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private DashboardFragment1 dashboardFragment1 = new DashboardFragment1();
     private CrawlingPage crawlingPage = new CrawlingPage();
 private StatisticPage statisticPage =new StatisticPage();
+    private MyPage myPage =new MyPage();
     public Long mem_num;
     public Long group_num;
     public List<personal> list = new ArrayList<>();
@@ -137,6 +139,7 @@ private StatisticPage statisticPage =new StatisticPage();
         crawlingPage.setArguments(bundle);
         dashboardFragment1.setArguments(bundle);
         statisticPage.setArguments(bundle);
+        myPage.setArguments(bundle);
         //FragmentTransaction transaction = fragmentManager.beginTransaction();
         //transaction.replace(R.id.container, homeFragment).commitAllowingStateLoss();
 
@@ -208,7 +211,9 @@ private StatisticPage statisticPage =new StatisticPage();
                 case R.id.statistics:
                     transaction.replace(R.id.container, statisticPage).commitAllowingStateLoss();
                     break;
-
+                case R.id.mypage:
+                    transaction.replace(R.id.container, myPage).commitAllowingStateLoss();
+                    break;
             }
             return true;
         }
