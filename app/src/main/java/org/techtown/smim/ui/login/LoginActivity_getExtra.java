@@ -120,6 +120,7 @@ public class LoginActivity_getExtra extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra("ID" , Id);
                 startActivity(intent);
+                finish();
             }
         });
     }

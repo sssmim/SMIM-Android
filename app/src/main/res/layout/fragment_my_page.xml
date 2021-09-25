@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.MyPage">
+    tools:context=".ui.MyPage.MyPage">
     <TextView
         android:layout_marginTop="15dp"
         android:layout_width="wrap_content"
@@ -14,24 +14,45 @@
         android:textColor="@color/black"
         android:textSize="25dp"/>
     <View
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#E1DCDC"/>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/logout"
-    android:orientation="vertical">
-    <TextView
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="로그아웃"
-android:layout_marginLeft="20dp"
+        android:id="@+id/changePwd"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="비밀번호 변경"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="18dp"/>
+    </LinearLayout>
+    <View
         android:layout_marginTop="10dp"
-        android:textColor="@color/black"
-        android:textSize="18dp"/>
-</LinearLayout>
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#E1DCDC"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/logout"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="로그아웃"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="18dp"/>
+    </LinearLayout>
     <View
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
@@ -51,9 +72,9 @@ android:layout_marginLeft="20dp"
         android:textColor="@color/black"
         android:textSize="18dp"/>
     </LinearLayout>
-        <View
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#E1DCDC"/>
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#E1DCDC"/>
 </LinearLayout>
