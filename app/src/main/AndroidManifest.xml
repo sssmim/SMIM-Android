@@ -41,6 +41,10 @@
         <activity android:name=".ui.login.LoginActivity_checkPwd"/>
         <activity android:name=".ui.login.LoginActivity_setPwd"/>
         <activity android:name=".ui.login.LoginActivity_getExtra"/>
+        <activity android:name=".ui.login.LoginActivity_setQuestion"/>
+        <activity android:name=".ui.login.LoginActivity_checkQuestion"/>
+        <activity android:name=".ui.login.LoginActivity_set2ndPwd"/>
+
 
 
         <activity

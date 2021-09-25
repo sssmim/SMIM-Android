@@ -1,14 +1,10 @@
 package org.techtown.smim;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.android.volley.Cache;
 import com.android.volley.Network;
@@ -20,11 +16,6 @@ import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.StringRequest;
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -36,7 +27,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import org.techtown.smim.database.personal;
-import org.techtown.smim.ui.MyPage;
+import org.techtown.smim.ui.MyPage.MyPage;
 import org.techtown.smim.ui.StatisticPage;
 import org.techtown.smim.ui.dashboard.DashboardFragment1;
 import org.techtown.smim.ui.dashboard.FindGroup_test;
@@ -56,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private FindGroup_test findGroup_test = new FindGroup_test();
     private DashboardFragment1 dashboardFragment1 = new DashboardFragment1();
     private CrawlingPage crawlingPage = new CrawlingPage();
-private StatisticPage statisticPage =new StatisticPage();
+    private StatisticPage statisticPage =new StatisticPage();
     private MyPage myPage =new MyPage();
     public Long mem_num;
     public Long group_num;
@@ -83,8 +74,6 @@ private StatisticPage statisticPage =new StatisticPage();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-
 
         RequestQueue requestQueue;
         Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
@@ -217,8 +206,5 @@ private StatisticPage statisticPage =new StatisticPage();
             }
             return true;
         }
-
     }
-
-
 }

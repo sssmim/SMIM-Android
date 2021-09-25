@@ -70,9 +70,19 @@ public class LoginActivity_checkPwd extends AppCompatActivity {
 
         getPwd = findViewById(R.id.getPwd);
         getPwd.setFilters(new InputFilter[] {filter});
-        checkPwd = findViewById(R.id.checkPwd);
-        checkPwd.setFilters(new InputFilter[] {filter});
 
+        Button go = findViewById(R.id.go);
+        go.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity_checkQuestion.class);
+                intent.putExtra("ID", Id);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        checkPwd = findViewById(R.id.checkPwd);
         checkPwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
