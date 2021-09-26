@@ -6,17 +6,18 @@
     android:orientation="vertical">
 
     <Button
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
         android:layout_gravity="center_horizontal"
         android:id="@+id/go_exer"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="개인운동시작"
-        android:textSize="10dp"
-        tools:layout_editor_absoluteX="134dp"
-        tools:layout_editor_absoluteY="65dp" />
+        android:text="개인운동 시작"
+        android:textSize="15dp"
+       />
     <View
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#E1DCDC"/>
@@ -33,7 +34,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="420dp"
+        android:layout_height="495dp"
         android:layout_marginTop="15dp"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="202dp" />
