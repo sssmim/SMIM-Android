@@ -10,4 +10,6 @@ public class personal {
     public String interest;
     public Long group_num;
     public Integer point;
+    public String question;
+    public String answer;
 }

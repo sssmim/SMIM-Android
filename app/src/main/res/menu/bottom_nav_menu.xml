@@ -28,5 +28,11 @@
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_baseline_show_chart_24"
         android:title="통계" />
+    <item
+        android:id="@+id/mypage"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_baseline_museum_24"
+        android:title="마이페이지" />
 
 </menu>

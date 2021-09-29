@@ -107,7 +107,7 @@ public class LoginActivity_setPwd extends AppCompatActivity {
                     });
                 } else {
                     pwd = Pwd1;
-                    Intent intent = new Intent(getApplicationContext(), LoginActivity_getExtra.class);
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity_setQuestion.class);
                     intent.putExtra("ID" , Id);
                     intent.putExtra("PWD" , pwd);
                     startActivity(intent);

@@ -2,6 +2,11 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+<<<<<<< HEAD
     <mapping directory="$PROJECT_DIR$/21_hi007" vcs="Git" />
+=======
+    <mapping directory="$USER_HOME$/Desktop/21_hi007-master" vcs="Git" />
+    <mapping directory="$USER_HOME$/시작 메뉴" vcs="Git" />
+>>>>>>> d282b03013afe938b571336b9ffc49942a1a1935
   </component>
 </project>
