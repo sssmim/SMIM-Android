@@ -70,6 +70,8 @@ public class MyPage extends Fragment {
 
         TextView name = root.findViewById(R.id.mypagename);
         TextView id = root.findViewById(R.id.mypageid);
+        TextView grade = root.findViewById(R.id.mypagegrade);
+
         TextView boardc = root.findViewById(R.id.mypageboard);
         TextView commentc = root.findViewById(R.id.mypagecomment);
 
@@ -97,7 +99,7 @@ public class MyPage extends Fragment {
                 for(int i=0; i<list1.size(); i++) {
 
                     if (list1.get(i).mem_num.compareTo(mem_num) == 0) {
-
+                        grade.setText(list1.get(i).grade.toString());
                         name.setText(list1.get(i).name);
                         id.setText(list1.get(i).id);
 
