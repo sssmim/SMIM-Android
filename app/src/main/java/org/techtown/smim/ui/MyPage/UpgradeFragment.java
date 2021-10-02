@@ -1,12 +1,16 @@
 package org.techtown.smim.ui.MyPage;
 
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Cache;
@@ -18,11 +22,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONObject;
 import org.techtown.smim.R;
 import org.techtown.smim.database.board;
 import org.techtown.smim.database.comment;
@@ -31,19 +38,22 @@ import org.techtown.smim.database.personal;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class UpgradeFragment extends Fragment {
 
     public List<personal> list = new ArrayList<>();
     public List<personal> list1 = new ArrayList<>();
+    public List<personal> p1 = new ArrayList<>();
     List<board> list2 = new ArrayList<>();
     List<comment> list3 = new ArrayList<>();
     String  Id;
     Integer boardcount=0;
     Integer commentcount=0;
-
+    ImageView gradei;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,10 +64,15 @@ public class UpgradeFragment extends Fragment {
         Bundle bundle = getArguments();
         Long mem_num = bundle.getLong("mem_num");
 
-
+        gradei = root.findViewById(R.id.gradeimg);
         TextView name = root.findViewById(R.id.upgradename);
+        TextView grade = root.findViewById(R.id. upgradeg);
         TextView boardc = root.findViewById(R.id.nowboard);
         TextView commentc = root.findViewById(R.id.nowcomment);
+        TextView points = root.findViewById(R.id.nowpoint);
+        TextView pointn = root.findViewById(R.id.nextpoint);
+        TextView boardn = root.findViewById(R.id.nextboard);
+        TextView commentn = root.findViewById(R.id.nextcomment);
 
         RequestQueue requestQueue1;
         Cache cache1 = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
@@ -85,6 +100,59 @@ public class UpgradeFragment extends Fragment {
                     if (list1.get(i).mem_num.compareTo(mem_num) == 0) {
 
                         name.setText(list1.get(i).name);
+                        grade.setText(list1.get(i).grade.toString());
+
+                        if(list1.get(i).grade==6){
+                            int image2 = getResources().getIdentifier("sixth", "drawable",getActivity().getPackageName());
+                            gradei.setImageResource(image2);
+                            pointn.setText(String.valueOf(200));
+                            boardn.setText(String.valueOf(5));
+                            commentn.setText(String.valueOf(5));
+
+                        }
+                        else if(list1.get(i).grade==1){
+                            int image2 = getResources().getIdentifier("first", "drawable",getActivity().getPackageName());
+                            gradei.setImageResource(image2);
+                            pointn.setText("최고등급입니다");
+                            boardn.setText("최고등급입니다");
+                            commentn.setText("최고등급입니다");
+
+                        }
+                        else if(list1.get(i).grade==2){
+                            int image2 = getResources().getIdentifier("second", "drawable",getActivity().getPackageName());
+                            gradei.setImageResource(image2);
+                            pointn.setText(String.valueOf(2001));
+                            boardn.setText(String.valueOf(50));
+                            commentn.setText(String.valueOf(50));
+                        }
+                        else if(list1.get(i).grade==3){
+                            int image2 = getResources().getIdentifier("third", "drawable",getActivity().getPackageName());
+                            gradei.setImageResource(image2);
+                            pointn.setText(String.valueOf(1501));
+                            boardn.setText(String.valueOf(40));
+                            commentn.setText(String.valueOf(40));
+                        }
+                        else if(list1.get(i).grade==4){
+                            int image2 = getResources().getIdentifier("fourth", "drawable",getActivity().getPackageName());
+                            gradei.setImageResource(image2);
+                            pointn.setText(String.valueOf(1001));
+                            boardn.setText(String.valueOf(30));
+                            commentn.setText(String.valueOf(30));
+                        }
+                        else if(list1.get(i).grade==5){
+                            int image2 = getResources().getIdentifier("fifth", "drawable",getActivity().getPackageName());
+                            gradei.setImageResource(image2);
+                            pointn.setText(String.valueOf(501));
+                            boardn.setText(String.valueOf(15));
+                            commentn.setText(String.valueOf(15));
+                        }
+
+
+
+                        if(list1.get(i).point == null) {
+                            points.setText("0");
+                        }else{
+                            points.setText(list1.get(i).point.toString());}
 
 
                     }
@@ -182,12 +250,94 @@ public class UpgradeFragment extends Fragment {
         requestQueue3.add(stringRequest3);
 
 
+        TextView buttonu = root.findViewById(R.id.textup);
+        buttonu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RequestQueue requestQueue;
+                Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
+                Network network = new BasicNetwork(new HurlStack());
+                requestQueue = new RequestQueue(cache, network);
+                requestQueue.start();
+
+                String url = "http://52.78.235.23:8080/personal";
+
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
+                    @Override
+                    public void onResponse(String response) {
+                        // 한글깨짐 해결 코드
+                        String changeString = new String();
+                        try {
+                            changeString = new String(response.getBytes("8859_1"),"utf-8");
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                        Type listType = new TypeToken<ArrayList<personal>>(){}.getType();
+                        p1 = gson.fromJson(changeString, listType);
+
+                        Integer index = 0;
+
+                        for(int i=0; i<p1.size(); i++) {
+                            if(p1.get(i).mem_num == mem_num) {
+                                index = i;
+                            }
+                        }
+
+                        Map map = new HashMap();
+                        map.put("id", p1.get(index).id);
+                        map.put("pwd", p1.get(index).pwd);
+                        map.put("name", p1.get(index).name);
+                        map.put("interest", p1.get(index).interest);
+                        map.put("group_num", p1.get(index).group_num);
+                        map.put("point",p1.get(index).point);
+                        map.put("point",p1.get(index).question);
+                        map.put("point",p1.get(index).answer);
+                        map.put("point",p1.get();
+
+                        JSONObject params = new JSONObject(map);
+
+                        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.PUT, url + "/" + list3.get(index).mem_num.toString(), params,
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject obj) {
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                    }
+                                }) {
+
+                            @Override
+                            public String getBodyContentType() {
+                                return "application/json; charset=UTF-8";
+                            }
+                        };
+                        requestQueue.add(objectRequest);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                });
+                requestQueue.add(stringRequest);
 
 
+
+
+
+
+
+            }
+        });
 
 
 
 
         return root;
     }
+
+
 }
