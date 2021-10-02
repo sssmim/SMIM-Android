@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Cache;
 import com.android.volley.Network;
@@ -53,7 +54,9 @@ public class UpgradeFragment extends Fragment {
     String  Id;
     Integer boardcount=0;
     Integer commentcount=0;
+    Integer point=0;
     ImageView gradei;
+    Integer realgrade=0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -101,7 +104,7 @@ public class UpgradeFragment extends Fragment {
 
                         name.setText(list1.get(i).name);
                         grade.setText(list1.get(i).grade.toString());
-
+                        realgrade=list1.get(i).grade;
                         if(list1.get(i).grade==6){
                             int image2 = getResources().getIdentifier("sixth", "drawable",getActivity().getPackageName());
                             gradei.setImageResource(image2);
@@ -150,8 +153,10 @@ public class UpgradeFragment extends Fragment {
 
 
                         if(list1.get(i).point == null) {
+                            point=0;
                             points.setText("0");
                         }else{
+                            point=list1.get(i).point;
                             points.setText(list1.get(i).point.toString());}
 
 
@@ -285,37 +290,217 @@ public class UpgradeFragment extends Fragment {
                             }
                         }
 
-                        Map map = new HashMap();
-                        map.put("id", p1.get(index).id);
-                        map.put("pwd", p1.get(index).pwd);
-                        map.put("name", p1.get(index).name);
-                        map.put("interest", p1.get(index).interest);
-                        map.put("group_num", p1.get(index).group_num);
-                        map.put("point",p1.get(index).point);
-                        map.put("point",p1.get(index).question);
-                        map.put("point",p1.get(index).answer);
-                        map.put("point",p1.get();
+                        if(realgrade==6){
+                            if(point>=200&&commentcount>=5&&boardcount>=5){
+                                Map map = new HashMap();
+                                map.put("id", p1.get(index).id);
+                                map.put("pwd", p1.get(index).pwd);
+                                map.put("name", p1.get(index).name);
+                                map.put("interest", p1.get(index).interest);
+                                map.put("group_num", p1.get(index).group_num);
+                                map.put("point",p1.get(index).point);
+                                map.put("question",p1.get(index).question);
+                                map.put("answer",p1.get(index).answer);
+                                map.put("grade",5);
 
-                        JSONObject params = new JSONObject(map);
+                                JSONObject params = new JSONObject(map);
 
-                        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.PUT, url + "/" + list3.get(index).mem_num.toString(), params,
-                                new Response.Listener<JSONObject>() {
+                                JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.PUT, url + "/" + p1.get(index).mem_num.toString(), params,
+                                        new Response.Listener<JSONObject>() {
+                                            @Override
+                                            public void onResponse(JSONObject obj) {
+                                            }
+                                        },
+                                        new Response.ErrorListener() {
+                                            @Override
+                                            public void onErrorResponse(VolleyError error) {
+                                            }
+                                        }) {
+
                                     @Override
-                                    public void onResponse(JSONObject obj) {
+                                    public String getBodyContentType() {
+                                        return "application/json; charset=UTF-8";
                                     }
-                                },
-                                new Response.ErrorListener() {
-                                    @Override
-                                    public void onErrorResponse(VolleyError error) {
-                                    }
-                                }) {
-
-                            @Override
-                            public String getBodyContentType() {
-                                return "application/json; charset=UTF-8";
+                                };
+                                requestQueue.add(objectRequest);
+                                int image2 = getResources().getIdentifier("fifth", "drawable",getActivity().getPackageName());
+                                gradei.setImageResource(image2);
+                                pointn.setText(String.valueOf(501));
+                                boardn.setText(String.valueOf(15));
+                                commentn.setText(String.valueOf(15));
                             }
-                        };
-                        requestQueue.add(objectRequest);
+
+                        }
+                        else if(realgrade==5){
+                            if(point>=501&&commentcount>=15&&boardcount>=15){
+                                Map map = new HashMap();
+                                map.put("id", p1.get(index).id);
+                                map.put("pwd", p1.get(index).pwd);
+                                map.put("name", p1.get(index).name);
+                                map.put("interest", p1.get(index).interest);
+                                map.put("group_num", p1.get(index).group_num);
+                                map.put("point",p1.get(index).point);
+                                map.put("question",p1.get(index).question);
+                                map.put("answer",p1.get(index).answer);
+                                map.put("grade",4);
+
+                                JSONObject params = new JSONObject(map);
+
+                                JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.PUT, url + "/" + p1.get(index).mem_num.toString(), params,
+                                        new Response.Listener<JSONObject>() {
+                                            @Override
+                                            public void onResponse(JSONObject obj) {
+                                            }
+                                        },
+                                        new Response.ErrorListener() {
+                                            @Override
+                                            public void onErrorResponse(VolleyError error) {
+                                            }
+                                        }) {
+
+                                    @Override
+                                    public String getBodyContentType() {
+                                        return "application/json; charset=UTF-8";
+                                    }
+                                };
+                                requestQueue.add(objectRequest);
+                                int image2 = getResources().getIdentifier("fourth", "drawable",getActivity().getPackageName());
+                                gradei.setImageResource(image2);
+                                pointn.setText(String.valueOf(1001));
+                                boardn.setText(String.valueOf(30));
+                                commentn.setText(String.valueOf(30));
+                            }
+
+                        }
+                        else if(realgrade==4){
+                            if(point>=1001&&commentcount>=30&&boardcount>=30){
+                                Map map = new HashMap();
+                                map.put("id", p1.get(index).id);
+                                map.put("pwd", p1.get(index).pwd);
+                                map.put("name", p1.get(index).name);
+                                map.put("interest", p1.get(index).interest);
+                                map.put("group_num", p1.get(index).group_num);
+                                map.put("point",p1.get(index).point);
+                                map.put("question",p1.get(index).question);
+                                map.put("answer",p1.get(index).answer);
+                                map.put("grade",3);
+
+                                JSONObject params = new JSONObject(map);
+
+                                JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.PUT, url + "/" + p1.get(index).mem_num.toString(), params,
+                                        new Response.Listener<JSONObject>() {
+                                            @Override
+                                            public void onResponse(JSONObject obj) {
+                                            }
+                                        },
+                                        new Response.ErrorListener() {
+                                            @Override
+                                            public void onErrorResponse(VolleyError error) {
+                                            }
+                                        }) {
+
+                                    @Override
+                                    public String getBodyContentType() {
+                                        return "application/json; charset=UTF-8";
+                                    }
+                                };
+                                requestQueue.add(objectRequest);
+                                int image2 = getResources().getIdentifier("third", "drawable",getActivity().getPackageName());
+                                gradei.setImageResource(image2);
+                                pointn.setText(String.valueOf(1501));
+                                boardn.setText(String.valueOf(40));
+                                commentn.setText(String.valueOf(40));
+                            }
+
+                        }
+                        else if(realgrade==3){
+                            if(point>=1501&&commentcount>=40&&boardcount>=40){
+                                Map map = new HashMap();
+                                map.put("id", p1.get(index).id);
+                                map.put("pwd", p1.get(index).pwd);
+                                map.put("name", p1.get(index).name);
+                                map.put("interest", p1.get(index).interest);
+                                map.put("group_num", p1.get(index).group_num);
+                                map.put("point",p1.get(index).point);
+                                map.put("question",p1.get(index).question);
+                                map.put("answer",p1.get(index).answer);
+                                map.put("grade",2);
+
+                                JSONObject params = new JSONObject(map);
+
+                                JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.PUT, url + "/" + p1.get(index).mem_num.toString(), params,
+                                        new Response.Listener<JSONObject>() {
+                                            @Override
+                                            public void onResponse(JSONObject obj) {
+                                            }
+                                        },
+                                        new Response.ErrorListener() {
+                                            @Override
+                                            public void onErrorResponse(VolleyError error) {
+                                            }
+                                        }) {
+
+                                    @Override
+                                    public String getBodyContentType() {
+                                        return "application/json; charset=UTF-8";
+                                    }
+                                };
+                                requestQueue.add(objectRequest);
+                                int image2 = getResources().getIdentifier("second", "drawable",getActivity().getPackageName());
+                                gradei.setImageResource(image2);
+                                pointn.setText(String.valueOf(2001));
+                                boardn.setText(String.valueOf(50));
+                                commentn.setText(String.valueOf(50));
+                            }
+
+                        }
+                        else if(realgrade==2){
+                            if(point>=2001&&commentcount>=50&&boardcount>=50){
+                                Map map = new HashMap();
+                                map.put("id", p1.get(index).id);
+                                map.put("pwd", p1.get(index).pwd);
+                                map.put("name", p1.get(index).name);
+                                map.put("interest", p1.get(index).interest);
+                                map.put("group_num", p1.get(index).group_num);
+                                map.put("point",p1.get(index).point);
+                                map.put("question",p1.get(index).question);
+                                map.put("answer",p1.get(index).answer);
+                                map.put("grade",1);
+
+                                JSONObject params = new JSONObject(map);
+
+                                JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.PUT, url + "/" + p1.get(index).mem_num.toString(), params,
+                                        new Response.Listener<JSONObject>() {
+                                            @Override
+                                            public void onResponse(JSONObject obj) {
+                                            }
+                                        },
+                                        new Response.ErrorListener() {
+                                            @Override
+                                            public void onErrorResponse(VolleyError error) {
+                                            }
+                                        }) {
+
+                                    @Override
+                                    public String getBodyContentType() {
+                                        return "application/json; charset=UTF-8";
+                                    }
+                                };
+                                requestQueue.add(objectRequest);
+                                int image2 = getResources().getIdentifier("first", "drawable",getActivity().getPackageName());
+                                gradei.setImageResource(image2);
+                                pointn.setText("최고등급입니다");
+                                boardn.setText("최고등급입니다");
+                                commentn.setText("최고등급입니다");
+
+                            }
+
+                        }
+                       else if(realgrade==1){
+                            Toast.makeText(requireContext(),"더 이상 업그레이드할 등급이 없습니다.", Toast.LENGTH_LONG).show();
+                        }
+
+
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -323,11 +508,6 @@ public class UpgradeFragment extends Fragment {
                     }
                 });
                 requestQueue.add(stringRequest);
-
-
-
-
-
 
 
             }

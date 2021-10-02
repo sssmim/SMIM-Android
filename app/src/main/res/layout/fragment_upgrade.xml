@@ -9,7 +9,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="570dp"
+        android:layout_height="600dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -51,7 +51,7 @@
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal">
         <TextView
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="이름"
@@ -60,7 +60,7 @@
             android:textSize="16dp"/>
 
         <TextView
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="님은 현재 "
@@ -69,7 +69,7 @@
 
 
         <TextView
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1"
@@ -78,7 +78,7 @@
             android:textSize="15dp"/>
 
         <TextView
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="등급입니다."
@@ -570,13 +570,13 @@
         android:layout_marginTop="5dp"
         android:text="1.'제휴상품사기'페이지에서 자신의 등급에 따른 할인율이 적용됩니다"
         android:textColor="@color/black"
-        android:textSize="10dp" />
+        android:textSize="13dp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2.등업조건이 만족되면 '등업하기'버튼을 눌러야 등업이 가능합니다."
         android:textColor="@color/black"
-        android:textSize="10dp" />
+        android:textSize="13dp" />
 </LinearLayout>
     </ScrollView>
 </LinearLayout>
