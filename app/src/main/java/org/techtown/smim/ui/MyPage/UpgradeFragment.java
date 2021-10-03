@@ -68,6 +68,7 @@ public class UpgradeFragment extends Fragment {
         Long mem_num = bundle.getLong("mem_num");
 
         gradei = root.findViewById(R.id.gradeimg);
+        TextView upgrade = root.findViewById(R.id.upgradeg);
         TextView name = root.findViewById(R.id.upgradename);
         TextView grade = root.findViewById(R.id. upgradeg);
         TextView boardc = root.findViewById(R.id.nowboard);
@@ -325,6 +326,7 @@ public class UpgradeFragment extends Fragment {
                                 requestQueue.add(objectRequest);
                                 int image2 = getResources().getIdentifier("fifth", "drawable",getActivity().getPackageName());
                                 gradei.setImageResource(image2);
+                                upgrade.setText(String.valueOf(5));
                                 pointn.setText(String.valueOf(501));
                                 boardn.setText(String.valueOf(15));
                                 commentn.setText(String.valueOf(15));
@@ -366,6 +368,7 @@ public class UpgradeFragment extends Fragment {
                                 requestQueue.add(objectRequest);
                                 int image2 = getResources().getIdentifier("fourth", "drawable",getActivity().getPackageName());
                                 gradei.setImageResource(image2);
+                                upgrade.setText(String.valueOf(4));
                                 pointn.setText(String.valueOf(1001));
                                 boardn.setText(String.valueOf(30));
                                 commentn.setText(String.valueOf(30));
@@ -407,6 +410,7 @@ public class UpgradeFragment extends Fragment {
                                 requestQueue.add(objectRequest);
                                 int image2 = getResources().getIdentifier("third", "drawable",getActivity().getPackageName());
                                 gradei.setImageResource(image2);
+                                upgrade.setText(String.valueOf(3));
                                 pointn.setText(String.valueOf(1501));
                                 boardn.setText(String.valueOf(40));
                                 commentn.setText(String.valueOf(40));
@@ -448,6 +452,7 @@ public class UpgradeFragment extends Fragment {
                                 requestQueue.add(objectRequest);
                                 int image2 = getResources().getIdentifier("second", "drawable",getActivity().getPackageName());
                                 gradei.setImageResource(image2);
+                                upgrade.setText(String.valueOf(2));
                                 pointn.setText(String.valueOf(2001));
                                 boardn.setText(String.valueOf(50));
                                 commentn.setText(String.valueOf(50));
@@ -489,6 +494,7 @@ public class UpgradeFragment extends Fragment {
                                 requestQueue.add(objectRequest);
                                 int image2 = getResources().getIdentifier("first", "drawable",getActivity().getPackageName());
                                 gradei.setImageResource(image2);
+                                upgrade.setText(String.valueOf(1));
                                 pointn.setText("최고등급입니다");
                                 boardn.setText("최고등급입니다");
                                 commentn.setText("최고등급입니다");
