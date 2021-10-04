@@ -137,6 +137,7 @@ public class MyPage extends Fragment {
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 Type listType = new TypeToken<ArrayList<board>>(){}.getType();
                 list2 = gson.fromJson(changeString, listType);
+                boardcount=0;
                 for(int i=0; i<list2.size(); i++) {
 
                     if (list2.get(i).p_num.compareTo(mem_num) == 0) {
@@ -178,6 +179,7 @@ public class MyPage extends Fragment {
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 Type listType = new TypeToken<ArrayList<comment>>(){}.getType();
                 list3 = gson.fromJson(changeString, listType);
+                commentcount=0;
                 for(int i=0; i<list3.size(); i++) {
 
                     if (list3.get(i).p_num.compareTo(mem_num) == 0) {
