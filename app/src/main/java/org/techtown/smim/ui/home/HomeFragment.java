@@ -109,7 +109,7 @@ public class HomeFragment extends Fragment {
 }
 
 
-        TextView textView01 = (TextView) root.findViewById(R.id.textView1);
+        //TextView textView01 = (TextView) root.findViewById(R.id.textView1);
 
         long Now = System.currentTimeMillis();
         Date mDate = new Date(Now);
@@ -119,7 +119,7 @@ public class HomeFragment extends Fragment {
         String getYear = simpleYear.format(mDate);
         String getToday = format.format(mDate);
 
-        textView01.setText(getYear);
+        //textView01.setText(getYear);
 
         String str = getToday;
         SimpleDateFormat simpleYear2 = new SimpleDateFormat("yyyy-MM-dd");
@@ -251,7 +251,7 @@ public class HomeFragment extends Fragment {
 
 
                 rselect = ryear+"-"+rmonth+"-"+rday;
-                textView01.setText(year_m);
+                //textView01.setText(year_m);
 
                 adapter.clearItem();
 
