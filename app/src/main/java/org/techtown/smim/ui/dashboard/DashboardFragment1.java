@@ -41,6 +41,7 @@ import org.techtown.smim.database.gexercise;
 import org.techtown.smim.database.group;
 import org.techtown.smim.database.personal;
 import org.techtown.smim.ui.home.HomeFragment;
+import org.techtown.smim.ui.login.LoginActivity_setPwd;
 import org.techtown.smim.ui.notifications.CustomExerciseChoice;
 
 import java.io.UnsupportedEncodingException;
@@ -383,7 +384,7 @@ public class DashboardFragment1 extends Fragment {
         adapter.setOnItemsClicklistener(new ExerciseAdapter.OnItemsClickListener(){
             @Override
             public void onItemsClick(int position) {
-
+                /*
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 GroupExercisePlay_Fragment fragment1 = new GroupExercisePlay_Fragment();
                 Bundle bundles = new Bundle();
@@ -393,6 +394,13 @@ public class DashboardFragment1 extends Fragment {
                 fragment1.setArguments(bundles);
                 transaction.replace(R.id.container, fragment1);
                 transaction.commit();
+                */
+
+                Intent intent = new Intent(getContext().getApplicationContext(), GroupExercisePlay.class);
+                intent.putExtra("url", urlList.get(position));
+                if(mem_num!=null){
+                    intent.putExtra("mem", mem_num);}
+                startActivity(intent);
 
             }});
 
