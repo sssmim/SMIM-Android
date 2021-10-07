@@ -268,7 +268,7 @@ Long mem_num = intent.getExtras().getLong("mem");
 
             Camera.CameraInfo info = new Camera.CameraInfo();
             Camera.getCameraInfo(0, info);
-
+            info.facing = Camera.CameraInfo.CAMERA_FACING_FRONT;
             WindowManager manager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
             int rotation = manager.getDefaultDisplay().getRotation();
 
