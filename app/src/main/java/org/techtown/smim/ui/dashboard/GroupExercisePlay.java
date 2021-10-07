@@ -69,12 +69,10 @@ public class GroupExercisePlay extends AppCompatActivity implements AutoPermissi
         setContentView(R.layout.activity_group_exercise_play);
         YouTubePlayerView youtubePV = findViewById(R.id.youtube_player_view);
 
-
-
         Intent intent = getIntent();
 
         String url = intent.getExtras().getString("url");
-Long mem_num = intent.getExtras().getLong("mem");
+        Long mem_num = intent.getExtras().getLong("mem");
         youtubePV.play(url,null);
 
         FrameLayout previewFrame = findViewById(R.id.previewFrame);
@@ -91,7 +89,6 @@ Long mem_num = intent.getExtras().getLong("mem");
 
                 Long now = System.currentTimeMillis();
                 date1 = new Date(now);
-
             }
         });
 
