@@ -228,7 +228,7 @@ public class GroupExercisePlay extends AppCompatActivity implements AutoPermissi
         }
 
         public void surfaceCreated(SurfaceHolder holder) {
-            camera = Camera.open();
+            camera = Camera.open(1);
 
             setCameraOrientation();
 
@@ -264,9 +264,14 @@ public class GroupExercisePlay extends AppCompatActivity implements AutoPermissi
             }
 
             Camera.CameraInfo info = new Camera.CameraInfo();
+            //info.facing = Camera.CameraInfo.CAMERA_FACING_FRONT;
             Camera.getCameraInfo(0, info);
-            info.facing = Camera.CameraInfo.CAMERA_FACING_FRONT;
-            WindowManager manager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+
+
+
+
+/*
+           WindowManager manager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
             int rotation = manager.getDefaultDisplay().getRotation();
 
             int degrees = 0;
@@ -285,7 +290,7 @@ public class GroupExercisePlay extends AppCompatActivity implements AutoPermissi
                 result = (info.orientation - degrees + 360) % 360;
             }
 
-            camera.setDisplayOrientation(result);
+            camera.setDisplayOrientation(result);*/
         }
 
     }
