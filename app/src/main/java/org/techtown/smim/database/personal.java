@@ -12,4 +12,5 @@ public class personal {
     public Integer point;
     public String question;
     public String answer;
+    public Integer grade;
 }

@@ -274,7 +274,7 @@ public class GroupExercisePlay_Fragment extends Fragment implements AutoPermissi
 
             Camera.CameraInfo info = new Camera.CameraInfo();
             Camera.getCameraInfo(0, info);
-
+            info.facing = Camera.CameraInfo.CAMERA_FACING_FRONT;
             WindowManager manager = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
             int rotation = manager.getDefaultDisplay().getRotation();
 
