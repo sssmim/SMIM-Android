@@ -230,6 +230,7 @@ public class GroupExercisePlay extends AppCompatActivity implements AutoPermissi
         public void surfaceCreated(SurfaceHolder holder) {
             camera = Camera.open(1);
 
+            camera.setDisplayOrientation(0);
             setCameraOrientation();
 
             try {
@@ -265,7 +266,7 @@ public class GroupExercisePlay extends AppCompatActivity implements AutoPermissi
 
             Camera.CameraInfo info = new Camera.CameraInfo();
             //info.facing = Camera.CameraInfo.CAMERA_FACING_FRONT;
-            Camera.getCameraInfo(0, info);
+            Camera.getCameraInfo(1, info);
 
 
 
