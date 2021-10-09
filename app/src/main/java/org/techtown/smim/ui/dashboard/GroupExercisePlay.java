@@ -259,8 +259,8 @@ public class GroupExercisePlay extends AppCompatActivity implements AutoPermissi
         public void surfaceCreated(SurfaceHolder holder) {
             camera = Camera.open(1);
 
-            camera.setDisplayOrientation(0);
-            setCameraOrientation();
+            camera.setDisplayOrientation(360);
+           // setCameraOrientation();
 
             try {
                 camera.setPreviewDisplay(mHolder);
@@ -293,9 +293,9 @@ public class GroupExercisePlay extends AppCompatActivity implements AutoPermissi
                 return;
             }
 
-            Camera.CameraInfo info = new Camera.CameraInfo();
+            //Camera.CameraInfo info = new Camera.CameraInfo();
             //info.facing = Camera.CameraInfo.CAMERA_FACING_FRONT;
-            Camera.getCameraInfo(1, info);
+           // Camera.getCameraInfo(1, info);
 
 
 
