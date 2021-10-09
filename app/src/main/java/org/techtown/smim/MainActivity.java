@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     public Long group_num;
     public List<personal> list = new ArrayList<>();
     public String id;
+    Long point;
     View header;
 
     //ArrayList<Entry> dataVals = new ArrayList<Entry>();
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent1 = getIntent();
         if(intent1 != null) {
             id = intent1.getStringExtra("ID");
+            point = intent1.getLongExtra("point" , 0L);
         }
 
         try {
@@ -86,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         String url = "http://52.78.235.23:8080/personal";
 
         Bundle bundle = new Bundle();
+        Bundle bundle2 = new Bundle();
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -111,10 +114,12 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 bundle.putLong("mem_num", mem_num);
+                bundle2.putLong("mem_num", mem_num);
+                bundle2.putLong("point", point);
 
                 Log.d("test_mainActivity" , String.valueOf(mem_num));
 
-                homeFragment.setArguments(bundle);
+                homeFragment.setArguments(bundle2);
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.container, homeFragment).commitAllowingStateLoss();
             }
