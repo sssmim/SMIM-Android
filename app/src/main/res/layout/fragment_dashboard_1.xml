@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
+
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -16,13 +16,24 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
 
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/groupboard"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="right"
+                android:text="게시판"
+                android:textStyle="bold" />
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:background="#41CDDC39"
+                android:layout_marginTop="25dp"
+                android:layout_width="350dp"
+                android:layout_height="180dp"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/card"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -36,43 +47,35 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="25dp"
                         android:text="그룹명"
                         android:textColor="@color/black"
-                        android:textSize="30dp"
+                        android:textSize="20dp"
                         android:textStyle="bold" />
 
-                    <Button
-                        android:id="@+id/groupboard"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginTop="5dp"
-                        android:text="그룹게시판"
-                        android:textStyle="bold" />
+
                 </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="20dp"
                     android:orientation="horizontal">
 
                     <TextView
+                        android:layout_marginTop="20dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="멤버 : "
                         android:textColor="@color/black"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:text="멤버 : "/>
 
                     <TextView
                         android:id="@+id/groupcount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="20dp"
                         android:text="5"
                         android:textColor="@color/black"
                         android:textSize="15sp" />
@@ -80,7 +83,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="20dp"
                         android:text="명"
                         android:textColor="@color/black"
                         android:textSize="15sp" />
@@ -99,7 +102,7 @@
                         android:layout_gravity="center_horizontal"
                         android:text="그룹설명 : "
                         android:textColor="@color/black"
-                        android:textSize="17sp" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/info"
@@ -108,36 +111,37 @@
                         android:layout_gravity="center_horizontal"
                         android:text="그룹설명"
                         android:textColor="@color/black"
-                        android:textSize="17sp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="170dp"
                 android:orientation="horizontal">
 
                 <TextView
+                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="30dp"
                     android:text="그룹원 랭킹"
-                    android:textColor="#2196F3"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                  />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="140dp"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="20sp"
                     android:layout_height="20sp"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     app:srcCompat="@drawable/crown" />
 
@@ -146,7 +150,7 @@
                     android:layout_height="wrap_content"
                     android:text="1등: "
                     android:textColor="#0F0F10"
-                    android:textSize="17sp" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/r1"
@@ -154,27 +158,19 @@
                     android:layout_height="wrap_content"
                     android:text="이나연"
                     android:textColor="#171718"
-                    android:textSize="17sp" />
+                    android:textSize="15sp" />
 
-                <ImageView
-                    android:layout_width="20sp"
-                    android:layout_height="20sp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
-                    app:srcCompat="@drawable/crown" />
+
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+
 
                 <LinearLayout
+                    android:layout_marginLeft="170dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal">
 
@@ -195,32 +191,31 @@
 
                 </LinearLayout>
 
-                <LinearLayout
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="170dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal">
+                    android:text="3등: "
+                    android:textColor="#0F0F10"
+                    android:textSize="15sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="3등: "
-                        android:textColor="#0F0F10"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/r3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="박지효"
-                        android:textColor="#171718"
-                        android:textSize="15sp" />
-
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/r3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="박지효"
+                    android:textColor="#171718"
+                    android:textSize="15sp" />
 
             </LinearLayout>
+
 
             <View
                 android:layout_width="match_parent"
@@ -239,14 +234,14 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:text=" 운동계획 "
-                    android:textColor="#2196F3"
-                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
                     android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/groupplan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="10dp"
                     android:text=" 운동추가 "
@@ -259,7 +254,7 @@
                 android:layout_height="wrap_content"
                 android:background="#FAFAFA"
                 app:selectedDateBackground="#00ffffff"
-                app:selectorColor="@color/purple_700"
+                app:selectorColor="#E91E63"
                 app:textColorNormal="#bababa"
                 app:textColorSelected="@color/black"
                 app:textSizeDayName="20sp"

@@ -8,7 +8,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="#F3FCFE"
+        app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="10dp"
         app:cardElevation="5dp"
         app:cardUseCompatPadding="true" >
@@ -19,9 +19,11 @@
             android:orientation="horizontal">
 
             <Button
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:id="@+id/groupplay"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:text="운동하기" />
 
             <LinearLayout

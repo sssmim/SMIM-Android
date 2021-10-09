@@ -18,34 +18,41 @@
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="match_parent">
+            <Button
+                android:id="@+id/join"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="right"
+
+                android:text="가입" />
             <LinearLayout
+                android:layout_marginTop="25dp"
                 android:layout_width="wrap_content"
                 android:layout_height="180dp"
-                android:background="@layout/dialog_background_round"
+                android:background="@drawable/card"
                 android:orientation="vertical">
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal">
+
     <TextView
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="25dp"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/name"
+
         android:text="그룹명"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:textSize="25dp"/>
+        android:textSize="20dp"/>
 
-    <Button
-        android:id="@+id/join"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:text="가입" />
-    </RelativeLayout>
-
+                </RelativeLayout>
  <LinearLayout
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
@@ -82,14 +89,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text="그룹설명 : "
-                        android:textSize="17sp"
+                        android:textSize="15sp"
                         android:textColor="@color/black" />
 
                     <TextView
@@ -98,7 +105,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text="그룹설명"
-                        android:textSize="17sp"
+                        android:textSize="15sp"
                         android:textColor="@color/black" />
                 </LinearLayout>
 

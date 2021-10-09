@@ -35,7 +35,7 @@
     <CalendarView
 
         android:id="@+id/calendarView"
-        android:background="@layout/sta_background_round"
+        android:background="#FFFfff"
         android:layout_width="match_parent"
         android:layout_height="300dp" />
 
