@@ -7,50 +7,57 @@
   >
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="141dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="10dp"
         android:orientation="vertical">
 
         <TextView
-            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
             android:text="이번 운동으로 인해 "
             android:textColor="@color/black"
-            android:layout_gravity="center"
             android:textSize="20dp" />
-<LinearLayout
 
-    android:layout_gravity="center_horizontal"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-        <TextView
+        <LinearLayout
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10"
-            android:layout_gravity="center"
-            android:id="@+id/point"
-            android:textColor="#E91E63"
-            android:textSize="20dp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" 포인트 획득"
-            android:layout_gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
 
-            android:textColor="@color/black"
-            android:textSize="20dp" />
-</LinearLayout>
+            <TextView
+                android:id="@+id/point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="10"
+                android:textColor="#E91E63"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text=" 포인트 획득"
+
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+        </LinearLayout>
+
         <Button
-            android:layout_marginTop="20dp"
-            android:layout_gravity="right"
+            android:id="@+id/check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/check"
-            android:text="확인"/>
+            android:layout_gravity="right"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="확인" />
     </LinearLayout>
 
 </LinearLayout>

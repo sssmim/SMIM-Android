@@ -80,11 +80,7 @@ public class GroupExercisePlay_Fragment extends Fragment implements AutoPermissi
         Bundle bundle = getArguments();
         mem_num = bundle.getLong("mem_num");
         url = bundle.getString("url");
-        //Intent intent = getIntent();
-Log.e("D",mem_num.toString());
-        Log.e("D",url.toString());
-       // String url = intent.getExtras().getString("url");
-       // Long mem_num = intent.getExtras().getLong("mem");
+
         youtubePV.play(url,null);
 
         FrameLayout previewFrame = root.findViewById(R.id.previewFrame);
@@ -213,7 +209,6 @@ Log.e("D",mem_num.toString());
                             "Captured Image using Camera.");
 
                     if (outUriStr == null) {
-                        Log.d("SampleCapture", "Image insert failed.");
                         return;
                     } else {
                         Uri outUri = Uri.parse(outUriStr);
@@ -279,7 +274,7 @@ Log.e("D",mem_num.toString());
 
             Camera.CameraInfo info = new Camera.CameraInfo();
             Camera.getCameraInfo(0, info);
-
+            info.facing = Camera.CameraInfo.CAMERA_FACING_FRONT;
             WindowManager manager = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
             int rotation = manager.getDefaultDisplay().getRotation();
 

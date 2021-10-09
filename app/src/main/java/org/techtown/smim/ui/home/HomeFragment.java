@@ -89,27 +89,7 @@ public class HomeFragment extends Fragment {
             e.printStackTrace();
         }
 
-
-        Integer sec = bundle.getInt("point");
-        if (sec!=0){
-
-            dialog = new Dialog(requireContext());       // Dialog 초기화
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // 타이틀 제거
-            dialog.setContentView(R.layout.dialog1);
-            TextView point = dialog.findViewById(R.id.point);
-            point.setText(sec.toString());
-            dialog.show();
-            Button cancel = dialog.findViewById(R.id.check);
-            cancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog.dismiss(); // 다이얼로그 닫기
-                }
-            });
-}
-
-
-        TextView textView01 = (TextView) root.findViewById(R.id.textView1);
+        //TextView textView01 = (TextView) root.findViewById(R.id.textView1);
 
         long Now = System.currentTimeMillis();
         Date mDate = new Date(Now);
@@ -119,7 +99,7 @@ public class HomeFragment extends Fragment {
         String getYear = simpleYear.format(mDate);
         String getToday = format.format(mDate);
 
-        textView01.setText(getYear);
+        //textView01.setText(getYear);
 
         String str = getToday;
         SimpleDateFormat simpleYear2 = new SimpleDateFormat("yyyy-MM-dd");
@@ -251,7 +231,7 @@ public class HomeFragment extends Fragment {
 
 
                 rselect = ryear+"-"+rmonth+"-"+rday;
-                textView01.setText(year_m);
+                //textView01.setText(year_m);
 
                 adapter.clearItem();
 

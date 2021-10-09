@@ -22,6 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="제목"
+
                 android:layout_gravity="center"
                 android:textColor="#FF9800"
                 android:textSize="20dp" />
@@ -29,6 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
+                android:hint="                "
                 android:id="@+id/bdtitle"
                 android:layout_gravity="center"
                 android:textColor="@color/black"
@@ -52,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:hint="mmmmmmmm"
+                android:hint="                "
                 android:layout_gravity="center"
                 android:id="@+id/bdcomment"
                 android:textColor="@color/black"
