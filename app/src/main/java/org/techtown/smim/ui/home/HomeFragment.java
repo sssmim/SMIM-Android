@@ -89,26 +89,6 @@ public class HomeFragment extends Fragment {
             e.printStackTrace();
         }
 
-
-        Integer sec = bundle.getInt("point");
-        if (sec!=0){
-
-            dialog = new Dialog(requireContext());       // Dialog 초기화
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // 타이틀 제거
-            dialog.setContentView(R.layout.dialog1);
-            TextView point = dialog.findViewById(R.id.point);
-            point.setText(sec.toString());
-            dialog.show();
-            Button cancel = dialog.findViewById(R.id.check);
-            cancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog.dismiss(); // 다이얼로그 닫기
-                }
-            });
-}
-
-
         //TextView textView01 = (TextView) root.findViewById(R.id.textView1);
 
         long Now = System.currentTimeMillis();

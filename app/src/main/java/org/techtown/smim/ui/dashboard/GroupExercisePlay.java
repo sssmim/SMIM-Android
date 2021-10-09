@@ -1,5 +1,6 @@
 package org.techtown.smim.ui.dashboard;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,9 +15,11 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -41,6 +44,7 @@ import com.pedro.library.AutoPermissions;
 import com.pedro.library.AutoPermissionsListener;
 
 import org.json.JSONObject;
+import org.techtown.smim.MainActivity;
 import org.techtown.smim.R;
 import org.techtown.smim.database.personal;
 import org.techtown.smim.ui.home.HomeFragment;
@@ -63,6 +67,9 @@ public class GroupExercisePlay extends AppCompatActivity implements AutoPermissi
     Date date2;
     SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss", Locale.KOREA);
     public List<personal> list3 = new ArrayList<>();
+    String ID;
+    Dialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +99,8 @@ public class GroupExercisePlay extends AppCompatActivity implements AutoPermissi
             }
         });
 
+
+
         gend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +110,10 @@ public class GroupExercisePlay extends AppCompatActivity implements AutoPermissi
                 String diffTime = dateFormat.format(diff);
 
                 Long sec = diff / 1000;
+                int sec1 = sec.intValue();
+                Log.d("test_sec1", String.valueOf(sec1));
 
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
                 RequestQueue requestQueue;
                 Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
@@ -134,20 +146,24 @@ public class GroupExercisePlay extends AppCompatActivity implements AutoPermissi
                             }
                         }
 
+                        ID = list3.get(index).id;
+
                         Map map = new HashMap();
                         map.put("id", list3.get(index).id);
                         map.put("pwd", list3.get(index).pwd);
                         map.put("name", list3.get(index).name);
                         map.put("interest", list3.get(index).interest);
                         map.put("group_num",  list3.get(index).group_num);
-                        map.put("point",sec);
+                        map.put("point", list3.get(index).point + sec1);
+                        map.put("question", list3.get(index).question);
+                        map.put("answer", list3.get(index).answer);
+                        map.put("grade", list3.get(index).grade);
                         JSONObject params = new JSONObject(map);
 
                         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.PUT, url + "/" + list3.get(index).mem_num.toString(), params,
                                 new Response.Listener<JSONObject>() {
                                     @Override
                                     public void onResponse(JSONObject obj) {
-
                                     }
                                 },
                                 new Response.ErrorListener() {
@@ -170,21 +186,34 @@ public class GroupExercisePlay extends AppCompatActivity implements AutoPermissi
                 });
                 requestQueue.add(stringRequest);
 
+                if (sec1 != 0){
+                    dialog = new Dialog(GroupExercisePlay.this);       // Dialog 초기화
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // 타이틀 제거
+                    dialog.setContentView(R.layout.dialog1);
+                    TextView point = dialog.findViewById(R.id.point);
+                    point.setText(String.valueOf(sec1));
+                    dialog.show();
+                    Button cancel = dialog.findViewById(R.id.check);
+                    cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss(); // 다이얼로그 닫기
+                            finish();
+                        }
+                    });
+                }
 
+                /*
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                HomeFragment fragment1 = new HomeFragment();
+                DashboardFragment1 fragment1 = new DashboardFragment1();
                 Bundle bundles = new Bundle();
                 bundles.putLong("point", sec);
+                Log.d("test_point", String.valueOf(sec));
                 fragment1.setArguments(bundles);
                 transaction.replace(R.id.container, fragment1);
-                transaction.commit();
-
+                transaction.commit();*/
 
             }});
-
-
-
-
     }
 
     public void takePicture() {
@@ -228,8 +257,9 @@ public class GroupExercisePlay extends AppCompatActivity implements AutoPermissi
         }
 
         public void surfaceCreated(SurfaceHolder holder) {
-            camera = Camera.open();
+            camera = Camera.open(1);
 
+            camera.setDisplayOrientation(0);
             setCameraOrientation();
 
             try {
@@ -264,9 +294,14 @@ public class GroupExercisePlay extends AppCompatActivity implements AutoPermissi
             }
 
             Camera.CameraInfo info = new Camera.CameraInfo();
-            Camera.getCameraInfo(0, info);
-            info.facing = Camera.CameraInfo.CAMERA_FACING_FRONT;
-            WindowManager manager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+            //info.facing = Camera.CameraInfo.CAMERA_FACING_FRONT;
+            Camera.getCameraInfo(1, info);
+
+
+
+
+/*
+           WindowManager manager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
             int rotation = manager.getDefaultDisplay().getRotation();
 
             int degrees = 0;
@@ -285,7 +320,7 @@ public class GroupExercisePlay extends AppCompatActivity implements AutoPermissi
                 result = (info.orientation - degrees + 360) % 360;
             }
 
-            camera.setDisplayOrientation(result);
+            camera.setDisplayOrientation(result);*/
         }
 
     }
