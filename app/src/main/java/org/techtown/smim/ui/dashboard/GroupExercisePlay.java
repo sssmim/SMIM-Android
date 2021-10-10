@@ -259,7 +259,7 @@ public class GroupExercisePlay extends AppCompatActivity implements AutoPermissi
         public void surfaceCreated(SurfaceHolder holder) {
             camera = Camera.open(1);
 
-            camera.setDisplayOrientation(360);
+            camera.setDisplayOrientation(90);
            // setCameraOrientation();
 
             try {
