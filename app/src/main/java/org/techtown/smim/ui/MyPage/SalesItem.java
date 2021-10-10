@@ -2,18 +2,26 @@ package org.techtown.smim.ui.MyPage;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.volley.Cache;
@@ -28,6 +36,7 @@ import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -37,9 +46,18 @@ import org.techtown.smim.R;
 import org.techtown.smim.database.board;
 import org.techtown.smim.database.comment;
 import org.techtown.smim.database.group;
+import org.techtown.smim.database.iexercise;
+import org.techtown.smim.database.item;
 import org.techtown.smim.database.personal;
+import org.techtown.smim.ui.dashboard.DashboardFragment;
 import org.techtown.smim.ui.dashboard.GroupList;
+import org.techtown.smim.ui.dashboard.GroupListAdapter;
+import org.techtown.smim.ui.dashboard.makegroup1;
 import org.techtown.smim.ui.login.LoginActivity;
+import org.techtown.smim.ui.notifications.CustomExerciseChoice;
+import org.techtown.smim.ui.notifications.CustomExerciseChoiceAdapter;
+import org.techtown.smim.ui.notifications.ItemTouchHelperCallback;
+import org.techtown.smim.ui.notifications.TimerFragment;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -49,20 +67,22 @@ import java.util.List;
 import java.util.Map;
 
 
-public class MyPage extends Fragment {
+public class SalesItem extends Fragment {
 
     public List<personal> list = new ArrayList<>();
     public List<personal> list1 = new ArrayList<>();
+    public List<item> list5 = new ArrayList<>();
     List<board> list2 = new ArrayList<>();
     List<comment> list3 = new ArrayList<>();
     String  Id;
     Integer boardcount=0;
     Integer commentcount=0;
+    static ImageView image;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root=inflater.inflate(R.layout.fragment_my_page, container, false);
+        View root=inflater.inflate(R.layout.fragment_buyit, container, false);
 
         Bundle bundle = getArguments();
         Long mem_num = bundle.getLong("mem_num");
@@ -74,6 +94,8 @@ public class MyPage extends Fragment {
 
         TextView boardc = root.findViewById(R.id.mypageboard);
         TextView commentc = root.findViewById(R.id.mypagecomment);
+
+
 
         RequestQueue requestQueue1;
         Cache cache1 = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
@@ -199,116 +221,66 @@ public class MyPage extends Fragment {
 
         requestQueue3.add(stringRequest3);
 
-        ViewGroup layout4 = (ViewGroup) root.findViewById(R.id.upgrade);
-        layout4.setOnClickListener(new View.OnClickListener() {
+
+
+        RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.buy_rv);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        ItemListAdapter adapter = new ItemListAdapter();
+
+
+        RequestQueue requestQueue5;
+        Cache cache5 = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
+        Network network5 = new BasicNetwork(new HurlStack());
+        requestQueue5 = new RequestQueue(cache5, network5);
+        requestQueue5.start();
+
+        String url5 = "http://52.78.235.23:8080/item";
+
+        StringRequest stringRequest5 = new StringRequest(Request.Method.GET, url5, new Response.Listener<String>() {
             @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                UpgradeFragment fragment = new  UpgradeFragment();
-                Bundle bundle = new Bundle();
-                bundle.putLong("mem_num", mem_num);
-                fragment.setArguments(bundle);
-                transaction.replace(R.id.container, fragment);
-                transaction.commit();
+            public void onResponse(String response) {
+                // 한글깨짐 해결 코드
+                String changeString = new String();
+                try {
+                    changeString = new String(response.getBytes("8859_1"),"utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                Type listType = new TypeToken<ArrayList<item>>(){}.getType();
+                list5 = gson.fromJson(changeString, listType);
+
+                for(int i = 0; i< list5.size(); i++) {
+                    int image2 = getResources().getIdentifier(list5.get(i).item_img,"drawable",getContext().getPackageName());
+                    double flo = 0.7;
+                   int pri = list5.get(i).item_price;
+                   int mul= (int)(pri*flo);
+                    adapter.addItem(new ItemList(image2, list5.get(i).item_sort,list5.get(i).item_name, Integer.toBinaryString(pri) ,Integer.toString(mul)));
+
+                }
+                recyclerView.setAdapter(adapter);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
             }
         });
 
-        ViewGroup layout5 = (ViewGroup) root.findViewById(R.id.buyit);
-        layout5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                SalesItem fragment = new  SalesItem();
-                Bundle bundle = new Bundle();
-                bundle.putLong("mem_num", mem_num);
-                fragment.setArguments(bundle);
-                transaction.replace(R.id.container, fragment);
-                transaction.commit();
-            }
-        });
+        // Add the request to the RequestQueue.
+        requestQueue5.add(stringRequest5);
 
 
 
-        ViewGroup layout1 = (ViewGroup) root.findViewById(R.id.changePwd);
-        layout1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                ChangePwd fragment = new ChangePwd();
-                Bundle bundle = new Bundle();
-                bundle.putLong("mem_num", mem_num);
-                fragment.setArguments(bundle);
-                transaction.replace(R.id.container, fragment);
-                transaction.commit();
-            }
-        });
 
-        ViewGroup layout2 = (ViewGroup) root.findViewById(R.id.logout);
-        layout2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-                getActivity().finish();
-            }
-        });
+        //adapter.addItem(new org.techtown.smim.ui.MyPage.ItemList("아침 운동", "7시 미라클모닝","1","2"));
+        //adapter.addItem(new org.techtown.smim.ui.MyPage.ItemList("직장인 오세요", "6시이후 저녁운동","3","4"));
+        //adapter.addItem(new org.techtown.smim.ui.MyPage.ItemList("직장인 오세요", "6시이후 저녁운동","5","6"));
 
-        ViewGroup layout3 = (ViewGroup) root.findViewById(R.id.deleteid);
-        layout3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //다이얼로그 띄워서 "회원탈퇴(Text)" 입력하게 한 후 [확인] 클릭 시 회원탈퇴 진행
-                Dialog dialog = new Dialog(getContext());       // Dialog 초기화
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // 타이틀 제거
-                dialog.setContentView(R.layout.deleteid);
-                dialog.show();
-                EditText txt = dialog.findViewById(R.id.checkText);
-                Button fin = dialog.findViewById(R.id.fin1);
-                fin.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        String text = txt.getText().toString();
-                        if(text.compareTo("회원탈퇴") == 0) {
 
-                            RequestQueue requestQueue;
-                            Cache cache = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
-                            Network network = new BasicNetwork(new HurlStack());
-                            requestQueue = new RequestQueue(cache, network);
-                            requestQueue.start();
 
-                            String url = "http://52.78.235.23:8080/personal";
+        //recyclerView.setAdapter(adapter);
 
-                            Bundle bundle = new Bundle();
-
-                            StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url + "/" + mem_num.toString(), new Response.Listener<String>() {
-                                @Override
-                                public void onResponse(String response) {
-                                }
-                            }, new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                }
-                            });
-                            requestQueue.add(stringRequest);
-
-                            Intent intent = new Intent(getActivity(), LoginActivity.class);
-                            startActivity(intent);
-                            getActivity().finish();
-                        } else {
-                            dialog.dismiss(); // 다이얼로그 닫기
-                        }
-                    }
-                });
-
-                Button cancel = dialog.findViewById(R.id.cancel4);
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss(); // 다이얼로그 닫기
-                    }
-                });
-            }
-        });
 
         return root;
     }
