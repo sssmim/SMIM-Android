@@ -22,18 +22,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-<<<<<<< HEAD
+
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#eee">
-=======
+
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="200dp" />
->>>>>>> d282b03013afe938b571336b9ffc49942a1a1935
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -78,7 +77,6 @@
                 <ImageView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-<<<<<<< HEAD
                     android:id="@+id/imageView" />
             </RelativeLayout>
 
