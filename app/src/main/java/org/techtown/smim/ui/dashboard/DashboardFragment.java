@@ -158,10 +158,10 @@ public class DashboardFragment extends Fragment {
                 for(int i=0; i<list3.size(); i++) {
                     if (list3.get(i).group_num!=null){
                         if (list3.get(i).group_num.compareTo(group_num) == 0) {
-                            if (list3.get(i).point==null){
+                            if (list3.get(i).total_point==null){
                                 pointlist.add(0);
                             } else{
-                                pointlist.add(list3.get(i).point);}
+                                pointlist.add(list3.get(i).total_point);}
                             idlist.add(list3.get(i).name);
                             count++;
                         }

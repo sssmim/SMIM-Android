@@ -155,6 +155,7 @@ public class GroupExercisePlay extends AppCompatActivity implements AutoPermissi
                         map.put("interest", list3.get(index).interest);
                         map.put("group_num",  list3.get(index).group_num);
                         map.put("point", list3.get(index).point + sec1);
+                        map.put("total_point", list3.get(index).total_point + sec1);
                         map.put("question", list3.get(index).question);
                         map.put("answer", list3.get(index).answer);
                         map.put("grade", list3.get(index).grade);
