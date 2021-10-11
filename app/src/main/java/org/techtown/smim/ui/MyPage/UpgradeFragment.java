@@ -153,12 +153,12 @@ public class UpgradeFragment extends Fragment {
 
 
 
-                        if(list1.get(i).point == null) {
+                        if(list1.get(i).total_point == null) {
                             point=0;
                             points.setText("0");
                         }else{
-                            point=list1.get(i).point;
-                            points.setText(list1.get(i).point.toString());}
+                            point=list1.get(i).total_point;
+                            points.setText(list1.get(i).total_point.toString());}
 
 
                     }

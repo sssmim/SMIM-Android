@@ -577,6 +577,12 @@
         android:text="2.등업조건이 만족되면 '등업하기'버튼을 눌러야 등업이 가능합니다."
         android:textColor="@color/black"
         android:textSize="13dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3.등급별 조건 포인트는 그룹운동 후 얻어지는 누적포인트로 매겨집니다."
+                android:textColor="@color/black"
+                android:textSize="13dp" />
 </LinearLayout>
     </ScrollView>
 </LinearLayout>

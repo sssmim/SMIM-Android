@@ -71,7 +71,8 @@ public class MyPage extends Fragment {
         TextView name = root.findViewById(R.id.mypagename);
         TextView id = root.findViewById(R.id.mypageid);
         TextView grade = root.findViewById(R.id.mypagegrade);
-
+        TextView canpoint = root.findViewById(R.id.canpoint);
+        TextView totalpoint = root.findViewById(R.id.totalpoint);
         TextView boardc = root.findViewById(R.id.mypageboard);
         TextView commentc = root.findViewById(R.id.mypagecomment);
 
@@ -102,6 +103,17 @@ public class MyPage extends Fragment {
                         grade.setText(list1.get(i).grade.toString());
                         name.setText(list1.get(i).name);
                         id.setText(list1.get(i).id);
+
+                        if(list1.get(i).point == null) {
+                            canpoint.setText("0");
+                        }else{
+                            canpoint.setText(list1.get(i).point.toString());}
+                        if(list1.get(i).total_point == null) {
+                            totalpoint.setText("0");
+                        }else{
+                            totalpoint.setText(list1.get(i).total_point.toString());}
+
+
 
                     }
                 }
