@@ -78,6 +78,7 @@ public class SalesItem extends Fragment {
     Integer boardcount=0;
     Integer commentcount=0;
     static ImageView image;
+    double flo = 1.0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -125,6 +126,22 @@ public class SalesItem extends Fragment {
                         name.setText(list1.get(i).name);
                         id.setText(list1.get(i).id);
 
+                        if(list1.get(i).grade == 5){ flo = 0.997;}
+                        if(list1.get(i).grade == 4){ flo = 0.975;}
+                        if(list1.get(i).grade == 3){ flo = 0.95;}
+                        if(list1.get(i).grade == 2){ flo = 0.93;}
+                        if(list1.get(i).grade == 1){ flo = 0.90;}
+
+                        if(list1.get(i).point == null) {
+                            boardc.setText("0");
+                        }else{
+                            boardc.setText(list1.get(i).point.toString());}
+                        if(list1.get(i).total_point == null) {
+                            commentc.setText("0");
+                        }else{
+                            commentc.setText(list1.get(i).total_point.toString());}
+
+
                     }
                 }
 
@@ -138,88 +155,6 @@ public class SalesItem extends Fragment {
         requestQueue1.add(stringRequest1);
 
 
-        RequestQueue requestQueue2;
-        Cache cache2 = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
-        Network network2 = new BasicNetwork(new HurlStack());
-        requestQueue2 = new RequestQueue(cache2, network2);
-        requestQueue2.start();
-
-        String url2 = "http://52.78.235.23:8080/board";
-
-        StringRequest stringRequest2 = new StringRequest(Request.Method.GET, url2, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                // 한글깨짐 해결 코드
-                String changeString = new String();
-                try {
-                    changeString = new String(response.getBytes("8859_1"),"utf-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                Type listType = new TypeToken<ArrayList<board>>(){}.getType();
-                list2 = gson.fromJson(changeString, listType);
-                boardcount=0;
-                for(int i=0; i<list2.size(); i++) {
-
-                    if (list2.get(i).p_num.compareTo(mem_num) == 0) {
-
-                        boardcount+=1;
-
-
-                    }
-                }
-                boardc.setText(boardcount.toString());
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        });
-
-        requestQueue2.add(stringRequest2);
-
-
-        RequestQueue requestQueue3;
-        Cache cache3 = new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024); // 1MB cap
-        Network network3 = new BasicNetwork(new HurlStack());
-        requestQueue3 = new RequestQueue(cache3, network3);
-        requestQueue3.start();
-
-        String url3 = "http://52.78.235.23:8080/comment";
-
-        StringRequest stringRequest3 = new StringRequest(Request.Method.GET, url3, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                // 한글깨짐 해결 코드
-                String changeString = new String();
-                try {
-                    changeString = new String(response.getBytes("8859_1"),"utf-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                Type listType = new TypeToken<ArrayList<comment>>(){}.getType();
-                list3 = gson.fromJson(changeString, listType);
-                commentcount=0;
-                for(int i=0; i<list3.size(); i++) {
-
-                    if (list3.get(i).p_num.compareTo(mem_num) == 0) {
-
-                        commentcount+=1;
-
-
-                    }
-                }
-                commentc.setText(commentcount.toString());
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        });
-
-        requestQueue3.add(stringRequest3);
 
 
 
@@ -253,10 +188,10 @@ public class SalesItem extends Fragment {
 
                 for(int i = 0; i< list5.size(); i++) {
                     int image2 = getResources().getIdentifier(list5.get(i).item_img,"drawable",getContext().getPackageName());
-                    double flo = 0.7;
+
                    int pri = list5.get(i).item_price;
                    int mul= (int)(pri*flo);
-                    adapter.addItem(new ItemList(image2, list5.get(i).item_sort,list5.get(i).item_name, Integer.toBinaryString(pri) ,Integer.toString(mul)));
+                    adapter.addItem(new ItemList(image2, list5.get(i).item_sort,list5.get(i).item_name, Integer.toString(pri) ,Integer.toString(mul)));
 
                 }
                 recyclerView.setAdapter(adapter);
@@ -271,15 +206,6 @@ public class SalesItem extends Fragment {
         requestQueue5.add(stringRequest5);
 
 
-
-
-        //adapter.addItem(new org.techtown.smim.ui.MyPage.ItemList("아침 운동", "7시 미라클모닝","1","2"));
-        //adapter.addItem(new org.techtown.smim.ui.MyPage.ItemList("직장인 오세요", "6시이후 저녁운동","3","4"));
-        //adapter.addItem(new org.techtown.smim.ui.MyPage.ItemList("직장인 오세요", "6시이후 저녁운동","5","6"));
-
-
-
-        //recyclerView.setAdapter(adapter);
 
 
         return root;

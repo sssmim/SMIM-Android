@@ -18,16 +18,32 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.techtown.smim.R;
+import org.techtown.smim.database.board;
+import org.techtown.smim.database.comment;
+import org.techtown.smim.database.item;
+import org.techtown.smim.database.personal;
 import org.techtown.smim.ui.notifications.CustomExerciseChoice;
 import org.techtown.smim.ui.notifications.CustomExerciseChoiceAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static androidx.core.app.ActivityCompat.startActivityForResult;
 import static androidx.core.content.ContentProviderCompat.requireContext;
 
 public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHolder> {
     ArrayList<ItemList> items = new ArrayList<ItemList>();
+    public List<personal> list = new ArrayList<>();
+    public List<personal> list1 = new ArrayList<>();
+    public List<item> list5 = new ArrayList<>();
+    List<board> list2 = new ArrayList<>();
+    List<comment> list3 = new ArrayList<>();
+    String  Id;
+    Integer boardcount=0;
+    Integer commentcount=0;
+    static ImageView image;
+    double flo = 1.0;
+    int point = 312;
     public ItemListAdapter(){
     }
 
@@ -141,7 +157,12 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
 
                         int position = getAdapterPosition();
 
-                    Toast.makeText(itemView.getContext(), "구매 완료", Toast.LENGTH_LONG).show();
+                    if(Integer.parseInt(price_now.getText().toString()) <= 312 ){
+                        Toast.makeText(itemView.getContext(), "구매 완료", Toast.LENGTH_LONG).show();
+                    }
+                   else {
+                        Toast.makeText(itemView.getContext(), "포인트 부족", Toast.LENGTH_LONG).show();
+                    }
                    // Toast.makeText(itemView.getContext(), Integer.toString(position), Toast.LENGTH_LONG).show();
                     // position 을 0,1,2순서로 받기 -> DB에 그대로 반영, 구매 시 리스트에서 삭제
                         if(listener1 != null){
