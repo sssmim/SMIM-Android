@@ -93,8 +93,11 @@ public class LoginActivity_getExtra extends AppCompatActivity {
                 map.put("pwd", pwd);
                 map.put("name", name);
                 map.put("interest", interest);
+                map.put("point", 0);
+                map.put("total_point", 0);
                 map.put("question", question);
                 map.put("answer", answer);
+                map.put("grade", 6);
                 JSONObject params = new JSONObject(map);
 
                 JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, params,
