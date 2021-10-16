@@ -380,7 +380,7 @@ public class DashboardFragment1 extends Fragment {
                 CustomDialog dlg = new CustomDialog(getContext(),mem_num,position,ge_numlist.get(position),items,adapter);
                 dlg.show();
 
-                Toast.makeText(getContext(),"아이템 선택 ", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(),"아이템 선택 ", Toast.LENGTH_LONG).show();
             } });
 
         adapter.setOnItemsClicklistener(new ExerciseAdapter.OnItemsClickListener(){

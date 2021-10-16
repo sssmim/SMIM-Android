@@ -10,7 +10,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="570dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -262,8 +262,9 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
+                android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="wrap_content"
                 android:background="@color/white" />
 
 
