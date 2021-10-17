@@ -291,7 +291,6 @@ public class TimerFragment extends Fragment {
                         countdownText.setText(String.valueOf(Integer.parseInt(temp) - 1));
                         countDownTimer.start();
                     } else if(Integer.parseInt(temp) == 1 && index + 1 < total) {
-                        Log.d("test_her", "here");
                         index++;
                         exercise_name.setText(nameList.get(index));
                         countdownText.setText(Integer.toString(countList.get(index)));
@@ -300,9 +299,13 @@ public class TimerFragment extends Fragment {
                         seconds = Integer.parseInt(secList.get(index));
                         time = tempTime;
                         secText.setText(Integer.toString(seconds));
+                        countDownTimer.cancel();
+                    } else {
+                        secText.setText(Integer.toString(seconds));
                     }
+                } else {
+                    secText.setText(Integer.toString(seconds));
                 }
-                secText.setText(Integer.toString(seconds));
             }
         });
 
