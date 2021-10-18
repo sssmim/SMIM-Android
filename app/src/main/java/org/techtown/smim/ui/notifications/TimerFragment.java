@@ -300,7 +300,8 @@ public class TimerFragment extends Fragment {
                         time = tempTime;
                         secText.setText(Integer.toString(seconds));
                         countDownTimer.cancel();
-                    } else {
+                    } else if(index + 1 == total){
+                        Log.d("test_1", String.valueOf(seconds));
                         secText.setText(Integer.toString(seconds));
                     }
                 } else {
